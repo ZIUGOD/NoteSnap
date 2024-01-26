@@ -1,0 +1,30 @@
+{% load static %}
+{% block header %}
+    <header class="navbar navbar-expand-md navbar-light d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom text-success bg-black">
+        <a id="nyra-home-page"
+           href="{% url "home_page" %}"
+           class="navbar-brand d-flex align-items-center mb-1 mb-md-0 me-md-auto">
+            <h1 class="h1">Nyra</h1>
+        </a>
+        <div class="order-md-last">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav text-center">
+                    <li id="nav-header" class="nav-item">
+                        <a href="{% url "create_note" %}"
+                           class="nav-link shadow rounded-5 px-3 py-2"
+                           id="create-note-button">Criar nota</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+{% endblock header %}

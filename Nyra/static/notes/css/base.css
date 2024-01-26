@@ -1,0 +1,62 @@
+::selection {
+    background: lime;
+    color: black;
+}
+
+* {
+    color: lime;
+    background-color: black;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: 0.3s;
+}
+
+/* header section */
+header {
+    transition: 0.3s;
+}
+
+#nyra-home-page:hover {
+    text-shadow: 0 0 2em lime;
+    transition: 0.3s;
+}
+
+#nyra-home-page {
+    background-color: black;
+    color: lime;
+    font-size: 2rem;
+    transition: 0.3s;
+    transition: 0.3s;
+}
+
+#navbarNav ul li a {
+    color: black;
+    background-color: lime;
+    border: 0.2em solid #50ff50;
+}
+
+#navbarNav ul li a:hover {
+    color: lime;
+    background-color: black;
+    border: 0.2em solid #50ff50;
+}
+
+.navbar-nav li #create-note {
+    border-radius: 100em;
+    background-color: lime;
+    color: black;
+    border: 0.1em solid #99ff99;
+}
+
+/* Home page section */
+#unordered-list a li {
+    border: 0.1em solid #50ff50;
+    box-shadow: 0 0 0.5em lime;
+    transition: 0.2s;
+}
+
+#unordered-list a li:hover {
+    box-shadow: 0 0 2em lime;
+    transition: 0.2s;
+
+}
