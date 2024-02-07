@@ -1,8 +1,10 @@
 {% extends "components/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <form>
+    <form method="post">
+        {% csrf_token %}
         {% crispy form %}
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
+    <p>Ainda não tem uma conta? <a href="{% url 'signup_user' %}">Registre-se</a></p>
 {% endblock content %}

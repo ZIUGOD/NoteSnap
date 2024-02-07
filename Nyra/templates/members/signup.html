@@ -1,0 +1,11 @@
+{% extends 'components/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <form method="post">
+    {% crispy form %}
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+  <p>
+    Caso já possua uma conta, clique <a href="{% url 'login_user' %}">aqui</a> para entrar.
+  </p>
+{% endblock %}

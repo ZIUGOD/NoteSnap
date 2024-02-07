@@ -18,11 +18,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav text-center">
-                    <li id="nav-header" class="nav-item">
-                        <a href="{% url "create_note" %}"
-                           class="nav-link shadow rounded-5 px-3 py-2"
-                           id="create-note-button">Criar nota</a>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{% url "create_note" %}"
+                            class="nav-link shadow rounded-5 px-3 py-2"
+                            id="create-note-button">Criar nota</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url "logout_user" %}"
+                            class="nav-link shadow rounded-5 px-3 py-2">Logout</a>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url "login_user" %}"
+                            class="nav-link shadow rounded-5 px-3 py-2">
+                            Login</a>
                     </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>
