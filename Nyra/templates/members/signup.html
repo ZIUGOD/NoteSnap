@@ -1,11 +1,13 @@
-{% extends 'components/base.html' %}
+{% extends "components/base.html" %}
+{% block title %}
+    - sign up
+{% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <form method="post">
-    {% crispy form %}
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
-  <p>
-    Caso já possua uma conta, clique <a href="{% url 'login_user' %}">aqui</a> para entrar.
-  </p>
-{% endblock %}
+    <form method="post">
+        <div class="text-center">
+            {% crispy form %}
+            <input type="submit" class="btn btn-success" value="Enviar">
+        </div>
+    </form>
+{% endblock content %}

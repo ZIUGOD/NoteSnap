@@ -1,9 +1,6 @@
 {% extends "components/base.html" %}
 {% load static %}
 <link rel="stylesheet" href="{% static "notes/css/index.css" %}">
-{% block title %}
-    - Notes
-{% endblock title %}
 {% block content %}
     {% if note %}
         <ul id="unordered-list" class="list-group">

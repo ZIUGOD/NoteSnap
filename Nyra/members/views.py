@@ -1,7 +1,9 @@
-from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
-from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
+
+# from django.contrib.auth import logout
+from django.urls import reverse_lazy
 from django.views import generic
 
 

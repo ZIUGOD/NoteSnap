@@ -7,34 +7,34 @@
             <h1 class="h1">Nyra</h1>
         </a>
         <div class="order-md-last">
-            <button class="navbar-toggler"
+            <button class="navbar-toggler bg-success"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon bg-success"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav text-center">
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
+                        <p>Hey, {{ user.username }}</p>
+                        <li class="nav-item p-2">
                             <a href="{% url "create_note" %}"
-                            class="nav-link shadow rounded-5 px-3 py-2"
-                            id="create-note-button">Criar nota</a>
+                               class="nav-link shadow rounded-5 px-3 py-2"
+                               id="create-note-button">Criar nota</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{% url "logout_user" %}"
-                            class="nav-link shadow rounded-5 px-3 py-2">Logout</a>
                     {% else %}
-                        <li class="nav-item">
+                        <li class="nav-item p-2">
+                            <a href="{% url "signup_user" %}"
+                               class="nav-link shadow rounded-5 px-3 py-2">Register</a>
+                        </li>
+                        <li class="nav-item p-2">
                             <a href="{% url "login_user" %}"
-                            class="nav-link shadow rounded-5 px-3 py-2">
-                            Login</a>
-                    </li>
+                               class="nav-link shadow rounded-5 px-3 py-2">Login</a>
+                        </li>
                     {% endif %}
-
                 </ul>
             </div>
         </div>
