@@ -23,6 +23,9 @@ class NoteDetailView(DetailView, LoginRequiredMixin):
     template_name = "components/detail_note.html"
     context_object_name = "note"
 
+    def get_queryset(self):
+        return Note.objects.filter(author=self.request.user)
+
 
 class NoteUpdateView(UpdateView, LoginRequiredMixin):
     permission_denied_message = "You must be logged in to create a note."
@@ -32,6 +35,9 @@ class NoteUpdateView(UpdateView, LoginRequiredMixin):
     context_object_name = "note"
     form_class = NoteForm
     success_url = reverse_lazy("home_page")
+
+    def get_queryset(self):
+        return Note.objects.filter(author=self.request.user)
 
 
 class NoteDeleteView(DeleteView, LoginRequiredMixin):
@@ -43,10 +49,13 @@ class NoteDeleteView(DeleteView, LoginRequiredMixin):
     success_url = reverse_lazy("home_page")
 
 
-class NoteListView(ListView, LoginRequiredMixin):
+class NoteListView(LoginRequiredMixin, ListView):
     permission_denied_message = "You must be logged in to create a note."
     login_url = reverse_lazy("login_user")
     model = Note
     template_name = "notes/index.html"
     context_object_name = "note"
     ordering = ["-created_at"]
+
+    def get_queryset(self):
+        return Note.objects.filter(author=self.request.user)

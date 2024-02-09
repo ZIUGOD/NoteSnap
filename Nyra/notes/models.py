@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django_currentuser.db.models import CurrentUserField
 
 
 class Note(models.Model):
@@ -21,6 +22,7 @@ class Note(models.Model):
         auto_now=True,
         verbose_name="Updated at: ",
     )
+    author = CurrentUserField()
 
     def __str__(self):
         return self.title[:128]

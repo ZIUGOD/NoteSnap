@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import RedirectView
+from django.contrib.auth import logout
 
 # from django.contrib.auth import logout
 from django.urls import reverse_lazy
@@ -9,7 +11,7 @@ from django.views import generic
 
 class MemberSignUpView(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("login_user")
     template_name = "members/signup.html"
 
 

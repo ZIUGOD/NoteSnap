@@ -19,12 +19,15 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav text-center">
                     {% if user.is_authenticated %}
-                        <p>Hey, {{ user.username }}</p>
                         <li class="nav-item p-2">
                             <a href="{% url "create_note" %}"
                                class="nav-link shadow rounded-5 px-3 py-2"
                                id="create-note-button">Criar nota</a>
                         </li>
+                        <form method="post" class="nav-tem p-2" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="nav-link shadow rounded-5 px-3 py-2" type="sbubmit">Logout</button>
+                        </form>
                     {% else %}
                         <li class="nav-item p-2">
                             <a href="{% url "signup_user" %}"
