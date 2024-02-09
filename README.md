@@ -1,6 +1,6 @@
 # Nyra
 
-Nyra is a simple web application for publishing public or private notes.
+Nyra is a simple web application for publishing notes.
 
 ## Installation
 
