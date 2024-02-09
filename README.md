@@ -69,3 +69,4 @@ If you want to contribute to Nyra, follow these steps:
 
 - Developed by [ZIUGOD](https://github.com/ZIUGOD).
 - Inspired by the website of a crazy hacker I used to know who disappeared from the scene for unknown reasons.
+
