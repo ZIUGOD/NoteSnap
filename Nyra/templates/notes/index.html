@@ -2,13 +2,13 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "notes/css/index.css" %}">
 {% block content %}
-    {% if note %}
+    {% if notes %}
         <ul id="unordered-list" class="list-group">
-            {% for note in note %}
+            {% for note in notes %}
                 <a href="{% url "read_note" note.id %}" class="text-decoration-none m-1">
                     <li class="nav-item text-center bg-black list-group-item rounded-4 my-1">
                         <h3 class="h3">{{ note.title|safe }}</h3>
-                        <span class="text-success">{{ note.created_at }}</span>
+                        <span class="text-success">{{ note.author }} - {{ note.created_at }}</span>
                     </li>
                 </a>
             {% endfor %}

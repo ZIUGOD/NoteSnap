@@ -7,35 +7,42 @@
             <h1 class="h1">Nyra</h1>
         </a>
         <div class="order-md-last">
-            <button class="navbar-toggler bg-success"
+            <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon bg-success"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav text-center">
                     {% if user.is_authenticated %}
+                        {% comment %} form to logout {% endcomment %}
+                        <form method="post" class="nav-tem p-2" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button id="logout-button"
+                                    class="nav-link shadow rounded-5 px-3 py-2"
+                                    type="sbubmit">Logout</button>
+                        </form>
                         <li class="nav-item p-2">
-                            <a href="{% url "create_note" %}"
+                            <a href="{% url 'create_note' %}"
                                class="nav-link shadow rounded-5 px-3 py-2"
                                id="create-note-button">Criar nota</a>
                         </li>
-                        <form method="post" class="nav-tem p-2" action="{% url 'logout' %}">
-                            {% csrf_token %}
-                            <button class="nav-link shadow rounded-5 px-3 py-2" type="sbubmit">Logout</button>
-                        </form>
+                        <li class="nav-item p-2">
+                            <a href="{% url 'user_profile' user.username %}"
+                               class="nav-link shadow rounded-5 px-3 py-2">{{ user.username }}</a>
+                        </li>
                     {% else %}
                         <li class="nav-item p-2">
-                            <a href="{% url "signup_user" %}"
-                               class="nav-link shadow rounded-5 px-3 py-2">Register</a>
+                            <a href="{% url 'signup_user' %}"
+                               class="nav-link shadow rounded-5 px-3 py-2">Criar conta</a>
                         </li>
                         <li class="nav-item p-2">
-                            <a href="{% url "login_user" %}"
-                               class="nav-link shadow rounded-5 px-3 py-2">Login</a>
+                            <a href="{% url 'login_user' %}"
+                               class="nav-link shadow rounded-5 px-3 py-2">Entrar</a>
                         </li>
                     {% endif %}
                 </ul>

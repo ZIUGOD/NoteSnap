@@ -11,22 +11,20 @@
     transition: 0.3s;
 }
 
-/* header section */
-header {
-    transition: 0.3s;
-}
 
-#nyra-home-page:hover {
-    text-shadow: 0 0 2em lime;
-    transition: 0.3s;
-}
+header {}
 
 #nyra-home-page {
     background-color: black;
     color: lime;
     font-size: 2rem;
     transition: 0.3s;
-    transition: 0.3s;
+    transition: 0.1s;
+}
+
+#nyra-home-page:hover {
+    text-shadow: 0 0 1em lime;
+    transition: 0.1s;
 }
 
 #navbarNav ul li a {
@@ -48,7 +46,6 @@ header {
     border: 0.1em solid #99ff99;
 }
 
-/* Home page section */
 #unordered-list a li {
     border: 0.1em solid #50ff50;
     box-shadow: 0 0 0.5em lime;
@@ -59,4 +56,15 @@ header {
     box-shadow: 0 0 2em lime;
     transition: 0.2s;
 
+}
+
+#logout-button {
+    background-color: lime;
+    color: black;
+    border: 0.2em solid lime;
+}
+
+#logout-button:hover {
+    background: black;
+    color: lime;
 }

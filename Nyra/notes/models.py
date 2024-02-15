@@ -22,7 +22,10 @@ class Note(models.Model):
         auto_now=True,
         verbose_name="Updated at: ",
     )
-    author = CurrentUserField()
+    author = CurrentUserField(
+        related_name="user_notes",
+        on_delete=models.CASCADE,
+    )
 
     def __str__(self):
         return self.title[:128]

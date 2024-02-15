@@ -6,7 +6,7 @@
 {% endblock title %}
 {% block content %}
     <form method="post"
-          action="{% url "delete_note" note.id %}"
+          action="{% url 'delete_note' note.id %}"
           class="p-3 border rounded-5 shadow m-2 text-center border-danger">
         {% csrf_token %}
         <h2 class="h2 font-weight-normal text-center">{{ note.title|safe }}</h2>

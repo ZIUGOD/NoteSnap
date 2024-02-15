@@ -6,7 +6,7 @@
 {% endblock title %}
 {% block content %}
     <form method="post"
-          action="{% url "create_note" %}"
+          action="{% url 'create_note' %}"
           class="p-3 border rounded-5 shadow m-2 text-center border-primary">
         <div class="text-center m-2">
             {% crispy form %}
