@@ -47,6 +47,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_currentuser.middleware.ThreadLocalUserMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -67,10 +68,6 @@ TEMPLATES = [
     },
 ]
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-
 WSGI_APPLICATION = "core.wsgi.application"
 
 
@@ -84,6 +81,8 @@ DATABASES = {
     }
 }
 
+LOGOUT_REDIRECT_URL = "login_user"
+LOGIN_REDIRECT_URL = "home_page"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -136,3 +135,16 @@ CKEDITOR_CONFIGS = {
         "config.height": 600,
     },
 }
+
+
+# ╔───────────────────────────────────────────────╗ #
+# │▒███████▒ ██▓ █    ██   ▄████  ▒█████  ▓█████▄ │ #
+# │▒ ▒ ▒ ▄▀░▓██▒ ██  ▓██▒ ██▒ ▀█▒▒██▒  ██▒▒██▀ ██▌│ #
+# │░ ▒ ▄▀▒░ ▒██▒▓██  ▒██░▒██░▄▄▄░▒██░  ██▒░██   █▌│ #
+# │  ▄▀▒   ░░██░▓▓█  ░██░░▓█  ██▓▒██   ██░░▓█▄   ▌│ #
+# │▒███████▒░██░▒▒█████▓ ░▒▓███▀▒░ ████▓▒░░▒████▓ │ #
+# │░▒▒ ▓░▒░▒░▓  ░▒▓▒ ▒ ▒  ░▒   ▒ ░ ▒░▒░▒░  ▒▒▓  ▒ │ #
+# │░░▒ ▒ ░ ▒ ▒ ░░░▒░ ░ ░   ░   ░   ░ ▒ ▒░  ░ ▒  ▒ │ #
+# │░ ░ ░ ░ ░ ▒ ░ ░░░ ░ ░ ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░ │ #
+# │  ░ ░     ░     ░           ░     ░ ░     ░    │ #
+# ╚───────────────────────────────────────────────╝ #

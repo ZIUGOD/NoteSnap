@@ -1,11 +1,13 @@
 asgiref==3.7.2
+black==24.1.1
 click==8.1.7
 colorama==0.4.6
 crispy-bootstrap5==2023.10
 cssbeautifier==1.14.11
 Django==5.0.1
-django-ckeditor==6.7.0
+django-ckeditor==6.6.1
 django-crispy-forms==2.1
+django-currentuser==0.6.1
 django-js-asset==2.2.0
 djlint==1.34.1
 EditorConfig==0.12.3
@@ -13,7 +15,10 @@ html-tag-names==0.1.2
 html-void-elements==0.1.0
 jsbeautifier==1.14.11
 json5==0.9.14
+mypy-extensions==1.0.0
+packaging==23.2
 pathspec==0.12.1
+platformdirs==4.2.0
 PyYAML==6.0.1
 regex==2023.12.25
 six==1.16.0

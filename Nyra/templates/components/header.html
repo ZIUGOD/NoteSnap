@@ -1,10 +1,12 @@
 {% load static %}
 {% block header %}
-    <header class="navbar navbar-expand-md navbar-light d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom text-success bg-black">
-        <a id="nyra-home-page"
-           href="{% url "home_page" %}"
+    <header class="navbar navbar-expand-md navbar-light d-flex justify-content-between py-3 mb-4 border-bottom bg-secondary">
+        <a href="{% url "home_page" %}"
            class="navbar-brand d-flex align-items-center mb-1 mb-md-0 me-md-auto">
-            <h1 class="h1">Nyra</h1>
+            <img src="{% static 'img/icon.png' %}"
+                 alt="Nyra Icon"
+                 height="80"
+                 width="80">
         </a>
         <div class="order-md-last">
             <button class="navbar-toggler"
@@ -18,11 +20,32 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav text-center">
-                    <li id="nav-header" class="nav-item">
-                        <a href="{% url "create_note" %}"
-                           class="nav-link shadow rounded-5 px-3 py-2"
-                           id="create-note-button">Criar nota</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <form method="post" class="nav-tem p-2" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button id="logout-button"
+                                    class="nav-link bg-white text-black shadow border border-2 border-black rounded-5 px-3 py-2"
+                                    type="sbubmit">Logout</button>
+                        </form>
+                        <li class="nav-item p-2">
+                            <a href="{% url 'create_note' %}"
+                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2"
+                               id="create-note-button">Create note</a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a href="{% url 'user_profile' user.username %}"
+                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2">{{ user.username }}</a>
+                        </li>
+                    {% else %}
+                        {% comment %} <li class="nav-item p-2">
+                            <a href="{% url 'signup_user' %}"
+                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2">Sign up</a>
+                        </li> {% endcomment %}
+                        <li class="nav-item p-2">
+                            <a href="{% url 'login_user' %}"
+                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2">Sign in</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

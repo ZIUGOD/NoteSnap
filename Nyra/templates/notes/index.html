@@ -1,24 +1,25 @@
 {% extends "components/base.html" %}
 {% load static %}
 <link rel="stylesheet" href="{% static "notes/css/index.css" %}">
-{% block title %}
-    - Notes
-{% endblock title %}
 {% block content %}
-    {% if note %}
-        <ul id="unordered-list" class="list-group">
-            {% for note in note %}
-                <a href="{% url "read_note" note.id %}" class="text-decoration-none m-1">
-                    <li class="nav-item text-center bg-black list-group-item rounded-4 my-1">
-                        <h3 class="h3">{{ note.title|safe }}</h3>
-                        <span class="text-success">{{ note.created_at }}</span>
-                    </li>
-                </a>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <div class="shadow rounded-5 pt-5 pb-4 ">
-            <p id="not-notes" class="text-center">Nenhuma nota disponível no momento 💀☠️</p>
-        </div>
-    {% endif %}
+    <div class="border-bottom pb-3">
+        {% if notes %}
+            <ul class="d-flex flex-column justify-content-center list-group list-group-flush text-center">
+                {% for note in notes %}
+                    <a href="{% url "read_note" note.id %}"
+                       class="text-decoration-none m-1 shadow text-center bg-dark border border-2 border-black rounded-4 my-1">
+                        <li class="list-group-item">
+                            <h3 class="h3">{{ note.title|safe }}</h3>
+                            <span class="text-secondary">{{ note.author }}</span>
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="shadow rounded-5 pt-5 pb-4 border">
+                <p id="not-notes" class="text-center text-dark">Nenhuma nota disponível no momento 💀☠️</p>
+            </div>
+        {% endif %}
+    </div>
+    {% include "components/footer.html" %}
 {% endblock content %}

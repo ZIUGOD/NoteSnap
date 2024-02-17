@@ -1,0 +1,41 @@
+{% extends "components/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Deletar nota
+{% endblock title %}
+{% block content %}
+    <form method="post"
+          action="{% url 'delete_note' note.id %}"
+          class="d-flex flex-column align-items-center justify-content-center p-3 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white  border-danger">
+        {% csrf_token %}
+        <h2 class="h2 font-weight-normal text-center">{{ note.title|safe }}</h2>
+        <hr />
+        <div class="p-3">
+            <p class="text-center">{{ note.text|safe }}</p>
+        </div>
+        <hr />
+        <div class="text-center m-3">
+            <span class="text-secondary">Criada em {{ note.created_at }} por <a href="{% url "user_profile" note.author.username %}">{{ note.author.username }}</a></span>
+        </div>
+        {% if note.created_at != note.updated_at %}
+            <div class="text-center m-3">
+                <span class="text-secondary">Editada em: {{ note.updated_at }}</span>
+            </div>
+        {% endif %}
+        <div class="m-5">
+            <h3 class="h3 font-weight-normal text-center text-danger">Are you sure you want to delete the note above?</h3>
+            <h4 class="h4 font-weight-normal text-center text-danger">This action can not be undone.</h4>
+        </div>
+        <div class="text-center my-3 mb-5">
+            <input type="submit"
+                   value="Confirmar exclusão"
+                   class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-danger">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-secondary">
+                Voltar
+            </button>
+        </div>
+    </form>
+{% endblock content %}

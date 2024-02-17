@@ -1,0 +1,33 @@
+{% extends "components/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Atualizar nota
+{% endblock title %}
+{% block content %}
+    <form method="post"
+          action="{% url 'update_note' note.id %}"
+          class="d-flex flex-column align-items-center justify-content-center p-3 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white border-warning">
+        {% csrf_token %}
+        <h2 class="h2 m-2 text-center">{{ note.title|safe }}</h2>
+        {{ form.media }}
+        {{ form.as_p }}
+        <div class="text-center m-3">
+            <span class="text-secondary">Criada em {{ note.created_at }} por <a href="{% url "user_profile" note.author.username %}">{{ note.author.username }}</a></span>
+        </div>
+        {% if note.created_at != note.updated_at %}
+            <div class="text-center m-3">
+                <span class="text-secondary">Editada em: {{ note.updated_at }}</span>
+            </div>
+        {% endif %}
+        <div class="text-center my-3 mb-5">
+            <button type="submit"
+                    class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-warning">
+                Atualizar nota
+            </button>
+            <button type="button"
+                    class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-secondary"
+                    onclick="window.history.back()">Voltar</button>
+        </div>
+    </form>
+{% endblock content %}

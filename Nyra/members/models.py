@@ -1,6 +1,16 @@
-from django.urls import path
-from . import views
+from django.contrib.auth.models import User
+from django.db import models
 
-urlpatterns = [
-    path("login_user/", views.MemberLoginView.as_view(), name="login_user"),
-]
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="user_profile",
+    )
+    biography = models.TextField(
+        blank=True,
+        null=True,
+        default="Hello there. I am using Nyra!",
+        max_length=256,
+    )
