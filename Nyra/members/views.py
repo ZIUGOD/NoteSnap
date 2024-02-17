@@ -1,25 +1,21 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import UserProfile
-from notes.models import Note
 from django import forms
 
 
 class EmailUserCreationForm(UserCreationForm):
     first_name = forms.CharField(
         max_length=32,
-        label="Primeiro nome",
+        label="First name",
         required=True,
     )
     last_name = forms.CharField(
         max_length=32,
-        label="Último nome",
+        label="Last name",
         required=True,
     )
     email = forms.EmailField(
@@ -29,20 +25,20 @@ class EmailUserCreationForm(UserCreationForm):
     )
     username = forms.CharField(
         max_length=16,
-        label="Usuário",
+        label="Username",
         required=True,
     )
     password1 = forms.CharField(
         max_length=128,
         min_length=8,
-        label="Senha",
+        label="Password",
         widget=forms.PasswordInput,
         required=True,
     )
     password2 = forms.CharField(
         max_length=128,
         min_length=8,
-        label="Confirme a senha",
+        label="Confirm Password",
         widget=forms.PasswordInput,
         required=True,
     )
@@ -59,10 +55,10 @@ class EmailUserCreationForm(UserCreationForm):
         )
 
 
-class MemberSignUpView(generic.CreateView):
-    form_class = EmailUserCreationForm
-    success_url = reverse_lazy("login_user")
-    template_name = "members/signup.html"
+# class MemberSignUpView(generic.CreateView):
+#     form_class = EmailUserCreationForm
+#     success_url = reverse_lazy("login_user")
+#     template_name = "members/signup.html"
 
 
 class MemberLoginView(LoginView):
@@ -72,7 +68,7 @@ class MemberLoginView(LoginView):
     authentication_form = AuthenticationForm
 
 
-class UserProfileView(LoginRequiredMixin, generic.TemplateView):
+class UserProfileView(generic.TemplateView):
     template_name = "members/user_profile.html"
 
     def get_context_data(self, **kwargs):

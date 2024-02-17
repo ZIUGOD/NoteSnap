@@ -7,17 +7,17 @@
 {% block content %}
     <form method="post"
           action="{% url 'create_note' %}"
-          class="p-3 border rounded-5 shadow m-2 text-center border-primary">
-        <div class="text-center m-2">
-            {% crispy form %}
-            <div class="text-center my-3 mb-5">
-                <input type="submit"
-                       value="Criar nota"
-                       class="m-2 py-2 px-3 shadow rounded-5 btn btn-primary">
-                <button type="button"
-                        onclick="window.history.back()"
-                        class="m-2 py-2 px-3 shadow rounded-5 btn btn-secondary">Voltar</button>
-            </div>
+          class="d-flex flex-column align-items-center justify-content-center p-3 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white border-primary">
+        <div class="m-2">{% crispy form %}</div>
+        <div class="my-3 mb-5">
+            <input type="submit"
+                   value="Criar nota"
+                   class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-primary">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-secondary">
+                Voltar
+            </button>
         </div>
     </form>
 {% endblock content %}

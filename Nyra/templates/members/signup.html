@@ -1,13 +1,19 @@
 {% extends "components/base.html" %}
 {% block title %}
-    - sign up
+    - Sign Up
 {% endblock title %}
-{% load crispy_forms_tags %}
 {% block content %}
-    <form method="post">
+    <form method="post"
+          class="d-flex flex-column align-items-center justify-content-center p-3 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white">
         <div class="text-center">
+            {% load crispy_forms_tags %}
             {% crispy form %}
-            <input type="submit" class="btn btn-success" value="Enviar">
+            <input type="submit"
+                   class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-secondary"
+                   value="Submit">
+            <p class="text-center text-white mt-5">
+                Already have an account yet? Click <a href="{% url 'login_user' %}">here</a> to sign in!
+            </p>
         </div>
     </form>
 {% endblock content %}

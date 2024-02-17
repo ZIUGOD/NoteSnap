@@ -5,13 +5,13 @@ from django_currentuser.db.models import CurrentUserField
 
 class Note(models.Model):
     title = RichTextField(
-        verbose_name="Título",
+        verbose_name="Title",
         unique=True,
         max_length=128,
     )
 
     text = RichTextField(
-        verbose_name="Texto",
+        verbose_name="Text",
         unique=True,
     )
     created_at = models.DateTimeField(
@@ -32,5 +32,5 @@ class Note(models.Model):
 
     class Meta:
         ordering = ["-updated_at"]
-        verbose_name = "Nota"
-        verbose_name_plural = "Notas"
+        verbose_name = "Note"
+        verbose_name_plural = "Notes"

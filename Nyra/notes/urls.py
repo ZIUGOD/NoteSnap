@@ -10,7 +10,8 @@ urlpatterns = [
     ),
     path(
         "<int:pk>/",
-        login_required(NoteDetailView.as_view()),
+        # login_required(NoteDetailView.as_view()),
+        NoteDetailView.as_view(),
         name="read_note",
     ),
     path(

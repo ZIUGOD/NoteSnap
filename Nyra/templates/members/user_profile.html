@@ -4,57 +4,59 @@
 {% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container border rounded-4 p-3">
-        <div>
-            {{ nyra_user }}
-            <div class="flex-grow-1">
-                <ul class="list-group-item list-group-flush p-3">
-                    <li>
-                        <strong>User ID:</strong> {{ nyra_user.id }}
+    <div class="container border border-2 rounded-4 p-1">
+        <div class="d-flex flex-column align-items-center justify-content-center p-2 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white">
+            <h3 class="text-center">{{ nyra_user.first_name }} {{ nyra_user.last_name }}</h3>
+            <ul class="list-group list-group-flush text-start bg-dark rounded-3">
+                <li class="list-group-item bg-dark text-light">
+                    <strong>User ID:</strong> {{ nyra_user.id }}
+                </li>
+                <li class="list-group-item bg-dark text-light">
+                    <strong>Username:</strong> @{{ nyra_user.username }}
+                </li>
+                <li class="list-group-item bg-dark text-light">
+                    <strong>Name:</strong> {{ nyra_user.first_name }} {{ nyra_user.last_name }}
+                </li>
+                <li class="list-group-item bg-dark text-light">
+                    <strong>Email:</strong> {{ nyra_user.email }}
+                </li>
+                <li class="list-group-item bg-dark text-light">
+                    <strong>Last login:</strong> {{ nyra_user.last_login }}
+                </li>
+                <li class="list-group-item bg-dark text-light">
+                    <strong>Join date:</strong> {{ nyra_user.date_joined }}
+                </li>
+                <li class="list-group-item bg-dark text-light">
+                    <strong>Notes:</strong> {{ nyra_user.user_notes.all|length }}
+                </li>
+                <li class="list-group-item bg-dark text-light">
+                    <strong>Biography:</strong> {{ nyra_user.profile.biography|default:"Hello there! I am using Nyra!" }}
+                </li>
+                {% if nyra_user.is_staff %}
+                    <li class="list-group-item bg-dark text-light">
+                        <strong>Staff:</strong> Yes
                     </li>
-                    <li>
-                        <strong>Username:</strong> @{{ nyra_user.username }}
+                {% endif %}
+                {% if nyra_user.is_superuser %}
+                    <li class="list-group-item bg-dark text-light">
+                        <strong>Admin:</strong> Yes
                     </li>
-                    <li>
-                        <strong>Nome:</strong> {{ nyra_user.first_name }} {{ nyra_user.last_name }}
-                    </li>
-                    <li>
-                        <strong>Email:</strong> {{ nyra_user.email }}
-                    </li>
-                    <li>
-                        <strong>Último login:</strong> {{ nyra_user.last_login }}
-                    </li>
-                    <li>
-                        <strong>Data de cadastro:</strong> {{ nyra_user.date_joined }}
-                    </li>
-                    <li>
-                        <strong>Notas:</strong> {{ nyra_user.user_notes.all|length }}
-                    </li>
-                    <li>
-                        <strong>Biografia:</strong> {{ nyra_user.profile.biography|default:"Hello there! I am using Nyra!" }}
-                    </li>
-                    {% if nyra_user.is_superuser %}
-                        <li>
-                            <strong>Admin:</strong> Sim
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+                {% endif %}
+            </ul>
         </div>
         {% if nyra_user.user_notes.all %}
-            <hr>
-            <div>
-                <h3 class="text-center">Notas de {{ nyra_user.username }}</h3>
-                <ul id="unordered-list" class="list-group">
-                    {% for note in nyra_user.user_notes.all %}
-                        <a href="{% url "read_note" note.id %}" class="text-decoration-none m-1">
-                            <li class="nav-item text-center bg-black list-group-item rounded-4 my-1">
-                                <h3 class="h3">{{ note.title|safe }}</h3>
-                            </li>
-                        </a>
-                    {% endfor %}
-                </ul>
-            </div>
+            <h3 class="text-center">Notes from {{ nyra_user.username }}</h3>
+            <ul id="unordered-list"
+                class="list-group d-flex flex-column justify-content-center">
+                {% for note in nyra_user.user_notes.all %}
+                    <a href="{% url "read_note" note.id %}"
+                       class="text-decoration-none m-1 shadow text-center bg-dark border border-2 border-black rounded-4 my-1">
+                        <li class="list-group-item">
+                            <h3 class="h3">{{ note.title|safe }}</h3>
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>
         {% endif %}
     </div>
 {% endblock content %}
