@@ -8,24 +8,14 @@
         <div class="d-flex flex-column align-items-center justify-content-center p-2 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white">
             <h3 class="text-center">{{ nyra_user.first_name }} {{ nyra_user.last_name }}</h3>
             <ul class="list-group list-group-flush text-start bg-dark rounded-3">
-                <li class="list-group-item bg-dark text-light">
-                    <strong>User ID:</strong> {{ nyra_user.id }}
-                </li>
-                <li class="list-group-item bg-dark text-light">
-                    <strong>Username:</strong> @{{ nyra_user.username }}
-                </li>
-                <li class="list-group-item bg-dark text-light">
-                    <strong>Name:</strong> {{ nyra_user.first_name }} {{ nyra_user.last_name }}
-                </li>
-                <li class="list-group-item bg-dark text-light">
-                    <strong>Email:</strong> {{ nyra_user.email }}
-                </li>
-                <li class="list-group-item bg-dark text-light">
-                    <strong>Last login:</strong> {{ nyra_user.last_login }}
-                </li>
-                <li class="list-group-item bg-dark text-light">
-                    <strong>Join date:</strong> {{ nyra_user.date_joined }}
-                </li>
+                <li class="list-group-item bg-dark text-light">@{{ nyra_user.username }}, {{ nyra_user.id }}</li>
+                {% if nyra_user.first_name %}
+                    <li class="list-group-item bg-dark text-light">
+                        <strong>Name:</strong> {{ nyra_user.first_name }} {{ nyra_user.last_name }}
+                    </li>
+                {% endif %}
+                {% if nyra_user.email %}<li class="list-group-item bg-dark text-light">{{ nyra_user.email }}</li>{% endif %}
+                <li class="list-group-item bg-dark text-light">Member since {{ nyra_user.date_joined }}</li>
                 <li class="list-group-item bg-dark text-light">
                     <strong>Notes:</strong> {{ nyra_user.user_notes.all|length }}
                 </li>
@@ -45,7 +35,7 @@
             </ul>
         </div>
         {% if nyra_user.user_notes.all %}
-            <h3 class="text-center">Notes from {{ nyra_user.username }}</h3>
+            <h3 class="text-center my-4">Notes from {{ nyra_user.username }}</h3>
             <ul id="unordered-list"
                 class="list-group d-flex flex-column justify-content-center">
                 {% for note in nyra_user.user_notes.all %}

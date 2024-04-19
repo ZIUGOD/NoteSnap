@@ -132,7 +132,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CKEDITOR_CONFIGS = {
     "default": {
         "toolbar": "full",
-        "config.height": 600,
+        "config.height": 800,
     },
 }
 
