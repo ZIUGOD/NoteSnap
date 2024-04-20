@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "notes",
     "crispy_forms",
     "crispy_bootstrap5",
+    "ckeditor_skins",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -129,13 +130,135 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# CKEDITOR_CONFIGS = {
+#     "default": {
+#         "toolbar": "full",
+#         "config.height": 800,
+#     },
+# }
+
 CKEDITOR_CONFIGS = {
     "default": {
-        "toolbar": "full",
-        "config.height": 800,
+        "config.height": "full",
+        "config.width": "full",
+        "skin": "moono-dark",
+        "toolbar": [
+            {
+                "name": "document",
+                "items": [
+                    "Source",
+                    "-",
+                    # "Save",
+                    # "NewPage",
+                    "Preview",
+                    # "Print",
+                    "-",
+                    "Templates",
+                ],
+            },
+            {
+                "name": "clipboard",
+                "items": [
+                    "Cut",
+                    "Copy",
+                    "Paste",
+                    "PasteText",
+                    "PasteFromWord",
+                    "-",
+                    "Undo",
+                    "Redo",
+                ],
+            },
+            {
+                "name": "editing",
+                "items": [
+                    "Find",
+                    "Replace",
+                    "-",
+                    "SelectAll",
+                    "-",
+                    "Scayt",
+                ],
+            },
+            {
+                "name": "basicstyles",
+                "items": [
+                    "Bold",
+                    "Italic",
+                    "Underline",
+                    "Strike",
+                    "Subscript",
+                    "Superscript",
+                    "-",
+                    "RemoveFormat",
+                ],
+            },
+            {
+                "name": "paragraph",
+                "items": [
+                    "NumberedList",
+                    "BulletedList",
+                    "-",
+                    "Blockquote",
+                    "-",
+                    "JustifyLeft",
+                    "JustifyCenter",
+                    "JustifyRight",
+                    "JustifyBlock",
+                ],
+            },
+            {
+                "name": "links",
+                "items": [
+                    "Link",
+                    "Unlink",
+                    "Anchor",
+                ],
+            },
+            {
+                "name": "insert",
+                "items": [
+                    "Image",
+                    "Flash",
+                    "Table",
+                    "HorizontalRule",
+                    "Smiley",
+                    "SpecialChar",
+                    "Iframe",
+                ],
+            },
+            {
+                "name": "styles",
+                "items": [
+                    "Styles",
+                    "Format",
+                    "Font",
+                    "FontSize",
+                ],
+            },
+            {
+                "name": "colors",
+                "items": [
+                    "TextColor",
+                    "BGColor",
+                ],
+            },
+            {
+                "name": "tools",
+                "items": [
+                    "Maximize",
+                    "ShowBlocks",
+                ],
+            },
+            {
+                "name": "about",
+                "items": [
+                    "About",
+                ],
+            },
+        ],
     },
 }
-
 
 # ╔───────────────────────────────────────────────╗ #
 # │▒███████▒ ██▓ █    ██   ▄████  ▒█████  ▓█████▄ │ #
