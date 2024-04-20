@@ -15,6 +15,7 @@ class NoteForm(forms.ModelForm):
     custom labels for the 'title' and 'text' fields.
     """
 
+    title = forms.CharField(label="Title")
     text = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
