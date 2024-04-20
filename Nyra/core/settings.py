@@ -135,6 +135,7 @@ CKEDITOR_CONFIGS = {
         "config.height": "full",
         "config.width": "full",
         "skin": "moono-dark",
+        "editorplaceholder": "Type your text here...",
         "toolbar": [
             {
                 "name": "document",
