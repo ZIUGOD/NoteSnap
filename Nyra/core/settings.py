@@ -130,13 +130,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# CKEDITOR_CONFIGS = {
-#     "default": {
-#         "toolbar": "full",
-#         "config.height": 800,
-#     },
-# }
-
 CKEDITOR_CONFIGS = {
     "default": {
         "config.height": "full",
@@ -148,10 +141,7 @@ CKEDITOR_CONFIGS = {
                 "items": [
                     "Source",
                     "-",
-                    # "Save",
-                    # "NewPage",
                     "Preview",
-                    # "Print",
                     "-",
                     "Templates",
                 ],
