@@ -15,7 +15,14 @@ class NoteForm(forms.ModelForm):
     custom labels for the 'title' and 'text' fields.
     """
 
-    title = forms.CharField(label="Title")
+    title = forms.CharField(
+        label="Title",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Enter a title...",
+            }
+        ),
+    )
     text = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
@@ -27,4 +34,4 @@ class NoteForm(forms.ModelForm):
         self.helper = FormHelper(self)
 
         self.helper.form_tag = False
-        self.helper.label_class = "col-lg-2"
+        self.helper.label_class = "d-flex justify-content-center"
