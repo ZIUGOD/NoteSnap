@@ -4,15 +4,16 @@ from django_currentuser.db.models import CurrentUserField
 
 
 class Note(models.Model):
-    title = RichTextField(
+    title = models.CharField(
         verbose_name="Title",
-        unique=True,
         max_length=128,
+        unique=True,
+        blank=False,
+        null=False,
     )
 
     text = RichTextField(
         verbose_name="Text",
-        unique=True,
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
