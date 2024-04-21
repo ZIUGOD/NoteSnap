@@ -25,12 +25,12 @@
                             {% csrf_token %}
                             <button id="logout-button"
                                     class="nav-link bg-white text-black shadow border border-2 border-black rounded-5 px-3 py-2"
-                                    type="sbubmit">Logout</button>
+                                    type="sbubmit">LOGOUT</button>
                         </form>
                         <li class="nav-item p-2">
                             <a href="{% url 'create_note' %}"
                                class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2"
-                               id="create-note-button">Create note</a>
+                               id="create-note-button">CREATE NOTE</a>
                         </li>
                         <li class="nav-item p-2">
                             <a href="{% url 'user_profile' user.username %}"
@@ -43,7 +43,7 @@
                         </li> {% endcomment %}
                         <li class="nav-item p-2">
                             <a href="{% url 'login_user' %}"
-                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2">Sign in</a>
+                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2">SIGN IN</a>
                         </li>
                     {% endif %}
                 </ul>
