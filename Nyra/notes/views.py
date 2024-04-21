@@ -7,7 +7,6 @@ from .forms import NoteForm
 from .models import Note
 
 
-# LoginRequiredMixin is a mixin that requires the user to be logged in to access the view.
 class NoteCreateView(CreateView, LoginRequiredMixin):
     permission_denied_message = "You must be logged in to create a note."
     login_url = reverse_lazy("login_user")
@@ -39,11 +38,11 @@ class NoteUpdateView(UpdateView, LoginRequiredMixin):
 
 
 class NoteDeleteView(DeleteView, LoginRequiredMixin):
-    permission_denied_message = "You must be logged in to create a note."
+    permission_denied_message = "You must be logged in to delete a note."
     login_url = reverse_lazy("login_user")
     model = Note
-    template_name = "notes/delete_note.html"
-    context_object_name = "note"
+    template_name = "notes/index.html"
+    context_object_name = "notes"
     success_url = reverse_lazy("home_page")
 
     def get_queryset(self):
