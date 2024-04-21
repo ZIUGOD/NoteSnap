@@ -24,12 +24,12 @@
                 </li>
                 {% if nyra_user.is_staff %}
                     <li class="list-group-item bg-dark text-light">
-                        <strong>Staff:</strong> Yes
+                        <strong>Staff</strong>
                     </li>
                 {% endif %}
                 {% if nyra_user.is_superuser %}
                     <li class="list-group-item bg-dark text-light">
-                        <strong>Admin:</strong> Yes
+                        <strong>Admin</strong>
                     </li>
                 {% endif %}
             </ul>
@@ -42,7 +42,7 @@
                     <a href="{% url "read_note" note.id %}"
                        class="text-decoration-none m-1 shadow text-center bg-dark border border-2 border-black rounded-4 my-1">
                         <li class="list-group-item">
-                            <h3 class="h3">{{ note.title|safe }}</h3>
+                            <h3 class="h3 text-break">{{ note.title|safe }}</h3>
                         </li>
                     </a>
                 {% endfor %}
