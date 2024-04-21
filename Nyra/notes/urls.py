@@ -10,17 +10,16 @@ urlpatterns = [
     ),
     path(
         "<int:pk>/",
-        # login_required(NoteDetailView.as_view()),
         NoteDetailView.as_view(),
         name="read_note",
     ),
     path(
-        "<int:pk>/update/",
+        "update/<int:pk>/",
         login_required(NoteUpdateView.as_view()),
         name="update_note",
     ),
     path(
-        "<int:pk>/delete/",
+        "delete/<int:pk>/",
         login_required(NoteDeleteView.as_view()),
         name="delete_note",
     ),
