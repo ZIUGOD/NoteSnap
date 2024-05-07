@@ -1,5 +1,5 @@
 from pathlib import Path
-from os import path
+from os import path, environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-^szi@iwbwcm4si#6-uxb6(hb*n6%lm*)z51wqp4f_#udp2cx*o"
+SECRET_KEY = environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -27,8 +27,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "ckeditor",
     "ckeditor_uploader",
-    "members",
-    "notes",
+    "features.members",
+    "features.notes",
     "crispy_forms",
     "crispy_bootstrap5",
     "ckeditor_skins",

@@ -1,6 +1,13 @@
+from typing import Iterable
 from django.db import models
 from ckeditor.fields import RichTextField
 from django_currentuser.db.models import CurrentUserField
+
+
+class ModelMixin:
+    def save(self, *args, **kwargs):
+        # Faça aqui tudo que eu quero que você faça e então chame o próximo da lista
+        super().save(*args, **kwargs)
 
 
 class Note(models.Model):
@@ -30,6 +37,9 @@ class Note(models.Model):
 
     def __str__(self):
         return self.title[:128]
+
+    def save(self, *args, **kwargs):
+        print("SOBRESCREVI NA CLASSE NOTE")
 
     class Meta:
         ordering = ["-updated_at"]
