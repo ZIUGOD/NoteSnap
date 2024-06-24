@@ -1,5 +1,19 @@
+"""
+Django settings for the Nyra project.
+
+These settings configure various aspects of the Django project, including database settings,
+static files, internationalization, middleware, installed apps, and more.
+
+For more information on Django settings, see:
+https://docs.djangoproject.com/en/3.2/topics/settings/
+
+For the full list of Django settings and their values, see:
+https://docs.djangoproject.com/en/3.2/ref/settings/
+"""
+
 from pathlib import Path
-from os import path, environ
+from os import path
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ["SECRET_KEY"]
+SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]  # allowed only while in development
 
 # Application definition
 
@@ -25,13 +39,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "ckeditor",
-    "ckeditor_uploader",
+    # # Third-party apps
     "features.members",
     "features.notes",
+    "ckeditor",
+    "ckeditor_skins",
+    "ckeditor_uploader",
     "crispy_forms",
     "crispy_bootstrap5",
-    "ckeditor_skins",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -123,7 +138,7 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [path.join(BASE_DIR, "static")]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "static_django"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
