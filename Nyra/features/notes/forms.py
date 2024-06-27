@@ -26,6 +26,12 @@ class NoteForm(forms.ModelForm):
     text = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
+        """
+        A nested class that provides metadata for the NoteForm class. It
+        specifies the model that the form interacts with and the fields that
+        are included in the form.
+        """
+
         model = Note
         fields = ["title", "text"]
 

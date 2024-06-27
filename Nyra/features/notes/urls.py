@@ -1,6 +1,12 @@
+"""
+This file contains the URL patterns for the notes app.
+"""
+
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 from .views import NoteCreateView, NoteDetailView, NoteUpdateView, NoteDeleteView
+
+app_name = "note"
 
 urlpatterns = [
     path(
