@@ -6,12 +6,12 @@
 {% endblock title %}
 {% block content %}
     <form method="post"
-          action="{% url 'update_note' note.id %}"
+          action="{% url 'note:update_note' note.id %}"
           class="d-flex flex-column align-items-center justify-content-center p-3 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white border-warning">
         {% csrf_token %}
         <div>{% crispy form %}</div>
         <div class="text-center m-3">
-            <span class="text-success">{{ note.created_at }}, <a href="{% url "user_profile" note.author.username %}">{{ note.author.username }}</a></span>
+            <span class="text-success">{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
         </div>
         {% if note.created_at != note.updated_at %}
             <div class="text-center m-3">

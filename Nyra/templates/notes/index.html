@@ -1,13 +1,13 @@
 {% extends "components/base.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static "notes/css/index.css" %}">
+<link rel="stylesheet" href="{% static 'notes/css/index.css' %}">
 {% block content %}
     <div class="p-1">
         {% if notes %}
-            <ul class="d-flex flex-column justify-content-center list-group list-group-flush text-center">
+            <ul class="d-flex flex-column justify-content-center list-group list-group-flush border p-1 rounded-3 shadow text-center">
                 {% for note in notes %}
-                    <a href="{% url "read_note" note.id %}"
-                       class="text-decoration-none text-center border border-2 border-info rounded-4 my-2 shadow">
+                    <a href="{% url 'note:read_note' note.id %}"
+                       class="text-decoration-none text-center border border-0 rounded-2">
                         <li class="list-group-item bg-dark text-light p-2">
                             <h3 class="text-break h3">{{ note.title|safe }}</h3>
                             <span class="text-secondary">{{ note.author }}</span>
@@ -18,6 +18,31 @@
         {% else %}
             <p class="text-center my-3">Nenhuma nota disponível.</p>
         {% endif %}
+    </div>
+    <div class="d-flex column justify-content-center align-items-center align-self-center text-center">
+        <nav aria-label="pagination">
+            <ul class="pagination">
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}"
+                           class="btn btn-warning mx-2">Previous page</a>
+                    {% endif %}
+                    {% if page_obj.paginator.num_pages > 1 %}
+                        <a href="?page=1"
+                           class="btn {% if page_obj.number == 1 %}btn-primary{% else %}btn-secondary{% endif %} mx-2">1</a>
+                    {% endif %}
+                    {% if page_obj.paginator.num_pages > 2 %}
+                        <a href="?page=2"
+                           class="btn {% if page_obj.number == 3 %}btn-primary{% else %}btn-secondary{% endif %} mx-2">2</a>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           class="btn btn-primary mx-2">Next page</a>
+                    {% endif %}
+                </div>
+            </ul>
+        </nav>
+        <p class="text-center text-light">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
     </div>
     {% include "components/footer.html" %}
 {% endblock content %}
