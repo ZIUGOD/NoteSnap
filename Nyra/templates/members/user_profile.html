@@ -39,7 +39,7 @@
             <ul id="unordered-list"
                 class="list-group d-flex flex-column justify-content-center">
                 {% for note in nyra_user.user_notes.all %}
-                    <a href="{% url "read_note" note.id %}"
+                    <a href="{% url 'note:read_note' note.id %}"
                        class="text-decoration-none m-1 shadow text-center bg-dark border border-2 border-black rounded-4 my-1">
                         <li class="list-group-item">
                             <h3 class="h3 text-break">{{ note.title|safe }}</h3>
