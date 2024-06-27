@@ -28,7 +28,7 @@ SECRET_KEY = get_random_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]  # allowed only while in development
+ALLOWED_HOSTS = ["127.0.0.1"]  # allowed only while in development
 
 # Application definition
 
@@ -97,7 +97,7 @@ DATABASES = {
     }
 }
 
-LOGOUT_REDIRECT_URL = "login_user"
+LOGOUT_REDIRECT_URL = "member:login_user"
 LOGIN_REDIRECT_URL = "home_page"
 
 # Password validation

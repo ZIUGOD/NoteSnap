@@ -59,9 +59,3 @@ class Note(models.Model):
         indexes = [
             models.Index(fields=["title", "author"]),
         ]
-        permissions = [
-            ("can_view_note", "Can view note"),
-            ("can_create_note", "Can create note"),
-            ("can_update_note", "Can update note"),
-            ("can_delete_note", "Can delete note"),
-        ]
