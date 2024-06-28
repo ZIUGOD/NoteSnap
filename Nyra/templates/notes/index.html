@@ -12,9 +12,9 @@
                     <a id="note-{{ note.id }}"
                        href="{% url 'note:read_note' note.id %}"
                        class="text-decoration-none text-center border border-0 rounded-2">
-                        <li class="list-group-item bg-dark text-light p-2">
+                        <li class="list-group-item p-2 bg-black">
                             <h3 class="text-break h3">{{ note.title|safe }}</h3>
-                            <span>{{ note.author }}</span>
+                            <span class="text-success">{{ note.author }}</span>
                         </li>
                     </a>
                 {% endfor %}

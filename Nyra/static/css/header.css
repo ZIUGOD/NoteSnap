@@ -10,10 +10,30 @@
     color: lime;
     background-color: black;
     border: 0.2em solid lime;
+    transition: 0.3s;
+
+}
+
+#logout-button:hover,
+#create-note-button:hover,
+#profile-link:hover,
+#signin-link:hover {
+    color: black;
+    background-color: lime;
+    border: 0.2em solid lime;
+    transition: 0.3s;
+    box-shadow: 0 0 1em lime;
 }
 
 #logout-button {
     color: black;
     background-color: lime;
     border: 0.2em solid lime;
+}
+
+#logout-button:hover {
+    color: lime;
+    background-color: black;
+    border: 0.2em solid lime;
+    box-shadow: 0 0 1em lime;
 }
