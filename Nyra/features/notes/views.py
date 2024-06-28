@@ -34,7 +34,7 @@ class NoteCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return self.request.user.is_superuser
 
 
-class NoteDetailView(LoginRequiredMixin, DetailView):
+class NoteDetailView(DetailView):
     """
     View for displaying the details of a note.
 

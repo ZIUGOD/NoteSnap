@@ -1,47 +1,59 @@
 {% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+{% endblock head %}
 {% block header %}
-    <header class="navbar navbar-expand-md navbar-light d-flex justify-content-between py-3 mb-4 border-bottom bg-secondary">
-        <a href="{% url 'home_page' %}"
+    <header id="navbar-header"
+            class="navbar navbar-expand-md navbar-light d-flex justify-content-between py-3 mb-4 -bottom">
+        <a id="home-link"
+           href="{% url 'home_page' %}"
            class="navbar-brand d-flex align-items-center mb-1 mb-md-0 me-md-auto">
-            <img src="{% static 'img/icon.png' %}"
+            <img id="navbar-icon"
+                 src="{% static 'img/icon.png' %}"
                  alt="Nyra Icon"
                  height="80"
                  width="80">
         </a>
         <div class="order-md-last">
-            <button class="navbar-toggler"
+            <button id="navbar-toggler"
+                    class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon">ZIU</span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav text-center">
+                <ul id="navbar-nav" class="navbar-nav text-center">
                     {% if user.is_authenticated %}
-                        <form method="post" class="nav-tem p-2" action="{% url 'logout' %}">
+                        <form id="logout-form"
+                              method="post"
+                              class="nav-item p-2"
+                              action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button id="logout-button"
-                                    class="nav-link bg-white text-black shadow border border-2 border-black rounded-5 px-3 py-2 min-vw-50"
-                                    type="sbubmit">LOGOUT</button>
+                                    class="nav-link shadow   -black rounded-5 px-3 py-2 min-vw-50"
+                                    type="submit">LOGOUT</button>
                         </form>
                         {% if user.is_superuser %}
                             <li class="nav-item p-2">
-                                <a href="{% url 'note:create_note' %}"
-                                   class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2 min-vw-50"
-                                   id="create-note-button">CREATE NOTE</a>
+                                <a id="create-note-button"
+                                   href="{% url 'note:create_note' %}"
+                                   class="nav-link shadow   rounded-5 px-3 py-2 min-vw-50">CREATE NOTE</a>
                             </li>
                         {% endif %}
                         <li class="nav-item p-2">
-                            <a href="{% url 'member:user_profile' user.username %}"
-                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2 min-vw-50">{{ user.username }}</a>
+                            <a id="profile-link"
+                               href="{% url 'member:user_profile' user.username %}"
+                               class="nav-link shadow  rounded-5 px-3 py-2 min-vw-50">{{ user.username }}</a>
                         </li>
                     {% else %}
                         <li class="nav-item p-2">
-                            <a href="{% url 'member:login_user' %}"
-                               class="nav-link bg-black text-light shadow border border-2 rounded-5 px-3 py-2">SIGN IN</a>
+                            <a id="signin-link"
+                               href="{% url 'member:login_user' %}"
+                               class="nav-link shadow   rounded-5 px-3 py-2">SIGN IN</a>
                         </li>
                     {% endif %}
                 </ul>

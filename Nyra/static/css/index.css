@@ -1,0 +1,28 @@
+#notes-list {
+    border: 0.2em solid purple;
+}
+
+#previous-page {
+    /* Adicione os estilos desejados */
+}
+
+#page-1 {
+    /* Adicione os estilos desejados */
+}
+
+#page-2 {
+    /* Adicione os estilos desejados */
+}
+
+#next-page {
+    /* Adicione os estilos desejados */
+}
+
+#page-info {
+    /* Adicione os estilos desejados */
+}
+
+/* IDs para cada nota individual (dinâmico) */
+[id^="note-"] {
+    /* Adicione os estilos desejados */
+}

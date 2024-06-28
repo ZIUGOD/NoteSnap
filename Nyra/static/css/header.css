@@ -1,0 +1,19 @@
+#navbar-toggler {
+    color: lime;
+    background-color: gold;
+}
+
+#logout-button,
+#create-note-button,
+#profile-link,
+#signin-link {
+    color: lime;
+    background-color: black;
+    border: 0.2em solid lime;
+}
+
+#logout-button {
+    color: black;
+    background-color: lime;
+    border: 0.2em solid lime;
+}

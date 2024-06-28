@@ -1,48 +1,51 @@
 {% extends "components/base.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'notes/css/index.css' %}">
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock head %}
 {% block content %}
-    <div class="p-1">
+    <div id="notes-container" class="p-1">
         {% if notes %}
-            <ul class="d-flex flex-column justify-content-center list-group list-group-flush border p-1 rounded-3 shadow text-center">
+            <ul id="notes-list"
+                class="d-flex flex-column justify-content-center list-group list-group-flush border p-1 rounded-3 shadow text-center">
                 {% for note in notes %}
-                    <a href="{% url 'note:read_note' note.id %}"
+                    <a id="note-{{ note.id }}"
+                       href="{% url 'note:read_note' note.id %}"
                        class="text-decoration-none text-center border border-0 rounded-2">
                         <li class="list-group-item bg-dark text-light p-2">
                             <h3 class="text-break h3">{{ note.title|safe }}</h3>
-                            <span class="text-secondary">{{ note.author }}</span>
+                            <span>{{ note.author }}</span>
                         </li>
                     </a>
                 {% endfor %}
             </ul>
         {% else %}
-            <p class="text-center my-3">Nenhuma nota disponível.</p>
+            <p id="no-notes-message" class="text-center my-3">Nenhuma nota disponível.</p>
         {% endif %}
     </div>
-    <div class="d-flex column justify-content-center align-items-center align-self-center text-center">
+    <div id="pagination-container"
+         class="d-flex column justify-content-center align-items-center align-self-center text-center">
         <nav aria-label="pagination">
             <ul class="pagination">
                 <div class="pagination">
                     {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}"
+                        <a id="previous-page"
+                           href="?page={{ page_obj.previous_page_number }}"
                            class="btn btn-warning mx-2">Previous page</a>
                     {% endif %}
-                    {% if page_obj.paginator.num_pages > 1 %}
-                        <a href="?page=1"
-                           class="btn {% if page_obj.number == 1 %}btn-primary{% else %}btn-secondary{% endif %} mx-2">1</a>
-                    {% endif %}
-                    {% if page_obj.paginator.num_pages > 2 %}
-                        <a href="?page=2"
-                           class="btn {% if page_obj.number == 3 %}btn-primary{% else %}btn-secondary{% endif %} mx-2">2</a>
-                    {% endif %}
+                    {% if page_obj.paginator.num_pages > 1 %}<a id="page-1" href="?page=1" class="btn mx-2">1</a>{% endif %}
+                    {% if page_obj.paginator.num_pages > 2 %}<a id="page-2" href="?page=2" class="btn mx-2">2</a>{% endif %}
                     {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}"
+                        <a id="next-page"
+                           href="?page={{ page_obj.next_page_number }}"
                            class="btn btn-primary mx-2">Next page</a>
                     {% endif %}
                 </div>
             </ul>
         </nav>
-        <p class="text-center text-light">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+        {% if page_obj.paginator.num_pages > 1 %}
+            <p id="page-info" class="text-center">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+        {% endif %}
     </div>
     {% include "components/footer.html" %}
 {% endblock content %}
