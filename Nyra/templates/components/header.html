@@ -1,10 +1,10 @@
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/header.css' %}">
 {% endblock head %}
 {% block header %}
     <header id="navbar-header"
-            class="navbar navbar-expand-md navbar-light d-flex justify-content-between py-3 mb-4 -bottom">
+            class="navbar navbar-expand-md navbar-light d-flex justify-content-between py-3 mb-4">
         <a id="home-link"
            href="{% url 'home_page' %}"
            class="navbar-brand d-flex align-items-center mb-1 mb-md-0 me-md-auto">
@@ -23,40 +23,33 @@
                     aria-controls="navbarNav"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">ZIU</span>
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul id="navbar-nav" class="navbar-nav text-center">
-                    {% if user.is_authenticated %}
-                        <form id="logout-form"
-                              method="post"
-                              class="nav-item p-2"
-                              action="{% url 'logout' %}">
-                            {% csrf_token %}
-                            <button id="logout-button"
-                                    class="nav-link shadow   -black rounded-5 px-3 py-2 min-vw-50"
-                                    type="submit">LOGOUT</button>
-                        </form>
-                        {% if user.is_superuser %}
-                            <li class="nav-item p-2">
-                                <a id="create-note-button"
-                                   href="{% url 'note:create_note' %}"
-                                   class="nav-link shadow   rounded-5 px-3 py-2 min-vw-50">CREATE NOTE</a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item p-2">
-                            <a id="profile-link"
-                               href="{% url 'member:user_profile' user.username %}"
-                               class="nav-link shadow  rounded-5 px-3 py-2 min-vw-50">{{ user.username }}</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item p-2">
-                            <a id="signin-link"
-                               href="{% url 'member:login_user' %}"
-                               class="nav-link shadow   rounded-5 px-3 py-2">SIGN IN</a>
-                        </li>
+            <div class="collapse navbar-collapse justify-content-center align-items-center text-center"
+                 id="navbarNav">
+                {% if user.is_authenticated %}
+                    <form id="logout-form"
+                          method="post"
+                          class="nav-item"
+                          action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button id="logout-button"
+                                class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5"
+                                type="submit">LOGOUT</button>
+                    </form>
+                    {% if user.is_superuser %}
+                        <a id="create-note-button"
+                           href="{% url 'note:create_note' %}"
+                           class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5">CREATE NOTE</a>
                     {% endif %}
-                </ul>
+                    <a id="profile-link"
+                       href="{% url 'member:user_profile' user.username %}"
+                       class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5 text-center">{{ user.username }}</a>
+                {% else %}
+                    <a id="signin-link"
+                       href="{% url 'member:login_user' %}"
+                       class="nav-link rounded-5 px-3 py-2">SIGN IN</a>
+                {% endif %}
             </div>
         </div>
     </header>

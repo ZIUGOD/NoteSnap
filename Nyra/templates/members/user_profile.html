@@ -1,42 +1,39 @@
 {% extends "components/base.html" %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/members/user_profile.css' %}">
 {% endblock head %}
 {% block title %}
     - {{ nyra_user.username }}
 {% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div id="user-profile" class="container border border-2 rounded-4 p-1">
+    <div id="user-profile" class="container p-1">
         <div id="profile-info"
-             class="d-flex flex-column align-items-center justify-content-center p-2 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white">
+             class="d-flex flex-column align-items-center justify-content-center p-2 shadow m-2 text-center">
             <h3 id="profile-name" class="text-center">{{ nyra_user.first_name }} {{ nyra_user.last_name }}</h3>
-            <ul id="profile-details"
-                class="list-group list-group-flush text-start bg-dark rounded-3">
-                <li id="username" class="list-group-item bg-dark text-light">@{{ nyra_user.username }}, {{ nyra_user.id }}</li>
+            <ul id="profile-details" class="list-group list-group-flush text-start">
+                <li id="username" class="list-group-item">@{{ nyra_user.username }}, {{ nyra_user.id }}</li>
                 {% if nyra_user.first_name %}
-                    <li id="full-name" class="list-group-item bg-dark text-light">
+                    <li id="full-name" class="list-group-item">
                         <strong>Name:</strong> {{ nyra_user.first_name }} {{ nyra_user.last_name }}
                     </li>
                 {% endif %}
-                {% if nyra_user.email %}
-                    <li id="email" class="list-group-item bg-dark text-light">{{ nyra_user.email }}</li>
-                {% endif %}
-                <li id="joined-date" class="list-group-item bg-dark text-light">Member since {{ nyra_user.date_joined }}</li>
-                <li id="notes-count" class="list-group-item bg-dark text-light">
+                {% if nyra_user.email %}<li id="email" class="list-group-item">{{ nyra_user.email }}</li>{% endif %}
+                <li id="joined-date" class="list-group-item">Memer since {{ nyra_user.date_joined }}</li>
+                <li id="notes-count" class="list-group-item">
                     <strong>Notes:</strong> {{ nyra_user.user_notes.all|length }}
                 </li>
-                <li id="biography" class="list-group-item bg-dark text-light">
+                <li id="biography" class="list-group-item">
                     <strong>Biography:</strong> {{ nyra_user.profile.biography|default:"Hello there! I am using Nyra!" }}
                 </li>
                 {% if nyra_user.is_staff %}
-                    <li id="staff-status" class="list-group-item bg-dark text-light">
+                    <li id="staff-status" class="list-group-item">
                         <strong>Staff</strong>
                     </li>
                 {% endif %}
                 {% if nyra_user.is_superuser %}
-                    <li id="admin-status" class="list-group-item bg-dark text-light">
+                    <li id="admin-status" class="list-group-item">
                         <strong>Admin</strong>
                     </li>
                 {% endif %}
@@ -48,8 +45,8 @@
                 class="list-group d-flex flex-column justify-content-center">
                 {% for note in nyra_user.user_notes.all %}
                     <a href="{% url 'note:read_note' note.id %}"
-                       class="note-link text-decoration-none m-1 shadow text-center bg-dark border border-2 border-black rounded-4 my-1">
-                        <li id="note-{{ note.id }}" class="list-group-item">
+                       class="note-link text-decoration-none m-1 text-center my-1">
+                        <li id="note-{{ note.id }}" class="list-notes list-group-item">
                             <h3 id="note-title-{{ note.id }}" class="h3 text-break">{{ note.title|safe }}</h3>
                         </li>
                     </a>

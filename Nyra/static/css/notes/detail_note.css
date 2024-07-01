@@ -1,0 +1,43 @@
+#note-form {
+    border: 0.2em solid lime;
+    box-shadow: 0 0 1em lime;
+}
+
+[id^="note-title-"] {
+    color: lime;
+    font-weight: bold;
+}
+
+span {
+    color: lime;
+}
+
+#span:hover {
+    color: gold;
+    text-shadow: 0 0 1em gold;
+}
+
+span a {
+    color: cyan;
+}
+
+span a:hover {
+    color: gold;
+    text-shadow: 0 0 1em gold;
+}
+
+[id^="delete-note-button-"],
+[id^="edit-note-button-"],
+[id^="back-button-"] {
+    color: lime;
+    border: 0.2em solid lime;
+    border-radius: 99em;
+}
+
+[id^="delete-note-button-"]:hover,
+[id^="edit-note-button-"]:hover,
+[id^="back-button-"]:hover {
+    color: black;
+    background-color: lime;
+    box-shadow: 0 0 1em lime;
+}

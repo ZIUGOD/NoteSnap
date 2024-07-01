@@ -1,5 +1,8 @@
 {% extends "components/base.html" %}
 {% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/notes/create_note.css' %}">
+{% endblock head %}
 {% load crispy_forms_tags %}
 {% block title %}
     - Create new note
@@ -7,17 +10,17 @@
 {% block content %}
     <form method="post"
           action="{% url 'note:create_note' %}"
-          class="d-flex flex-column align-items-center justify-content-center p-3 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white border-primary">
+          class="d-flex flex-column align-items-center justify-content-center p-3 m-2 text-center">
         <div class="m-2">{% crispy form %}</div>
         <div class="my-3 mb-5">
-            <input type="submit"
+            <input id="create-note-button-1"
+                   type="submit"
                    value="Criar nota"
-                   class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-primary">
-            <button type="button"
+                   class="m-2 py-2 px-3 btn">
+            <button id="back-button-1"
+                    type="button"
                     onclick="window.history.back()"
-                    class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-secondary">
-                Voltar
-            </button>
+                    class="m-2 py-2 px-3 btn">Voltar</button>
         </div>
     </form>
 {% endblock content %}

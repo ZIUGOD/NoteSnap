@@ -1,0 +1,17 @@
+[id^="delete-note-button-"],
+[id^="edit-note-button-"],
+[id^="back-button-"],
+[id^="create-note-button-"] {
+    color: lime;
+    border: 0.2em solid lime;
+    border-radius: 99em;
+}
+
+[id^="delete-note-button-"]:hover,
+[id^="edit-note-button-"]:hover,
+[id^="back-button-"]:hover,
+[id^="create-note-button-"]:hover {
+    color: black;
+    background-color: lime;
+    box-shadow: 0 0 1em lime;
+}

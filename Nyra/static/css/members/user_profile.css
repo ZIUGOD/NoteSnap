@@ -1,0 +1,61 @@
+#user-profile {
+    border: 0.2em solid lime;
+    padding: 2em;
+    border-radius: 1em;
+}
+
+#user-profile:hover {
+    box-shadow: 0 0 1em lime;
+}
+
+#profile-info,
+#profile-name,
+#profile-details,
+#username,
+#full-name,
+#email,
+#joined-date,
+#notes-count,
+#biography,
+#staff-status,
+#admin-status,
+#notes-heading,
+.note-link,
+.list-group-item {
+    background-color: black;
+    color: lime;
+}
+
+#notes-heading {
+    font-size: 2em;
+    text-align: center;
+    font-weight: 1000;
+}
+
+#username {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+#user-notes {
+    padding: 0 0 1em 0;
+}
+
+#user-notes li[id^="note-"] {
+    background-color: black;
+    color: lime;
+    border: 0.15em solid lime;
+    border-radius: 0.6em;
+    margin: 0;
+    padding: 0.4em;
+}
+
+#user-notes li[id^="note-"]:hover {
+    border: 0.2em solid lime;
+    box-shadow: 0 0 1em lime;
+    margin: 0.2em 0;
+}
+
+.list-notes {
+    border: 0.2em solid cyan;
+}

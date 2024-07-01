@@ -1,6 +1,8 @@
 #navbar-toggler {
     color: lime;
-    background-color: gold;
+    border: 0.2em solid lime;
+    border-radius: 1em;
+    box-shadow: 0 0 1em lime;
 }
 
 #logout-button,
@@ -11,13 +13,13 @@
     background-color: black;
     border: 0.2em solid lime;
     transition: 0.3s;
-
 }
 
 #logout-button:hover,
 #create-note-button:hover,
 #profile-link:hover,
 #signin-link:hover {
+    font-size: auto;
     color: black;
     background-color: lime;
     border: 0.2em solid lime;

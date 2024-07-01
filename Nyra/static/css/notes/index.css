@@ -1,0 +1,14 @@
+#notes-list {
+    padding: 0;
+    margin: 0;
+}
+
+#previous-page {
+    /* Adicione os estilos desejados */
+}
+
+[id^="note-"] {
+    display: inline-block;
+    color: lime;
+    background: black;
+}

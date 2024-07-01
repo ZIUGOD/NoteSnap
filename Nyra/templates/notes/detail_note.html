@@ -1,5 +1,8 @@
 {% extends "components/base.html" %}
 {% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/notes/detail_note.css' %}">
+{% endblock head %}
 {% load crispy_forms_tags %}
 {% block title %}
     - Note {{ note.id }} by {{ note.author.username }}
@@ -7,36 +10,42 @@
 {% block content %}
     <form method="post"
           action="{% url 'note:read_note' note.id %}"
-          class="d-flex flex-column p-3 border border-2 rounded-4 shadow bg-dark text-white  border">
+          class="d-flex flex-column p-3"
+          id="note-form-{{ note.id }}">
         {% csrf_token %}
-        <h2 class="text-break h2 m-2 font-weight-normal text-center">{{ note.title|safe }}</h2>
+        <h2 class="text-break h2 m-2 font-weight-normal text-center"
+            id="note-title-{{ note.id }}">{{ note.title|safe }}</h2>
         <hr />
-        <div class="p-3">{{ note.text|safe }}</div>
-        <div class="text-center m-3">
-            <span class="text-success">{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
+        <div class="p-3" id="note-text-{{ note.id }}">{{ note.text|safe }}</div>
+        <div class="text-center m-3" id="note-metadata-{{ note.id }}">
+            <span>{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
         </div>
         {% if note.created_at != note.updated_at %}
-            <div class="text-center">
-                <span class="text-secondary">Edited</span>
+            <div class="text-center" id="note-edited-{{ note.id }}">
+                <span>Edited</span>
             </div>
         {% endif %}
     </form>
-    <div class="text-center my-3 mb-5 d-flex justify-content-center align-items-center">
+    <div class="text-center my-3 mb-5 d-flex justify-content-center align-items-center"
+         id="note-actions-{{ note.id }}">
         {% if user == note.author %}
-            <form method="post" action="{% url 'note:delete_note' note.id %}">
+            <form method="post"
+                  action="{% url 'note:delete_note' note.id %}"
+                  id="delete-note-form-{{ note.id }}">
                 {% csrf_token %}
                 <input type="submit"
                        value="DELETE"
                        onclick="return confirm('Confirm deletion?');"
-                       class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-danger">
+                       class="m-2 py-2 px-3 btn"
+                       id="delete-note-button-{{ note.id }}">
             </form>
             <a href="{% url 'note:update_note' note.id %}"
-               class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-warning">EDIT</a>
+               class="m-2 py-2 px-3 btn"
+               id="edit-note-button-{{ note.id }}">EDIT</a>
         {% endif %}
         <button type="button"
                 onclick="window.history.back()"
-                class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-secondary bg-dark">
-            BACK
-        </button>
+                class="m-2 py-2 px-3 btn"
+                id="back-button-{{ note.id }}">BACK</button>
     </div>
 {% endblock content %}

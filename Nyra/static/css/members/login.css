@@ -1,0 +1,40 @@
+#login-form {
+    padding: 1em;
+    border: 0.2em solid lime;
+    border-radius: 1em;
+}
+
+#login-form:hover {
+    box-shadow: 0 0 1em lime;
+}
+
+#form-content {
+    padding: 1em;
+}
+
+#submit-button {
+    color: lime;
+    background-color: black;
+    border: 0.2em solid lime;
+    border-radius: 10em;
+    padding: 1em;
+}
+
+#submit-button:hover {
+    color: black;
+    background-color: lime;
+    box-shadow: 0 0 1em lime;
+}
+
+#signup-link {
+    color: lime;
+}
+
+#create-account-link {
+    color: cyan;
+}
+
+#create-account-link:hover {
+    color: gold;
+    text-shadow: 0 0 1em gold;
+}

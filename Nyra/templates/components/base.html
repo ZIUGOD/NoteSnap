@@ -19,7 +19,9 @@
               rel="stylesheet"
               integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
               crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/components/base.css' %}">
+        {% block head %}
+        {% endblock head %}
     </head>
     <body id="body" class="container px-2 mb-5">
         {% include "components/header.html" %}

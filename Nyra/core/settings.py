@@ -11,12 +11,15 @@ For the full list of Django settings and their values, see:
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
-from os import path
+from dotenv import load_dotenv
 from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,10 +29,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ["127.0.0.1"]  # allowed only while in development
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
+ALLOWED_HOSTS = (
+    os.getenv("ALLOWED_HOSTS").split(",") if os.getenv("ALLOWED_HOSTS") else []
+)
+
+
+print(
+    f"Secret ket: {SECRET_KEY}\nE-mail: {DEFAULT_FROM_EMAIL}\nAllowed hosts: {ALLOWED_HOSTS}\nDebug: {DEBUG}"
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -137,7 +148,12 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),  # default
+    os.path.join(BASE_DIR, "templates/components"),
+    os.path.join(BASE_DIR, "templates/members"),
+    os.path.join(BASE_DIR, "templates/notes"),
+]
 
 STATIC_ROOT = BASE_DIR / "static_django"
 

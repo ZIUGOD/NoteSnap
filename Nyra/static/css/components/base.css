@@ -12,11 +12,12 @@
     text-decoration: none;
     color: lime;
     background-color: black;
-    font-size: 0.9vw;
+    font-size: 1em;
     font-family: "Roboto Mono", monospace;
     font-optical-sizing: auto;
     font-weight: normal;
     font-style: normal;
+    transition: 0.3s;
 }
 
 body {

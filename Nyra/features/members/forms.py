@@ -14,7 +14,11 @@ class SignUpForm(forms.ModelForm):
         first name, last name, and email.
     """
 
-    first_name = forms.CharField(label="First Name", max_length=16)
+    first_name = forms.CharField(
+        label="First Name",
+        max_length=16,
+        widget=forms.TextInput(attrs={"placeholder": "First Name"}),
+    )
     last_name = forms.CharField(label="Last Name", max_length=32)
     username = forms.CharField(label="Username", max_length=16)
     email = forms.EmailField(label="Email")
@@ -29,11 +33,11 @@ class SignUpForm(forms.ModelForm):
             Row(
                 Column(
                     "first_name",
-                    css_class="text-center text-success form-group col-md-6 mb-0",
+                    css_class="text-center form-group col-md-6 mb-0",
                 ),
                 Column(
                     "last_name",
-                    css_class="text-center text-success form-group col-md-6 mb-0",
+                    css_class="text-center form-group col-md-6 mb-0",
                 ),
                 css_class="form-row",
             ),
