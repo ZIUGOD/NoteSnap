@@ -39,8 +39,12 @@ ALLOWED_HOSTS = (
 
 
 print(
-    f"Secret ket: {SECRET_KEY}\nE-mail: {DEFAULT_FROM_EMAIL}\nAllowed hosts: {ALLOWED_HOSTS}\nDebug: {DEBUG}"
+    f"Secret ket: {SECRET_KEY}\n"
+    f"E-mail: {DEFAULT_FROM_EMAIL}\n"
+    f"Allowed hosts: {ALLOWED_HOSTS}\n"
+    f"Debug: {DEBUG}\n"
 )
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -164,6 +168,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CKEDITOR_CONFIGS = {
     "default": {
+        "height": "600",
+        "width": "100%",
         "config.height": "full",
         "config.width": "full",
         "skin": "moono-dark",

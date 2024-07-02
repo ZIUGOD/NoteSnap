@@ -1,0 +1,38 @@
+h2 {
+    text-shadow: 0 0 0.5em lime;
+}
+
+
+#cke_id_text {
+    border: 0.1em solid lime;
+    color: lime;
+}
+
+#cke_1_bottom {
+    border: 0.1em solid lime;
+    padding: 1em;
+    color: lime;
+
+}
+#cke_1_contents {
+    color: lime;
+    background-color: black;
+    border: 0.2em solid lime;
+
+}
+
+#update-note-button,
+#cancel-update-button {
+    color: lime;
+    background-color: black;
+    border: 0.2em solid lime;
+    border-radius: 10em;
+    padding: 1em;
+}
+
+#update-note-button:hover,
+#cancel-update-button:hover {
+    color: black;
+    background-color: lime;
+    box-shadow: 0 0 1em lime;
+}

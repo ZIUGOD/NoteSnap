@@ -1,11 +1,5 @@
 #login-form {
     padding: 1em;
-    border: 0.2em solid lime;
-    border-radius: 1em;
-}
-
-#login-form:hover {
-    box-shadow: 0 0 1em lime;
 }
 
 #form-content {

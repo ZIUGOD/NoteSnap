@@ -1,31 +1,36 @@
 {% extends "components/base.html" %}
 {% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/notes/update_note.css' %}">
+{% endblock head %}
 {% load crispy_forms_tags %}
 {% block title %}
     - Update note
 {% endblock title %}
 {% block content %}
-    <form method="post"
+    <form id="update-note-form"
+          method="post"
           action="{% url 'note:update_note' note.id %}"
-          class="d-flex flex-column align-items-center justify-content-center p-3 border border-2 rounded-4 shadow m-2 text-center bg-dark text-white border-warning">
+          class="d-flex flex-column align-items-center justify-content-center p-3 text-center">
         {% csrf_token %}
-        <div>{% crispy form %}</div>
-        <div class="text-center m-3">
-            <span class="text-success">{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
+        <h2 id="update-note-heading" class="text-center m-3">Update note</h2>
+        <div id="update-note-crispy-form">{% crispy form %}</div>
+        <div id="note-creation-info" class="text-center m-3">
+            <span id="note-created-at">{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
         </div>
         {% if note.created_at != note.updated_at %}
-            <div class="text-center m-3">
-                <span class="text-warning">{{ note.updated_at }}</span>
+            <div class="text-center" id="note-edited-{{ note.id }}">
+                <span>Edited</span>
             </div>
         {% endif %}
-        <div class="text-center my-3 mb-5">
-            <button type="submit"
+        <div id="note-buttons" class="text-center my-3 mb-5">
+            <button id="update-note-button"
+                    type="submit"
                     onclick="return confirm('Confirm action to update note?');"
-                    class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-warning">
-                Update note
-            </button>
-            <button type="button"
-                    class="m-2 py-2 px-3 shadow border border-2 border-white rounded-5 btn btn-secondary"
+                    class="m-2 py-2 px-3 btn">Update note</button>
+            <button id="cancel-update-button"
+                    type="button"
+                    class="m-2 py-2 px-3 btn"
                     onclick="window.history.back()">Cancel</button>
         </div>
     </form>
