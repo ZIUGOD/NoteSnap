@@ -15,3 +15,10 @@
     background-color: lime;
     box-shadow: 0 0 1em lime;
 }
+
+#cke_id_text, #cke_1_bottom, #cke_1_contents {
+    border: 0.2em solid lime;
+    color: lime;
+    text-shadow: 0 0 0.5em lime;
+    background-color: black;
+}

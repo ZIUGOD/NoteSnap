@@ -13,14 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv()
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -29,21 +25,12 @@ load_dotenv()
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = True
 
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+# DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-ALLOWED_HOSTS = (
-    os.getenv("ALLOWED_HOSTS").split(",") if os.getenv("ALLOWED_HOSTS") else []
-)
+ALLOWED_HOSTS = ["*"]
 
-
-print(
-    f"Secret ket: {SECRET_KEY}\n"
-    f"E-mail: {DEFAULT_FROM_EMAIL}\n"
-    f"Allowed hosts: {ALLOWED_HOSTS}\n"
-    f"Debug: {DEBUG}\n"
-)
 
 # Application definition
 

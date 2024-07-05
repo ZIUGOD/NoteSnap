@@ -106,4 +106,4 @@ class NoteListView(ListView):
     template_name = "notes/index.html"
     context_object_name = "notes"
     ordering = ["-created_at"]
-    paginate_by = 30
+    paginate_by = 20

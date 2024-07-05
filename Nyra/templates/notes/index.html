@@ -25,6 +25,7 @@
             <p id="no-notes-message" class="text-center my-3">Nenhuma nota disponível.</p>
         {% endif %}
     </div>
+    <hr>
     <div id="pagination-container"
          class="d-flex column justify-content-center align-items-center align-self-center text-center">
         <nav aria-label="pagination">
@@ -33,18 +34,24 @@
                     {% if page_obj.has_previous %}
                         <a id="previous-page"
                            href="?page={{ page_obj.previous_page_number }}"
-                           class="btn btn-warning mx-2">Previous page</a>
+                           class="btn mx-2">Previous page ({{ page_obj.previous_page_number }})</a>
                     {% endif %}
-                    {% if page_obj.paginator.num_pages > 1 %}<a id="page-1" href="?page=1" class="btn mx-2">1</a>{% endif %}
-                    {% if page_obj.paginator.num_pages > 2 %}<a id="page-2" href="?page=2" class="btn mx-2">2</a>{% endif %}
+                    {% if page_obj.paginator.num_pages > 1 and page_obj.number > 3 %}
+                        <a id="page-1" href="?page=1" class="btn m-1">1</a>
+                    {% endif %}
+                    {% if page_obj.paginator.num_pages > 2 and page_obj.number > 3 %}
+                        <a id="page-2" href="?page=2" class="btn m-1 mx-2">2</a>
+                    {% endif %}
                     {% if page_obj.has_next %}
                         <a id="next-page"
                            href="?page={{ page_obj.next_page_number }}"
-                           class="btn btn-primary mx-2">Next page</a>
+                           class="btn m-1">Next page ({{ page_obj.next_page_number }})</a>
                     {% endif %}
-                    <a id="last-page"
-                       href="?page={{ page_obj.paginator.num_pages }}"
-                       class="btn mx-2">{{ page_obj.paginator.num_pages }}</a>
+                    {% if page_obj.pagination.num_pages > 10 %}
+                        <a id="last-page"
+                           href="?page={{ page_obj.paginator.num_pages }}"
+                           class="btn m-1">Last page ({{ page_obj.paginator.num_pages }})</a>
+                    {% endif %}
                 </div>
             </ul>
         </nav>

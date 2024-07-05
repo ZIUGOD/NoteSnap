@@ -5,6 +5,11 @@
     box-shadow: 0 0 1em lime;
 }
 
+#home-link,
+#navbar-icon {
+    border-radius: 50%;
+}
+
 #logout-button,
 #create-note-button,
 #profile-link,

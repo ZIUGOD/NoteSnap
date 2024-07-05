@@ -1,14 +1,21 @@
-#notes-list {
-    padding: 0;
-    margin: 0;
-}
-
-#previous-page {
-    /* Adicione os estilos desejados */
-}
-
-[id^="note-"] {
-    display: inline-block;
+h3, #no-notes-message, #page-info {
     color: lime;
-    background: black;
 }
+
+#notes-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em;
+    text-align: center;
+}
+
+.list-group-item{
+    border-color: lime;
+}
+
+#notes-list .list-group-item a {
+    text-decoration: none;
+    color: lime;
+}
+
