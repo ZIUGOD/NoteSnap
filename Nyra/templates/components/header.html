@@ -37,9 +37,9 @@
                                 class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5"
                                 type="submit">LOGOUT</button>
                     </form>
-                        <a id="create-note-button"
-                           href="{% url 'note:create_note' %}"
-                           class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5">CREATE NOTE</a>
+                    <a id="create-note-button"
+                       href="{% url 'note:create_note' %}"
+                       class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5">CREATE NOTE</a>
                     <a id="profile-link"
                        href="{% url 'member:user_profile' user.username %}"
                        class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5 text-center">{{ user.username }}</a>
@@ -52,4 +52,3 @@
         </div>
     </header>
 {% endblock header %}
-'

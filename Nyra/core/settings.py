@@ -157,7 +157,7 @@ CKEDITOR_CONFIGS = {
     "default": {
         "height": "600",
         "width": "100%",
-        "config.height": "full",
+        "config.height": "fullj",
         "config.width": "full",
         "skin": "moono-dark",
         "editorplaceholder": "Type your text here...",
