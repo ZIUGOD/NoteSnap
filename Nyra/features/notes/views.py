@@ -8,9 +8,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from .forms import NoteForm
 from .models import Note
+
+
+class Custom404View(TemplateView):
+    template_name = "components/error.html"
+
+    def get(self, request, *args, **kwargs):
+        response = self.render_to_response({})
+        response.status_code = 404
+        return response
 
 
 class NoteCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -106,4 +116,4 @@ class NoteListView(ListView):
     template_name = "notes/index.html"
     context_object_name = "notes"
     ordering = ["-created_at"]
-    paginate_by = 20
+    paginate_by = 18

@@ -1,4 +1,6 @@
-h3, #no-notes-message, #page-info {
+h3,
+#no-notes-message,
+#page-info {
     color: lime;
 }
 
@@ -10,8 +12,13 @@ h3, #no-notes-message, #page-info {
     text-align: center;
 }
 
-.list-group-item{
+.list-group-item {
     border-color: lime;
+}
+
+[id^="note-"] {
+    display: inline-block;
+    color: pink;
 }
 
 #notes-list .list-group-item a {
@@ -19,3 +26,15 @@ h3, #no-notes-message, #page-info {
     color: lime;
 }
 
+.btn {
+    color: lime;
+    border: 0.2em solid lime;
+    border-radius: 100em;
+    padding: 0.5em;
+}
+
+.btn:hover {
+    color: black;
+    background-color: lime;
+    box-shadow: 0 0 1em lime;
+}

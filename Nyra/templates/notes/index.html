@@ -47,7 +47,7 @@
                            href="?page={{ page_obj.next_page_number }}"
                            class="btn m-1">Next page ({{ page_obj.next_page_number }})</a>
                     {% endif %}
-                    {% if page_obj.pagination.num_pages > 10 %}
+                    {% if page_obj.paginator.num_pages > 5 and page_obj.number != page_obj.paginator.num_pages %}
                         <a id="last-page"
                            href="?page={{ page_obj.paginator.num_pages }}"
                            class="btn m-1">Last page ({{ page_obj.paginator.num_pages }})</a>
@@ -58,6 +58,7 @@
     </div>
     {% if page_obj.paginator.num_pages > 1 %}
         <p id="page-info" class="text-center">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+        {% if page_obj.number == page_obj.paginator.num_pages %}<p class="text-center">Last page</p>{% endif %}
     {% endif %}
     {% include "components/footer.html" %}
 {% endblock content %}
