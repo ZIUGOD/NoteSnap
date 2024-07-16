@@ -11,9 +11,12 @@ For the full list of Django settings and their values, see:
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import os
+from os import path, getenv
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,29 +28,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = getenv("DEBUG")
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL")
 
-SESSION_COOKIE_SECURE = True
+ALLOWED_HOSTS = getenv("ALLOWED_HOSTS").split(",")
 
-CSRF_COOKIE_SECURE = True
-
-SECURE_HSTS_SECONDS = 31536100
-
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
-SECURE_HSTS_PRELOAD = True
-
-SECURE_SSL_REDIRECT = True
-
-SECURE_REFERRER_POLICY = "strict-origin"
-
-SECURE_BROWSER_XSS_FILTER = False
-
-# DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
-
-ALLOWED_HOSTS = ["127.0.0.1"]
+print(
+    f"Allowed HOSTS: {ALLOWED_HOSTS}\nDEBUG: {DEBUG}\ne-mail to: {DEFAULT_FROM_EMAIL}\n",
+)
 
 
 # Application definition
@@ -62,19 +51,17 @@ INSTALLED_APPS = [
     # # Third-party apps
     "features.members",
     "features.notes",
-    "ckeditor",
-    "ckeditor_skins",
-    "ckeditor_uploader",
     "crispy_forms",
     "crispy_bootstrap5",
     "django_seed",  #
+    "django_ckeditor_5",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
+# CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -158,10 +145,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # default
-    os.path.join(BASE_DIR, "templates/components"),
-    os.path.join(BASE_DIR, "templates/members"),
-    os.path.join(BASE_DIR, "templates/notes"),
+    path.join(BASE_DIR, "static"),  # default
+    path.join(BASE_DIR, "templates/components"),
+    path.join(BASE_DIR, "templates/members"),
+    path.join(BASE_DIR, "templates/notes"),
 ]
 
 STATIC_ROOT = BASE_DIR / "static_django"
@@ -171,128 +158,153 @@ STATIC_ROOT = BASE_DIR / "static_django"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CKEDITOR_CONFIGS = {
+
+# django-ckeditor-5 settings
+customColorPalette = [
+    {"color": "hsl(4, 90%, 58%)", "label": "Red"},
+    {"color": "hsl(340, 82%, 52%)", "label": "Pink"},
+    {"color": "hsl(291, 64%, 42%)", "label": "Purple"},
+    {"color": "hsl(262, 52%, 47%)", "label": "Deep Purple"},
+    {"color": "hsl(231, 48%, 48%)", "label": "Indigo"},
+    {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
+]
+
+CKEDITOR_5_CUSTOM_CSS = "css/components/django-ckeditor-5.css"  # optional
+# CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage"  # optional
+
+CKEDITOR_5_CONFIGS = {
     "default": {
-        "height": "600",
-        "width": "100%",
-        "config.height": "fullj",
-        "config.width": "full",
-        "skin": "moono-dark",
-        "editorplaceholder": "Type your text here...",
         "toolbar": [
-            {
-                "name": "document",
-                "items": [
-                    "Source",
-                    "-",
-                    "Preview",
-                    "-",
-                    "Templates",
-                ],
-            },
-            {
-                "name": "clipboard",
-                "items": [
-                    "Cut",
-                    "Copy",
-                    "Paste",
-                    "PasteText",
-                    "PasteFromWord",
-                    "-",
-                    "Undo",
-                    "Redo",
-                ],
-            },
-            {
-                "name": "editing",
-                "items": [
-                    "Find",
-                    "Replace",
-                    "-",
-                    "SelectAll",
-                    "-",
-                    "Scayt",
-                ],
-            },
-            {
-                "name": "basicstyles",
-                "items": [
-                    "Bold",
-                    "Italic",
-                    "Underline",
-                    "Strike",
-                    "Subscript",
-                    "Superscript",
-                    "-",
-                    "RemoveFormat",
-                ],
-            },
-            {
-                "name": "paragraph",
-                "items": [
-                    "NumberedList",
-                    "BulletedList",
-                    "-",
-                    "Blockquote",
-                    "-",
-                    "JustifyLeft",
-                    "JustifyCenter",
-                    "JustifyRight",
-                    "JustifyBlock",
-                ],
-            },
-            {
-                "name": "links",
-                "items": [
-                    "Link",
-                    "Unlink",
-                    "Anchor",
-                ],
-            },
-            {
-                "name": "insert",
-                "items": [
-                    "Image",
-                    "Flash",
-                    "Table",
-                    "HorizontalRule",
-                    "Smiley",
-                    "SpecialChar",
-                    "Iframe",
-                ],
-            },
-            {
-                "name": "styles",
-                "items": [
-                    "Styles",
-                    "Format",
-                    "Font",
-                    "FontSize",
-                ],
-            },
-            {
-                "name": "colors",
-                "items": [
-                    "TextColor",
-                    "BGColor",
-                ],
-            },
-            {
-                "name": "tools",
-                "items": [
-                    "Maximize",
-                    "ShowBlocks",
-                ],
-            },
-            {
-                "name": "about",
-                "items": [
-                    "About",
-                ],
-            },
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "link",
+            "bulletedList",
+            "numberedList",
+            "blockQuote",
+            "imageUpload",
         ],
+        "allowedContent": True,
+    },
+    "extends": {
+        "blockToolbar": [
+            "paragraph",
+            "heading1",
+            "heading2",
+            "heading3",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "|",
+            "blockQuote",
+        ],
+        "toolbar": [
+            "heading",
+            "|",
+            "outdent",
+            "indent",
+            "|",
+            "bold",
+            "italic",
+            "link",
+            "underline",
+            "strikethrough",
+            "code",
+            "subscript",
+            "superscript",
+            "highlight",
+            "|",
+            "codeBlock",
+            "sourceEditing",
+            "insertImage",
+            "bulletedList",
+            "numberedList",
+            "todoList",
+            "|",
+            "blockQuote",
+            "imageUpload",
+            "|",
+            "fontSize",
+            "fontFamily",
+            "fontColor",
+            "fontBackgroundColor",
+            "mediaEmbed",
+            "removeFormat",
+            "insertTable",
+        ],
+        "image": {
+            "toolbar": [
+                "imageTextAlternative",
+                "|",
+                "imageStyle:alignLeft",
+                "imageStyle:alignRight",
+                "imageStyle:alignCenter",
+                "imageStyle:side",
+                "|",
+            ],
+            "styles": [
+                "full",
+                "side",
+                "alignLeft",
+                "alignRight",
+                "alignCenter",
+            ],
+        },
+        "table": {
+            "contentToolbar": [
+                "tableColumn",
+                "tableRow",
+                "mergeTableCells",
+                "tableProperties",
+                "tableCellProperties",
+            ],
+            "tableProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
+            "tableCellProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
+        },
+        "heading": {
+            "options": [
+                {
+                    "model": "paragraph",
+                    "title": "Paragraph",
+                    "class": "ck-heading_paragraph",
+                },
+                {
+                    "model": "heading1",
+                    "view": "h1",
+                    "title": "Heading 1",
+                    "class": "ck-heading_heading1",
+                },
+                {
+                    "model": "heading2",
+                    "view": "h2",
+                    "title": "Heading 2",
+                    "class": "ck-heading_heading2",
+                },
+                {
+                    "model": "heading3",
+                    "view": "h3",
+                    "title": "Heading 3",
+                    "class": "ck-heading_heading3",
+                },
+            ]
+        },
+    },
+    "list": {
+        "properties": {
+            "styles": "true",
+            "startIndex": "true",
+            "reversed": "true",
+        }
     },
 }
+
 
 # ╔───────────────────────────────────────────────╗ #
 # │▒███████▒ ██▓ █    ██   ▄████  ▒█████  ▓█████▄ │ #

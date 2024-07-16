@@ -14,12 +14,12 @@ The urlpatterns list contains the following URL patterns:
 from django.contrib import admin
 from django.urls import path, include
 from features.notes.views import NoteListView
-from django.conf.urls import handler404
 from features.notes.views import Custom404View
 
 urlpatterns = [
     path("", NoteListView.as_view(), name="home_page"),
     path("", include("django.contrib.auth.urls")),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
     path("admin/", admin.site.urls),
     path("note/", include("features.notes.urls", namespace="note")),
     path("u/", include("features.members.urls", namespace="member")),

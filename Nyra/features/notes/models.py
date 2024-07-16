@@ -4,7 +4,7 @@ This module contains the model for the `Note` object.
 
 from django.db import models
 from django.utils import timezone
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 from django_currentuser.db.models import CurrentUserField
 
 
@@ -21,8 +21,10 @@ class Note(models.Model):
         null=False,
     )
 
-    text = RichTextField(
-        verbose_name="Text",
+    text = CKEditor5Field(
+        "Text",
+        config_name="extends",
+        blank=True,
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

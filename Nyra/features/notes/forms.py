@@ -1,7 +1,7 @@
+from django_ckeditor_5.widgets import CKEditor5Widget
+from crispy_forms.helper import FormHelper
 from django import forms
 from .models import Note
-from ckeditor.widgets import CKEditorWidget
-from crispy_forms.helper import FormHelper
 
 
 class NoteForm(forms.ModelForm):
@@ -23,7 +23,6 @@ class NoteForm(forms.ModelForm):
             }
         ),
     )
-    text = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
         """
@@ -34,6 +33,12 @@ class NoteForm(forms.ModelForm):
 
         model = Note
         fields = ["title", "text"]
+        widgets = {
+            "text": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"},
+                config_name="default",
+            )
+        }
 
     def __init__(self, *args, **kwargs):
         super(NoteForm, self).__init__(*args, **kwargs)

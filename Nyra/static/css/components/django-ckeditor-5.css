@@ -1,0 +1,59 @@
+.ck-editor__editable {
+    background-color: black;
+    color: lime;
+}
+
+.ck .ck-toolbar {
+    background-color: black;
+}
+
+.ck .ck-button {
+    color: lime;
+}
+
+.ck .ck-button:hover {
+    background-color: lime;
+    color: black;
+}
+
+.ck .ck-toolbar__separator {
+    border-color: lime;
+}
+
+.ck .ck-dropdown__panel {
+    background-color: black;
+    color: lime;
+}
+
+.ck .ck-list__item {
+    background-color: black;
+    color: lime;
+}
+
+.ck .ck-list__item:hover {
+    background-color: lime;
+    color: black;
+}
+
+.ck .ck-balloon-panel {
+    background-color: black;
+    color: lime;
+}
+
+.ck .ck-toolbar__label {
+    color: lime;
+}
+
+.ck .ck-input {
+    background-color: black;
+    color: lime;
+}
+
+.ck .ck-input__field {
+    background-color: black;
+    color: lime;
+}
+
+.ck .ck-input__field:focus {
+    border-color: lime;
+}
