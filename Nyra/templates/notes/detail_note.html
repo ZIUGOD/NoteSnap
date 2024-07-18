@@ -13,12 +13,13 @@
           class="d-flex flex-column p-3"
           id="note-form-{{ note.id }}">
         {% csrf_token %}
+        {% if note.is_private %}<h3 class="text-center text-danger">Private note</h3>{% endif %}
         <h2 class="text-break h2 m-2 font-weight-normal text-center"
             id="note-title-{{ note.id }}">{{ note.title|safe }}</h2>
         <hr />
         <div class="p-3" id="note-text-{{ note.id }}">{{ note.text|safe }}</div>
         <div class="text-center m-3" id="note-metadata-{{ note.id }}">
-            <span>{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
+            <span>{{ note.created_at }}, <a ref="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
         </div>
         {% if note.created_at != note.updated_at %}
             <div class="text-center" id="note-edited-{{ note.id }}">

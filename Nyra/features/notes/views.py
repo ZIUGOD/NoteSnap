@@ -5,22 +5,14 @@ The views in this module are responsible for creating, updating, deleting, and d
 """
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models.query import QuerySet
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic import TemplateView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from .forms import NoteForm
 from .models import Note
-
-
-class Custom404View(TemplateView):
-    template_name = "components/error.html"
-
-    def get(self, request, *args, **kwargs):
-        response = self.render_to_response({})
-        response.status_code = 404
-        return response
 
 
 class NoteCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -56,6 +48,12 @@ class NoteDetailView(DetailView):
     model = Note
     template_name = "notes/detail_note.html"
     context_object_name = "note"
+
+    def get_object(self, queryset=None):
+        note = super().get_object(queryset)
+        if note.is_private and note.author != self.request.user:
+            return redirect("note_list")
+        return note
 
 
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
@@ -116,4 +114,16 @@ class NoteListView(ListView):
     template_name = "notes/index.html"
     context_object_name = "notes"
     ordering = ["-created_at"]
-    paginate_by = 18
+    paginate_by = 20
+
+    def get_queryset(self):
+        """
+        Returns the queryset of notes filtered by the current user.
+
+        If the user is a superuser, all notes are returned.
+        """
+        user = self.request.user
+        if user.is_authenticated:
+            return Note.objects.filter(author=user)
+        else:
+            return Note.objects.filter(is_private=False)

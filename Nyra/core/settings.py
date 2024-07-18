@@ -4,11 +4,7 @@ Django settings for the Nyra project.
 These settings configure various aspects of the Django project, including database settings,
 static files, internationalization, middleware, installed apps, and more.
 
-For more information on Django settings, see:
-https://docs.djangoproject.com/en/3.2/topics/settings/
-
-For the full list of Django settings and their values, see:
-https://docs.djangoproject.com/en/3.2/ref/settings/
+https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from os import path, getenv
@@ -34,13 +30,7 @@ DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL")
 
 ALLOWED_HOSTS = getenv("ALLOWED_HOSTS").split(",")
 
-print(
-    f"Allowed HOSTS: {ALLOWED_HOSTS}\nDEBUG: {DEBUG}\ne-mail to: {DEFAULT_FROM_EMAIL}\n",
-)
-
-
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -94,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -126,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -138,7 +126,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -146,9 +133,6 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     path.join(BASE_DIR, "static"),  # default
-    path.join(BASE_DIR, "templates/components"),
-    path.join(BASE_DIR, "templates/members"),
-    path.join(BASE_DIR, "templates/notes"),
 ]
 
 STATIC_ROOT = BASE_DIR / "static_django"
@@ -158,8 +142,6 @@ STATIC_ROOT = BASE_DIR / "static_django"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
-# django-ckeditor-5 settings
 customColorPalette = [
     {"color": "hsl(4, 90%, 58%)", "label": "Red"},
     {"color": "hsl(340, 82%, 52%)", "label": "Pink"},
@@ -169,9 +151,8 @@ customColorPalette = [
     {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
 ]
 
-CKEDITOR_5_CUSTOM_CSS = "css/components/django-ckeditor-5.css"  # optional
+# CKEDITOR_5_CUSTOM_CSS = "path_to.css"  # optional
 # CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage"  # optional
-
 CKEDITOR_5_CONFIGS = {
     "default": {
         "toolbar": [
@@ -185,7 +166,67 @@ CKEDITOR_5_CONFIGS = {
             "blockQuote",
             "imageUpload",
         ],
-        "allowedContent": True,
+        "language": "pt-br",
+        "image": {
+            "toolbar": [
+                "imageTextAlternative",
+                "|",
+                "imageStyle:alignLeft",
+                "imageStyle:full",
+                "imageStyle:alignRight",
+            ],
+            "styles": [
+                "full",
+                "alignLeft",
+                "alignRight",
+            ],
+        },
+        "table": {
+            "contentToolbar": [
+                "tableColumn",
+                "tableRow",
+                "mergeTableCells",
+                "tableProperties",
+                "tableCellProperties",
+            ],
+            "tableProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
+            "tableCellProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
+        },
+        "heading": {
+            "options": [
+                {
+                    "model": "paragraph",
+                    "title": "Paragraph",
+                    "class": "ck-heading_paragraph",
+                },
+                {
+                    "model": "heading1",
+                    "view": "h1",
+                    "title": "Heading 1",
+                    "class": "ck-heading_heading1",
+                },
+                {
+                    "model": "heading2",
+                    "view": "h2",
+                    "title": "Heading 2",
+                    "class": "ck-heading_heading2",
+                },
+                {
+                    "model": "heading3",
+                    "view": "h3",
+                    "title": "Heading 3",
+                    "class": "ck-heading_heading3",
+                },
+            ]
+        },
+        "height": 300,
+        "width": "auto",
     },
     "extends": {
         "blockToolbar": [
@@ -306,6 +347,7 @@ CKEDITOR_5_CONFIGS = {
 }
 
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
 # ╔───────────────────────────────────────────────╗ #
 # │▒███████▒ ██▓ █    ██   ▄████  ▒█████  ▓█████▄ │ #
 # │▒ ▒ ▒ ▄▀░▓██▒ ██  ▓██▒ ██▒ ▀█▒▒██▒  ██▒▒██▀ ██▌│ #
@@ -317,3 +359,4 @@ CKEDITOR_5_CONFIGS = {
 # │░ ░ ░ ░ ░ ▒ ░ ░░░ ░ ░ ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░ │ #
 # │  ░ ░     ░     ░           ░     ░ ░     ░    │ #
 # ╚───────────────────────────────────────────────╝ #
+# # # # # # # # # # # # # # # # # # # # # # # # # # #

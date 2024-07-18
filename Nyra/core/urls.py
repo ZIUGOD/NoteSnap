@@ -14,7 +14,6 @@ The urlpatterns list contains the following URL patterns:
 from django.contrib import admin
 from django.urls import path, include
 from features.notes.views import NoteListView
-from features.notes.views import Custom404View
 
 urlpatterns = [
     path("", NoteListView.as_view(), name="home_page"),
@@ -24,5 +23,3 @@ urlpatterns = [
     path("note/", include("features.notes.urls", namespace="note")),
     path("u/", include("features.members.urls", namespace="member")),
 ]
-
-handler404 = Custom404View.as_view()

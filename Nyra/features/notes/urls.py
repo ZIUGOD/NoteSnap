@@ -20,12 +20,12 @@ urlpatterns = [
         name="read_note",
     ),
     path(
-        "update/<int:pk>/",
+        "<int:pk>/update/",
         login_required(NoteUpdateView.as_view()),
         name="update_note",
     ),
     path(
-        "delete/<int:pk>/",
+        "<int:pk>/delete/",
         login_required(NoteDeleteView.as_view()),
         name="delete_note",
     ),

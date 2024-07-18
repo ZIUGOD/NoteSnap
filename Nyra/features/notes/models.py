@@ -38,6 +38,7 @@ class Note(models.Model):
         related_name="user_notes",
         on_delete=models.CASCADE,
     )
+    is_private = models.BooleanField(default=False, verbose_name="Is private?")
     objects = models.Manager()
 
     def save(self, *args, **kwargs):
