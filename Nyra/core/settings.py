@@ -7,28 +7,25 @@ static files, internationalization, middleware, installed apps, and more.
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from os import path, getenv
+from os import path
 from pathlib import Path
-from django.core.management.utils import get_random_secret_key
-from dotenv import load_dotenv
-
-load_dotenv()
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+env = environ.Env()
+environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_random_secret_key()
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv("DEBUG")
+DEBUG = env("DEBUG", default=False)
 
-DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL")
+ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
-ALLOWED_HOSTS = getenv("ALLOWED_HOSTS").split(",")
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 INSTALLED_APPS = [

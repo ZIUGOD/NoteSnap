@@ -4,8 +4,8 @@ This module contains views for handling notes in the Nyra application.
 The views in this module are responsible for creating, updating, deleting, and displaying notes.
 """
 
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models.query import QuerySet
+from django.contrib.auth.mixins import LoginRequiredMixin  # , UserPassesTestMixin
+from django.db.models import Q
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -15,14 +15,14 @@ from .forms import NoteForm
 from .models import Note
 
 
-class NoteCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+class NoteCreateView(LoginRequiredMixin, CreateView):  # UserPassesTestMixin
     """
     View for creating a new note.
 
     Inherits from CreateView, LoginRequiredMixin, and UserPassesTestMixin.
     """
 
-    permission_denied_message = "You must be a superuser to create a note."
+    # permission_denied_message = "You must be a superuser to create a note."
     login_url = reverse_lazy("login_user")
     model = Note
     template_name = "notes/create_note.html"
@@ -113,7 +113,7 @@ class NoteListView(ListView):
     model = Note
     template_name = "notes/index.html"
     context_object_name = "notes"
-    ordering = ["-created_at"]
+    ordering = "-created_at"
     paginate_by = 20
 
     def get_queryset(self):
@@ -124,6 +124,6 @@ class NoteListView(ListView):
         """
         user = self.request.user
         if user.is_authenticated:
-            return Note.objects.filter(author=user)
+            return Note.objects.filter(Q(author=user) | Q(is_private=False))
         else:
             return Note.objects.filter(is_private=False)

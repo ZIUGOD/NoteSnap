@@ -17,6 +17,7 @@
                         </a>
                         <div>
                             <span class="text-success">{{ note.author }}</span>
+                            {% if note.is_private %}<span class="text-danger">Private</span>{% endif %}
                         </div>
                     </li>
                 {% endfor %}

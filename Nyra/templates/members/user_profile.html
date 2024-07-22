@@ -44,12 +44,14 @@
             <ul id="user-notes"
                 class="list-group d-flex flex-column justify-content-center">
                 {% for note in nyra_user.user_notes.all %}
-                    <a href="{% url 'note:read_note' note.id %}"
-                       class="note-link text-decoration-none m-1 text-center my-1">
-                        <li id="note-{{ note.id }}" class="list-notes list-group-item">
-                            <h3 id="note-title-{{ note.id }}" class="h3 text-break">{{ note.title|safe }}</h3>
-                        </li>
-                    </a>
+                    {% if not note.is_private %}
+                        <a href="{% url 'note:read_note' note.id %}"
+                           class="note-link text-decoration-none m-1 text-center my-1">
+                            <li id="note-{{ note.id }}" class="list-notes list-group-item">
+                                <h3 id="note-title-{{ note.id }}" class="h3 text-break">{{ note.title|safe }}</h3>
+                            </li>
+                        </a>
+                    {% endif %}
                 {% endfor %}
             </ul>
         {% endif %}
