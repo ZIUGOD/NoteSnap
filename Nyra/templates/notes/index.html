@@ -9,18 +9,17 @@
             <ul id="notes-list"
                 class="d-flex flex-column justify-content-center list-group list-group-flush p-1 text-center">
                 {% for note in notes %}
-                    {% if not note.is_private %}
-                        <li class="list-group-item p-2 bg-black">
-                            <a id="note-{{ note.id }}"
-                               href="{% url 'note:read_note' note.id %}"
-                               class="text-decoration-none text-center align-items-center justify-content-center">
-                                <h3 class="text-break h3">{{ note.title|safe }}</h3>
-                            </a>
-                            <div>
-                                <span class="text-success">{{ note.author }}</span>
-                            </div>
-                        </li>
-                    {% endif %}
+                    <li class="list-group-item p-2 bg-black">
+                        <a id="note-{{ note.id }}"
+                           href="{% url 'note:read_note' note.id %}"
+                           class="text-decoration-none text-center align-items-center justify-content-center">
+                            <h3 class="text-break h3">{{ note.title|safe }}</h3>
+                        </a>
+                        <div>
+                            <span class="text-success">{{ note.author }}</span>
+                            {% if note.is_private %}<span class="text-danger">Private</span>{% endif %}
+                        </div>
+                    </li>
                 {% endfor %}
             </ul>
         {% else %}
