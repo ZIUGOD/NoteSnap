@@ -7,7 +7,8 @@ static files, internationalization, middleware, installed apps, and more.
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from os import path, getenv
+from os import path
+import dotenv
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 from dotenv import load_dotenv
@@ -21,14 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_random_secret_key()
+SECRET_KEY = getenv("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with True in production!
 DEBUG = getenv("DEBUG")
 
-DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL")
+ALLOWED_HOSTS = ["*"]
 
-ALLOWED_HOSTS = getenv("ALLOWED_HOSTS").split(",")
+print(f"Debug: {DEBUG}\n" f"Allowed Hosts: {ALLOWED_HOSTS}\n\n")
 
 # Application definition
 INSTALLED_APPS = [
@@ -151,8 +152,6 @@ customColorPalette = [
     {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
 ]
 
-# CKEDITOR_5_CUSTOM_CSS = "path_to.css"  # optional
-# CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage"  # optional
 CKEDITOR_5_CONFIGS = {
     "default": {
         "toolbar": [

@@ -11,6 +11,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.db.models import Q
 from .forms import NoteForm
 from .models import Note
 
@@ -113,7 +114,7 @@ class NoteListView(ListView):
     model = Note
     template_name = "notes/index.html"
     context_object_name = "notes"
-    ordering = ["-created_at"]
+    ordering = "-created_at"
     paginate_by = 20
 
     def get_queryset(self):
@@ -122,8 +123,13 @@ class NoteListView(ListView):
 
         If the user is a superuser, all notes are returned.
         """
+
+        queryset = super().get_queryset()
+
+        # pesquisar por Django Q
+
         user = self.request.user
         if user.is_authenticated:
-            return Note.objects.filter(author=user)
+            return queryset.filter(Q(author=user) & Q(is_private=False))
         else:
-            return Note.objects.filter(is_private=False)
+            return queryset.filter(is_private=False)
