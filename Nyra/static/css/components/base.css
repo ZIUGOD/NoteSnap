@@ -30,18 +30,15 @@ body {
     border-radius: 1em;
 }
 
-/* width */
 ::-webkit-scrollbar {
     width: 1.2em;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
     border-radius: 1em;
     background-color: #222222;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: black;
     border-radius: 1em;
@@ -49,7 +46,6 @@ body {
     box-shadow: 0 0 1em lime;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
