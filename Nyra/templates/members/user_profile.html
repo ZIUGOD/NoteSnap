@@ -54,6 +54,8 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+        {% else %}
+            <h3 id="no-notes" class="text-center my-4">No notes from {{ nyra_user.username }}</h3>
         {% endif %}
     </div>
 {% endblock content %}

@@ -112,16 +112,12 @@ class NoteListView(ListView):
 
     model = Note
     template_name = "notes/index.html"
-    context_object_name = "notes"
     ordering = "-created_at"
-    paginate_by = 20
+    context_object_name = "notes"
+    paginate_by = 50
 
     def get_queryset(self):
-        """
-        Returns the queryset of notes filtered by the current user.
-
-        If the user is a superuser, all notes are returned.
-        """
+        """Returns the queryset of notes filtered by the current user."""
         user = self.request.user
         if user.is_authenticated:
             return Note.objects.filter(Q(author=user) | Q(is_private=False))

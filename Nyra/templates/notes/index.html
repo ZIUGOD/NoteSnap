@@ -51,7 +51,7 @@
                     {% if page_obj.paginator.num_pages > 5 and page_obj.number != page_obj.paginator.num_pages %}
                         <a id="last-page"
                            href="?page={{ page_obj.paginator.num_pages }}"
-                           class="btn m-1">Last page ({{ page_obj.paginator.num_pages }})</a>
+                           class="btn m-1 border-3 border-warning">Last page ({{ page_obj.paginator.num_pages }})</a>
                     {% endif %}
                 </div>
             </ul>
