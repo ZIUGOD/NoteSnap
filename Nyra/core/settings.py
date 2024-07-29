@@ -25,7 +25,19 @@ DEBUG = env("DEBUG", default=False)
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
+print(ALLOWED_HOSTS)
+
 CSRF_COOKIE_SECURE = True
+
+SECURE_HSTS_SECONDS = env("SECURE_HSTS_SECONDS")  # (required)
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # (required)
+
+SECURE_SSL_REDIRECT = True  # (required) important for security
+
+SESSION_COOKIE_SECURE = True  # (required)
+
+SECURE_HSTS_PRELOAD = True  # (required)
 
 # Application definition
 INSTALLED_APPS = [
@@ -344,16 +356,9 @@ CKEDITOR_5_CONFIGS = {
 }
 
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # #
-# ╔───────────────────────────────────────────────╗ #
-# │▒███████▒ ██▓ █    ██   ▄████  ▒█████  ▓█████▄ │ #
-# │▒ ▒ ▒ ▄▀░▓██▒ ██  ▓██▒ ██▒ ▀█▒▒██▒  ██▒▒██▀ ██▌│ #
-# │░ ▒ ▄▀▒░ ▒██▒▓██  ▒██░▒██░▄▄▄░▒██░  ██▒░██   █▌│ #
-# │  ▄▀▒   ░░██░▓▓█  ░██░░▓█  ██▓▒██   ██░░▓█▄   ▌│ #
-# │▒███████▒░██░▒▒█████▓ ░▒▓███▀▒░ ████▓▒░░▒████▓ │ #
-# │░▒▒ ▓░▒░▒░▓  ░▒▓▒ ▒ ▒  ░▒   ▒ ░ ▒░▒░▒░  ▒▒▓  ▒ │ #
-# │░░▒ ▒ ░ ▒ ▒ ░░░▒░ ░ ░   ░   ░   ░ ▒ ▒░  ░ ▒  ▒ │ #
-# │░ ░ ░ ░ ░ ▒ ░ ░░░ ░ ░ ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░ │ #
-# │  ░ ░     ░     ░           ░     ░ ░     ░    │ #
-# ╚───────────────────────────────────────────────╝ #
-# # # # # # # # # # # # # # # # # # # # # # # # # # #
+#  _____                _____
+# ( ___ )--------------( ___ )
+#  |   |                |   |
+#  |   |     ZIUGOD     |   |
+#  |___|                |___|
+# (_____)--------------(_____)
