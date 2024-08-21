@@ -25,8 +25,6 @@ DEBUG = env("DEBUG", default=False)
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
-print(ALLOWED_HOSTS)
-
 CSRF_COOKIE_SECURE = True
 
 SECURE_HSTS_SECONDS = env("SECURE_HSTS_SECONDS")  # (required)
@@ -54,8 +52,14 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "django_seed",  #
     "django_ckeditor_5",
+    "django_icons",
 ]
 
+DJANGO_ICONS = {
+    "ICONS": {
+        "padlock": {"name": "fa fa-lock"},
+    },
+}
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -71,6 +75,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_currentuser.middleware.ThreadLocalUserMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"

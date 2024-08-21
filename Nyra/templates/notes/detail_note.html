@@ -13,9 +13,9 @@
           class="d-flex flex-column p-3"
           id="note-form-{{ note.id }}">
         {% csrf_token %}
-        {% if note.is_private %}<h3 class="text-center text-danger">Private note</h3>{% endif %}
         <h2 class="text-break h2 m-2 font-weight-normal text-center"
             id="note-title-{{ note.id }}">{{ note.title|safe }}</h2>
+        {% if note.is_private %}<h3 class="text-center text-danger">&#xf023;</h3>{% endif %}
         <hr />
         <div class="p-3" id="note-text-{{ note.id }}">{{ note.text|safe }}</div>
         <div class="text-center m-3" id="note-metadata-{{ note.id }}">

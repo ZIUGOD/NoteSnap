@@ -1,4 +1,5 @@
 {% extends "components/base.html" %}
+{% load icons %}
 {% load static %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/notes/index.css' %}">
@@ -17,7 +18,9 @@
                         </a>
                         <div>
                             <span class="text-success">{{ note.author }}</span>
-                            {% if note.is_private %}<span class="text-danger">Private</span>{% endif %}
+                            {% if note.is_private %}
+                                <span class="text-danger">{% icon 'padlock' %}</span>
+                            {% endif %}
                         </div>
                     </li>
                 {% endfor %}
