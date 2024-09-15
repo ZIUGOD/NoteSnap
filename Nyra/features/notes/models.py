@@ -23,22 +23,28 @@ class Note(models.Model):
 
     text = CKEditor5Field(
         "Text",
+        max_length=1024,
         config_name="extends",
         blank=True,
     )
+
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Created at: ",
     )
+
     updated_at = models.DateTimeField(
         auto_now=True,
         verbose_name="Updated at: ",
     )
+
     author = CurrentUserField(
         related_name="user_notes",
         on_delete=models.CASCADE,
     )
+
     is_private = models.BooleanField(default=False, verbose_name="Is private?")
+
     objects = models.Manager()
 
     def save(self, *args, **kwargs):
