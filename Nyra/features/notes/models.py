@@ -16,7 +16,7 @@ class Note(models.Model):
     title = models.CharField(
         verbose_name="Title",
         max_length=128,
-        unique=True,
+        unique=False,
         blank=False,
         null=False,
     )
