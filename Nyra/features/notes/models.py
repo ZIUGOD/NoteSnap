@@ -43,7 +43,10 @@ class Note(models.Model):
         on_delete=models.CASCADE,
     )
 
-    is_private = models.BooleanField(default=False, verbose_name="Is private?")
+    is_private = models.BooleanField(
+        verbose_name="Is this note private?",
+        default=False,
+    )
 
     objects = models.Manager()
 
