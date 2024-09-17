@@ -1,26 +1,50 @@
 {% extends "components/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/notes/create_note.css' %}">
 {% endblock head %}
-{% load crispy_forms_tags %}
 {% block title %}
     - Create new note
 {% endblock title %}
 {% block content %}
-    <form method="post"
-          action="{% url 'note:create_note' %}"
-          class="d-flex flex-column align-items-center justify-content-center p-3 m-2 text-center">
-        <div class="m-2">{% crispy form %}</div>
-        <div class="my-3 mb-5">
-            <input id="create-note-button-1"
-                   type="submit"
-                   value="Criar nota"
-                   class="m-2 py-2 px-3 btn">
-            <button id="back-button-1"
-                    type="button"
-                    onclick="window.history.back()"
-                    class="m-2 py-2 px-3 btn">Voltar</button>
-        </div>
-    </form>
+    <div class="container mt-5">
+        <form method="post"
+              action="{% url 'note:create_note' %}"
+              class="d-flex flex-column align-items-center justify-content-center p-3 text-center">
+            {% csrf_token %}
+            <div class="m-2 w-75">
+                {% crispy form %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <small id="charCount">0/1024 characters</small>
+                    <small id="wordCount">0 words</small>
+                </div>
+            </div>
+            <div class="my-3">
+                <input id="create-note-button-1"
+                       type="submit"
+                       value="Create note"
+                       class="btn m-2 py-2 px-4">
+                <button id="back-button-1"
+                        type="button"
+                        onclick="window.history.back()"
+                        class="btn m-2 py-2 px-4">Back</button>
+            </div>
+        </form>
+    </div>
+    <script>
+    function countCharactersAndWords(textarea) {
+    const maxLength = 1024;
+    const text = textarea.value;
+    const charCount = text.length;
+    const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+
+    document.getElementById('charCount').innerText = `${charCount}/${maxLength} characters`;
+    document.getElementById('wordCount').innerText = `${wordCount} words`;
+
+    if (charCount >= maxLength) {
+        textarea.value = text.substring(0, maxLength);
+    }
+}
+    </script>
 {% endblock content %}

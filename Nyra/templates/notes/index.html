@@ -1,5 +1,5 @@
 {% extends "components/base.html" %}
-{% load icons %}
+{% comment %} {% load icons %} {% endcomment %}
 {% load static %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/notes/index.css' %}">
@@ -14,13 +14,11 @@
                         <a id="note-{{ note.id }}"
                            href="{% url 'note:read_note' note.id %}"
                            class="text-decoration-none text-center align-items-center justify-content-center">
-                            <h3 class="text-break h3">{{ note.title|safe }}</h3>
+                            <h3 class="text-break h3">{{ note.title }}</h3>
                         </a>
                         <div>
                             <span class="text-success">{{ note.author }}</span>
-                            {% if note.is_private %}
-                                <span class="text-danger">{% icon 'padlock' %}</span>
-                            {% endif %}
+                            {% if note.is_private %}<span class="text-danger text-center">PRIVATE</span>{% endif %}
                         </div>
                     </li>
                 {% endfor %}

@@ -1,15 +1,4 @@
-"""
-This module contains views related to member management in the Nyra application.
-
-It includes views for user authentication, user profile, and user registration.
-
-Classes:
-- EmailUserCreationForm: A form for user registration that includes additional
-    fields for first name, last name, and email.
-- MemberLoginView: A view for user login.
-- UserProfileView: A view for displaying user profile information.
-"""
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
@@ -18,12 +7,14 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import redirect
 from django import forms
+from ..notes.models import Note
+from django.db.models import Q
 
 
 class EmailUserCreationForm(UserCreationForm):
     """
     A form for user registration that includes additional fields for
-        first name, last name, and email.
+    first name, last name, and email.
     """
 
     first_name = forms.CharField(
@@ -108,14 +99,24 @@ class MemberLoginView(LoginView):
 
 class UserProfileView(generic.TemplateView):
     """
-    A view for displaying user profile information.
+    A view for displaying user profile information and their notes.
+    Only accessible to authenticated users.
     """
 
     template_name = "members/user_profile.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["nyra_user"] = User.objects.filter(
-            username=self.kwargs["username"]
-        ).first()
+        nyra_user = User.objects.filter(username=self.kwargs["username"]).first()
+        context["nyra_user"] = nyra_user
+
+        if nyra_user:
+            if self.request.user == nyra_user:
+                # Exibe todas as notas (privadas e públicas) se o dono do perfil estiver logado
+                context["user_notes"] = Note.objects.filter(author=nyra_user)
+            else:
+                # Exibe apenas as notas públicas para visitantes
+                context["user_notes"] = Note.objects.filter(
+                    author=nyra_user, is_private=False
+                )
         return context

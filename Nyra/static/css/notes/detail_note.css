@@ -41,3 +41,8 @@ span a:hover {
     background-color: lime;
     box-shadow: 0 0 1em lime;
 }
+
+.text-wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

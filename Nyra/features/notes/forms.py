@@ -24,6 +24,8 @@ class NoteForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Enter a title...",
+                "class": "form-control-lg",
+                "maxlength": 1024,
             }
         ),
     )
@@ -38,11 +40,18 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = ["title", "text", "is_private"]
         widgets = {
-            "text": CKEditor5Widget(
-                attrs={"class": "django_ckeditor_5"},
-                config_name="default",
+            "text": forms.Textarea(
+                attrs={
+                    "placeholder": "Write something here...",
+                    "class": "form-control-lg text-break",
+                    "rows": 15,
+                    "maxlength": 1024,
+                    "oninput": "countCharactersAndWords(this)",
+                }
             ),
-            "is_private": forms.CheckboxInput(),
+            "is_private": forms.CheckboxInput(
+                attrs={"class": "d-flex flex-column"},
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -50,4 +59,4 @@ class NoteForm(forms.ModelForm):
         self.helper = FormHelper(self)
 
         self.helper.form_tag = False
-        self.helper.label_class = "d-flex justify-content-center"
+        self.helper.label_class = ""

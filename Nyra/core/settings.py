@@ -21,21 +21,21 @@ environ.Env.read_env()
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG", default=False)
+DEBUG = True
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
+# ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 
-SECURE_HSTS_SECONDS = env("SECURE_HSTS_SECONDS")  # (required)
+# SECURE_HSTS_SECONDS = env("SECURE_HSTS_SECONDS")  # (required)
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # (required)
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # (required)
 
-SECURE_SSL_REDIRECT = True  # (required) important for security
+SECURE_SSL_REDIRECT = False  # (required) important for security
 
-SESSION_COOKIE_SECURE = True  # (required)
+SESSION_COOKIE_SECURE = False  # (required)
 
-SECURE_HSTS_PRELOAD = True  # (required)
+# SECURE_HSTS_PRELOAD = True  # (required)
 
 # Application definition
 INSTALLED_APPS = [
@@ -51,20 +51,11 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_seed",  #
-    "django_ckeditor_5",
-    "django_icons",
 ]
 
-DJANGO_ICONS = {
-    "ICONS": {
-        "padlock": {"name": "fa fa-lock"},
-    },
-}
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-# CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -149,6 +140,8 @@ STATICFILES_DIRS = [
     path.join(BASE_DIR, "static"),  # default
 ]
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 STATIC_ROOT = BASE_DIR / "static_django"
 
 # Default primary key field type
@@ -156,214 +149,10 @@ STATIC_ROOT = BASE_DIR / "static_django"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-customColorPalette = [
-    {"color": "hsl(4, 90%, 58%)", "label": "Red"},
-    {"color": "hsl(340, 82%, 52%)", "label": "Pink"},
-    {"color": "hsl(291, 64%, 42%)", "label": "Purple"},
-    {"color": "hsl(262, 52%, 47%)", "label": "Deep Purple"},
-    {"color": "hsl(231, 48%, 48%)", "label": "Indigo"},
-    {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
-]
-
-# CKEDITOR_5_CUSTOM_CSS = "path_to.css"  # optional
-# CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage"  # optional
-CKEDITOR_5_CONFIGS = {
-    "default": {
-        "toolbar": [
-            "heading",
-            "|",
-            "bold",
-            "italic",
-            "link",
-            "bulletedList",
-            "numberedList",
-            "blockQuote",
-            "imageUpload",
-        ],
-        "language": "pt-br",
-        "image": {
-            "toolbar": [
-                "imageTextAlternative",
-                "|",
-                "imageStyle:alignLeft",
-                "imageStyle:full",
-                "imageStyle:alignRight",
-            ],
-            "styles": [
-                "full",
-                "alignLeft",
-                "alignRight",
-            ],
-        },
-        "table": {
-            "contentToolbar": [
-                "tableColumn",
-                "tableRow",
-                "mergeTableCells",
-                "tableProperties",
-                "tableCellProperties",
-            ],
-            "tableProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-            "tableCellProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-        },
-        "heading": {
-            "options": [
-                {
-                    "model": "paragraph",
-                    "title": "Paragraph",
-                    "class": "ck-heading_paragraph",
-                },
-                {
-                    "model": "heading1",
-                    "view": "h1",
-                    "title": "Heading 1",
-                    "class": "ck-heading_heading1",
-                },
-                {
-                    "model": "heading2",
-                    "view": "h2",
-                    "title": "Heading 2",
-                    "class": "ck-heading_heading2",
-                },
-                {
-                    "model": "heading3",
-                    "view": "h3",
-                    "title": "Heading 3",
-                    "class": "ck-heading_heading3",
-                },
-            ]
-        },
-        "height": 300,
-        "width": "auto",
-    },
-    "extends": {
-        "blockToolbar": [
-            "paragraph",
-            "heading1",
-            "heading2",
-            "heading3",
-            "|",
-            "bulletedList",
-            "numberedList",
-            "|",
-            "blockQuote",
-        ],
-        "toolbar": [
-            "heading",
-            "|",
-            "outdent",
-            "indent",
-            "|",
-            "bold",
-            "italic",
-            "link",
-            "underline",
-            "strikethrough",
-            "code",
-            "subscript",
-            "superscript",
-            "highlight",
-            "|",
-            "codeBlock",
-            "sourceEditing",
-            "insertImage",
-            "bulletedList",
-            "numberedList",
-            "todoList",
-            "|",
-            "blockQuote",
-            "imageUpload",
-            "|",
-            "fontSize",
-            "fontFamily",
-            "fontColor",
-            "fontBackgroundColor",
-            "mediaEmbed",
-            "removeFormat",
-            "insertTable",
-        ],
-        "image": {
-            "toolbar": [
-                "imageTextAlternative",
-                "|",
-                "imageStyle:alignLeft",
-                "imageStyle:alignRight",
-                "imageStyle:alignCenter",
-                "imageStyle:side",
-                "|",
-            ],
-            "styles": [
-                "full",
-                "side",
-                "alignLeft",
-                "alignRight",
-                "alignCenter",
-            ],
-        },
-        "table": {
-            "contentToolbar": [
-                "tableColumn",
-                "tableRow",
-                "mergeTableCells",
-                "tableProperties",
-                "tableCellProperties",
-            ],
-            "tableProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-            "tableCellProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-        },
-        "heading": {
-            "options": [
-                {
-                    "model": "paragraph",
-                    "title": "Paragraph",
-                    "class": "ck-heading_paragraph",
-                },
-                {
-                    "model": "heading1",
-                    "view": "h1",
-                    "title": "Heading 1",
-                    "class": "ck-heading_heading1",
-                },
-                {
-                    "model": "heading2",
-                    "view": "h2",
-                    "title": "Heading 2",
-                    "class": "ck-heading_heading2",
-                },
-                {
-                    "model": "heading3",
-                    "view": "h3",
-                    "title": "Heading 3",
-                    "class": "ck-heading_heading3",
-                },
-            ]
-        },
-    },
-    "list": {
-        "properties": {
-            "styles": "true",
-            "startIndex": "true",
-            "reversed": "true",
-        }
-    },
-}
-
-
-#  _____                _____
-# ( ___ )--------------( ___ )
-#  |   |                |   |
-#  |   |     ZIUGOD     |   |
-#  |___|                |___|
-# (_____)--------------(_____)
+#  _____                _____                _____                _____                _____
+# ( ___ )--------------( ___ )--------------( ___ )--------------( ___ )--------------( ___ )
+#  |   |                |   |                |   |                |   |                |   |
+#  |   |     ZIUGOD     |   |    ZIUGOD      |   |    ZIUGOD      |   |    ZIUGOD      |   |
+#  |___|                |___|                |___|                |___|                |___|
+# (_____)--------------(_____)--------------(_____)--------------(_____)--------------(_____)
+#

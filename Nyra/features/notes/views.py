@@ -50,6 +50,7 @@ class NoteDetailView(DetailView):
     context_object_name = "note"
 
     def get_object(self, queryset=None):
+        print("REQUEST:", self.request)
         note = super().get_object(queryset)
         if note.is_private and note.author != self.request.user:
             return redirect("note_list")

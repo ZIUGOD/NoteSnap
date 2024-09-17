@@ -16,9 +16,26 @@
     box-shadow: 0 0 1em lime;
 }
 
-#cke_id_text, #cke_1_bottom, #cke_1_contents {
+#cke_id_text,
+#cke_1_bottom,
+#cke_1_contents {
     border: 0.2em solid lime;
     color: lime;
     text-shadow: 0 0 0.5em lime;
-    background-color: black;
+    background-color: white;
+}
+
+textarea {
+    border: 2em solid gold;
+    color: lime;
+    text-shadow: 0 0 0.5em lime;
+    background-color: white;
+}
+
+#div_id_is_private {
+    display: flex;
+    flex-direction: row;
+    color: lime;
+    gap: 1em;
+    margin: 1em 0 0 0;
 }

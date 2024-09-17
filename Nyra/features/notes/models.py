@@ -16,16 +16,13 @@ class Note(models.Model):
     title = models.CharField(
         verbose_name="Title",
         max_length=128,
-        unique=False,
-        blank=False,
-        null=False,
+        default="",
     )
 
-    text = CKEditor5Field(
-        "Text",
+    text = models.TextField(
+        verbose_name="Text",
         max_length=1024,
-        config_name="extends",
-        blank=True,
+        default="",
     )
 
     created_at = models.DateTimeField(
