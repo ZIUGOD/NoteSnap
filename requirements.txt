@@ -3,10 +3,11 @@ django-environ==0.11.2
 django-crispy-forms==2.3
 crispy-bootstrap5==2024.2
 django-seed==0.3.1
-django-ckeditor==5-0.2.13
+django-ckeditor-5==0.2.13
 django-currentuser==0.8.0
-django-ckeditor==6.7.1
 django-cors-headers==4.4.0
+dj-database-url==2.2.0
 djlint==1.35.2
 gunicorn==23.0.0
+psycopg2==2.9.9
 whitenoise==6.7.0

@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from os import path
 from pathlib import Path
+import dj_database_url
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,21 +22,27 @@ environ.Env.read_env()
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
-# ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
-CSRF_COOKIE_SECURE = False
+SECURE_HSTS_SECONDS = 31536000 / 12  # 1 year / 12
 
-# SECURE_HSTS_SECONDS = env("SECURE_HSTS_SECONDS")  # (required)
+CSRF_TRUSTED_ORIGINS = ["https://*.fly.dev"]
 
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # (required)
+CSRF_COOKIE_SECURE = True
 
-SECURE_SSL_REDIRECT = False  # (required) important for security
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # (required)
 
-SESSION_COOKIE_SECURE = False  # (required)
+SECURE_SSL_REDIRECT = True  # (required) important for security
 
-# SECURE_HSTS_PRELOAD = True  # (required)
+SESSION_COOKIE_SECURE = True  # (required)
+
+SECURE_HSTS_PRELOAD = True  # (required)
+
+SECURE_CONTENT_TYPE_NOSNIFF = True  # (required)
+
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 # Application definition
 INSTALLED_APPS = [
@@ -51,6 +58,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_seed",  #
+    "whitenoise.runserver_nostatic",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -95,9 +103,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": path.join(BASE_DIR, "db.sqlite3"),
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=500, conn_health_checks=True)
+DATABASES["default"].update(db_from_env)
 
 LOGOUT_REDIRECT_URL = "member:login_user"
 LOGIN_REDIRECT_URL = "home_page"
@@ -131,9 +142,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
@@ -148,11 +156,3 @@ STATIC_ROOT = BASE_DIR / "static_django"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-#  _____                _____                _____                _____                _____
-# ( ___ )--------------( ___ )--------------( ___ )--------------( ___ )--------------( ___ )
-#  |   |                |   |                |   |                |   |                |   |
-#  |   |     ZIUGOD     |   |    ZIUGOD      |   |    ZIUGOD      |   |    ZIUGOD      |   |
-#  |___|                |___|                |___|                |___|                |___|
-# (_____)--------------(_____)--------------(_____)--------------(_____)--------------(_____)
-#
