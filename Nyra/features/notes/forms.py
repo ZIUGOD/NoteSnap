@@ -25,7 +25,7 @@ class NoteForm(forms.ModelForm):
             attrs={
                 "placeholder": "Enter a title...",
                 "class": "form-control-lg",
-                "maxlength": 1024,
+                "maxlength": 128,
             }
         ),
     )
