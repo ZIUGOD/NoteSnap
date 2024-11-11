@@ -1,10 +1,5 @@
 """
 Django settings for the Nyra project.
-
-These settings configure various aspects of the Django project, including database settings,
-static files, internationalization, middleware, installed apps, and more.
-
-https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from os import path
@@ -12,37 +7,41 @@ from pathlib import Path
 import dj_database_url
 import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 environ.Env.read_env()
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# Security keys and debug mode
 SECRET_KEY = env("SECRET_KEY")
+DEBUG = env.bool("DEBUG", default=False)
 
-### Danger zone ###
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
-
+# Allowed hosts and security settings
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
-
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS").split(",")
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=2592000)
 
-SECURE_HSTS_SECONDS = 31536000 / 6  # 2 months
 
-SECURE_HSTS_PRELOAD = True
+if DEBUG:  # Development environment
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SSL_CERTIFICATE = env.str("SSL_CERTIFICATE", default=None)
+    SSL_KEY = env.str("SSL_KEY", default=None)
 
-SECURE_SSL_REDIRECT = True
+    if SSL_CERTIFICATE and SSL_KEY:
+        print("> Running local server with HTTPS using provided certificates")
+    else:
+        print("> Running local server with HTTP (no SSL certificates provided)")
 
-SESSION_COOKIE_SECURE = True
-
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-CSRF_COOKIE_SECURE = True
-### End of danger zone ###
+else:  # Production environment
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
@@ -54,16 +53,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # # Third-party apps
     "features.members",
     "features.notes",
     "crispy_forms",
     "crispy_bootstrap5",
-    "django_seed",  #
+    "django_seed",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
@@ -98,16 +95,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+# Database configuration
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-
 db_from_env = dj_database_url.config(conn_max_age=500, conn_health_checks=True)
 DATABASES["default"].update(db_from_env)
 
@@ -115,56 +109,35 @@ LOGOUT_REDIRECT_URL = "member:login_user"
 LOGIN_REDIRECT_URL = "home_page"
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
+# Localization
 LANGUAGE_CODE = "en"
-
 TIME_ZONE = "America/Sao_Paulo"
-
 USE_I18N = True
-
 USE_TZ = True
 
+# Static files
 STATIC_URL = "/static/"
-
-STATICFILES_DIRS = [
-    path.join(BASE_DIR, "static"),  # default
-]
-
+STATICFILES_DIRS = [path.join(BASE_DIR, "static")]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 STATIC_ROOT = BASE_DIR / "static_django"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Debugging prints
 print(
     f"DEBUG: {DEBUG}\n"
     f"ALLOWED_HOSTS: {ALLOWED_HOSTS}\n"
     f"CSRF_TRUSTED_ORIGINS: {CSRF_TRUSTED_ORIGINS}\n"
     f"SECURE_HSTS_SECONDS: {SECURE_HSTS_SECONDS}\n"
-    f"SECURE_HSTS_PRELOAD: {SECURE_HSTS_PRELOAD}\n"
-    f"SECURE_HSTS_INCLUDE_SUBDOMAINS: {SECURE_HSTS_INCLUDE_SUBDOMAINS}\n"
     f"SECURE_SSL_REDIRECT: {SECURE_SSL_REDIRECT}\n"
     f"SESSION_COOKIE_SECURE: {SESSION_COOKIE_SECURE}\n"
     f"CSRF_COOKIE_SECURE: {CSRF_COOKIE_SECURE}\n"
