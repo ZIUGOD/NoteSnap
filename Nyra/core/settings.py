@@ -30,15 +30,11 @@ if DEBUG:  # Development environment
     SSL_CERTIFICATE = env.str("SSL_CERTIFICATE", default=None)
     SSL_KEY = env.str("SSL_KEY", default=None)
 
-    if SSL_CERTIFICATE and SSL_KEY:
-        print("> Running local server with HTTPS using provided certificates")
-    else:
-        print("> Running local server with HTTP (no SSL certificates provided)")
-
 else:  # Production environment
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    HOST_SCHEME = "https://"
     SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -57,7 +53,6 @@ INSTALLED_APPS = [
     "features.notes",
     "crispy_forms",
     "crispy_bootstrap5",
-    "django_seed",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -96,6 +91,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 # Database configuration
+DATABASE_URL = env("DATABASE_URL")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -103,7 +99,7 @@ DATABASES = {
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=500, conn_health_checks=True)
-DATABASES["default"].update(db_from_env)
+DATABASES["default"] = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 
 LOGOUT_REDIRECT_URL = "member:login_user"
 LOGIN_REDIRECT_URL = "home_page"
@@ -131,14 +127,3 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_ROOT = BASE_DIR / "static_django"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Debugging prints
-print(
-    f"DEBUG: {DEBUG}\n"
-    f"ALLOWED_HOSTS: {ALLOWED_HOSTS}\n"
-    f"CSRF_TRUSTED_ORIGINS: {CSRF_TRUSTED_ORIGINS}\n"
-    f"SECURE_HSTS_SECONDS: {SECURE_HSTS_SECONDS}\n"
-    f"SECURE_SSL_REDIRECT: {SECURE_SSL_REDIRECT}\n"
-    f"SESSION_COOKIE_SECURE: {SESSION_COOKIE_SECURE}\n"
-    f"CSRF_COOKIE_SECURE: {CSRF_COOKIE_SECURE}\n"
-)

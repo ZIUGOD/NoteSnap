@@ -31,7 +31,9 @@ class Note(models.Model):
     )
 
     updated_at = models.DateTimeField(
-        auto_now=True,
+        default=timezone.now,
+        null=True,
+        blank=True,
         verbose_name="Updated at: ",
     )
 

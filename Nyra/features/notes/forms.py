@@ -2,7 +2,6 @@
 A module that defines a Django Form class for interacting with the 'Note' model.
 """
 
-from django_ckeditor_5.widgets import CKEditor5Widget
 from crispy_forms.helper import FormHelper
 from django import forms
 from .models import Note
@@ -30,6 +29,7 @@ class NoteForm(forms.ModelForm):
         ),
     )
 
+
     class Meta:
         """
         A nested class that provides metadata for the NoteForm class. It
@@ -44,13 +44,17 @@ class NoteForm(forms.ModelForm):
                 attrs={
                     "placeholder": "Write something here...",
                     "class": "form-control-lg text-break",
-                    "rows": 15,
-                    "maxlength": 1024,
+                    "rows": 10,
+                    "cols": 10,
+                    "minlength": 1024,
                     "oninput": "countCharactersAndWords(this)",
                 }
             ),
             "is_private": forms.CheckboxInput(
-                attrs={"class": "d-flex flex-column"},
+                attrs={
+                    "class": "form-check-input", 
+                    "id": "is_private"
+                },
             ),
         }
 

@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="{% static 'css/notes/index.css' %}">
 {% endblock head %}
 {% block content %}
-    <div id="notes-container" class="p-1">
+    <div id="notes-container" class="p-0">
         {% if notes %}
             <ul id="notes-list"
-                class="d-flex flex-column justify-content-center list-group list-group-flush p-1 text-center">
+                class="d-flex flex-column justify-content-center list-group list-group-flush p-0 text-center">
                 {% for note in notes %}
-                    <li class="list-group-item p-2 bg-black">
+                    <li class="list-group-item bg-black">
                         <a id="note-{{ note.id }}"
                            href="{% url 'note:read_note' note.id %}"
                            class="text-decoration-none text-center align-items-center justify-content-center">

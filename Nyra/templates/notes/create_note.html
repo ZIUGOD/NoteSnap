@@ -11,15 +11,10 @@
     <div class="container mt-5">
         <form method="post"
               action="{% url 'note:create_note' %}"
-              class="d-flex flex-column align-items-center justify-content-center p-3 text-center">
+              class="d-flex flex-column align-items-center justify-content-center text-center">
             {% csrf_token %}
             <div class="m-2 w-75">
-                {% crispy form %}
-                <div class="d-flex justify-content-evenly align-items-center">
-                    <small id="charCount">0/1024 characters</small>
-                    <small id="wordCount">0 words</small>
-                </div>
-            </div>
+            {{ form|crispy }}
             <div class="my-3">
                 <input id="create-note-button-1"
                        type="submit"
@@ -33,18 +28,18 @@
         </form>
     </div>
     <script>
-    function countCharactersAndWords(textarea) {
-    const maxLength = 1024;
-    const text = textarea.value;
-    const charCount = text.length;
-    const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+        function countCharactersAndWords(textarea) {
+            const maxLength = 1024;
+            const text = textarea.value;
+            const charCount = text.length;
+            const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
 
-    document.getElementById('charCount').innerText = `${charCount}/${maxLength} characters`;
-    document.getElementById('wordCount').innerText = `${wordCount} words`;
+            document.getElementById('charCount').innerText = `${charCount}/${maxLength} characters`;
+            document.getElementById('wordCount').innerText = `${wordCount} words`;
 
-    if (charCount >= maxLength) {
-        textarea.value = text.substring(0, maxLength);
-    }
-}
+            if (charCount >= maxLength) {
+                textarea.value = text.substring(0, maxLength);
+            }
+        }
     </script>
 {% endblock content %}

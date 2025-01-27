@@ -17,11 +17,11 @@
             id="note-title-{{ note.id }}">{{ note.title }}</h2>
         {% if note.is_private %}<span class="text-danger text-center">PRIVATE</span>{% endif %}
         <hr />
-        <div class="p-1 text-wrap" id="note-text-{{ note.id }}">{{ note.text }}</div>
+        <div class="p-1 text-wrap" id="note-text-{{ note.id }}">{{ note.text|linebreaks }}</div>
         <div class="text-center m-3" id="note-metadata-{{ note.id }}">
             <span>{{ note.created_at }} by <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
         </div>
-        {% if note.created_at != note.updated_at %}
+        {% if note.updated_at and note.updated_at > note.created_at %}
             <div class="text-center" id="note-edited-{{ note.id }}">
                 <span>Edited</span>
             </div>
