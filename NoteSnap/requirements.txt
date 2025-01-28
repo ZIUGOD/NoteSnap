@@ -1,5 +1,6 @@
 crispy-bootstrap5==2024.10
 Django==5.1.4
+django-ckeditor-5==0.2.15
 django-currentuser==0.8.0
 django-crispy-forms==2.3
 dj-database-url==2.3.0

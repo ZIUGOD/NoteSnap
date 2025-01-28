@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'css/members/user_profile.css' %}">
 {% endblock head %}
 {% block title %}
-    - {{ nyra_user.username }}
+    - {{ notesnap_user.username }}
 {% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -12,27 +12,27 @@
         <div id="profile-info"
              class="d-flex flex-column align-items-center justify-content-center p-2 shadow m-2 text-center">
             <h3 id="profile-name" class="text-center">
-                <strong>{{ nyra_user.first_name|capfirst }} {{ nyra_user.last_name|capfirst }}</strong>
+                <strong>{{ notesnap_user.first_name|capfirst }} {{ notesnap_user.last_name|capfirst }}</strong>
             </h3>
             <ul id="profile-details" class="list-group list-group-flush text-start">
-                <li id="username" class="list-group-item">@{{ nyra_user.username }}, {{ nyra_user.id }}</li>
-                {% if nyra_user.first_name %}
+                <li id="username" class="list-group-item">@{{ notesnap_user.username }}, {{ notesnap_user.id }}</li>
+                {% if notesnap_user.first_name %}
                     <li id="full-name" class="list-group-item text-center">
-                        <strong>{{ nyra_user.first_name|capfirst }} {{ nyra_user.last_name|capfirst }}</strong>
+                        <strong>{{ notesnap_user.first_name|capfirst }} {{ notesnap_user.last_name|capfirst }}</strong>
                     </li>
                 {% endif %}
-                <li id="joined-date" class="list-group-item text-center">Memer since {{ nyra_user.date_joined }}</li>
+                <li id="joined-date" class="list-group-item text-center">Memer since {{ notesnap_user.date_joined }}</li>
                 <li id="notes-count" class="list-group-item text-center">
-                    {% if nyra_user.user_notes.all|length == 1 %}
+                    {% if notesnap_user.user_notes.all|length == 1 %}
                         <strong>1 note</strong>
                     {% else %}
-                        <strong>{{ nyra_user.user_notes.all|length }} public notes</strong>
+                        <strong>{{ notesnap_user.user_notes.all|length }} public notes</strong>
                     {% endif %}
                 </li>
                 <li id="biography" class="list-group-item text-center">
-                    <strong>Biography:</strong> {{ nyra_user.profile.biography|default:"Hello there! I am using Nyra!" }}
+                    <strong>Biography:</strong> {{ notesnap_user.profile.biography|default:"Hello there! I am using Nyra!" }}
                 </li>
-                {% if nyra_user.is_superuser %}
+                {% if notesnap_user.is_superuser %}
                     <li id="admin-status" class="list-group-item text-center">
                         <strong>Admin</strong>
                     </li>
@@ -40,7 +40,7 @@
             </ul>
         </div>
         {% if user_notes %}
-            <h3 id="notes-heading" class="text-center my-4">Notes from {{ nyra_user.username }}</h3>
+            <h3 id="notes-heading" class="text-center my-4">Notes from {{ notesnap_user.username }}</h3>
             <ul id="user-notes"
                 class="list-group d-flex flex-column justify-content-center">
                 {% for note in user_notes %}
@@ -55,7 +55,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h3 id="no-notes" class="text-center my-4">No notes from {{ nyra_user.username }}</h3>
+            <h3 id="no-notes" class="text-center my-4">No notes from {{ notesnap_user.username }}</h3>
         {% endif %}
     </div>
 {% endblock content %}

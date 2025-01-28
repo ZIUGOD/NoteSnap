@@ -1,7 +1,4 @@
-"""
-This module contains the model for the `Note` object.
-"""
-
+from django import forms
 from django.db import models
 from django.utils import timezone
 from django_ckeditor_5.fields import CKEditor5Field
@@ -16,13 +13,15 @@ class Note(models.Model):
     title = models.CharField(
         verbose_name="Title",
         max_length=128,
+        blank=False,
         default="",
     )
 
-    text = models.TextField(
-        verbose_name="Text",
-        max_length=1024,
-        default="",
+    text = CKEditor5Field(
+        "Text content",
+        config_name="extends",
+        blank=False,
+        null=False,
     )
 
     created_at = models.DateTimeField(
@@ -31,7 +30,7 @@ class Note(models.Model):
     )
 
     updated_at = models.DateTimeField(
-        default=timezone.now,
+        auto_now=True,
         null=True,
         blank=True,
         verbose_name="Updated at: ",
@@ -50,6 +49,9 @@ class Note(models.Model):
     objects = models.Manager()
 
     def save(self, *args, **kwargs):
+        """
+        Custom save method to ensure `created_at` is set on creation.
+        """
         if not self.created_at:
             self.created_at = timezone.now()
         super(Note, self).save(*args, **kwargs)
@@ -61,12 +63,13 @@ class Note(models.Model):
         """
         Meta options for the model `Note`.
         """
-
         ordering = ["-updated_at"]
         verbose_name = "Note"
         verbose_name_plural = "Notes"
         get_latest_by = "updated_at"
-        unique_together = ["title", "author"]
+        constraints = [
+            models.UniqueConstraint(fields=["title", "author"], name="unique_note_title_author")
+        ]
         indexes = [
             models.Index(fields=["title", "author"]),
         ]

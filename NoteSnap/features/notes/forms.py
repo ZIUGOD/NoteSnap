@@ -4,6 +4,7 @@ A module that defines a Django Form class for interacting with the 'Note' model.
 
 from crispy_forms.helper import FormHelper
 from django import forms
+from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import Note
 
 
@@ -40,7 +41,7 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = ["title", "text", "is_private"]
         widgets = {
-            "text": forms.Textarea(
+            "text": CKEditor5Widget(
                 attrs={
                     "placeholder": "Write something here...",
                     "class": "form-control-lg text-break",
@@ -48,6 +49,7 @@ class NoteForm(forms.ModelForm):
                     "cols": 10,
                     "minlength": 1024,
                     "oninput": "countCharactersAndWords(this)",
+                    "config_name": "comment",
                 }
             ),
             "is_private": forms.CheckboxInput(

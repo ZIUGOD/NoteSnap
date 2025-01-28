@@ -107,16 +107,16 @@ class UserProfileView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        nyra_user = User.objects.filter(username=self.kwargs["username"]).first()
-        context["nyra_user"] = nyra_user
+        notesnap_user = User.objects.filter(username=self.kwargs["username"]).first()
+        context["notesnap_user"] = notesnap_user
 
-        if nyra_user:
-            if self.request.user == nyra_user:
+        if notesnap_user:
+            if self.request.user == notesnap_user:
                 # Exibe todas as notas (privadas e públicas) se o dono do perfil estiver logado
-                context["user_notes"] = Note.objects.filter(author=nyra_user)
+                context["user_notes"] = Note.objects.filter(author=notesnap_user)
             else:
                 # Exibe apenas as notas públicas para visitantes
                 context["user_notes"] = Note.objects.filter(
-                    author=nyra_user, is_private=False
+                    author=notesnap_user, is_private=False
                 )
         return context
