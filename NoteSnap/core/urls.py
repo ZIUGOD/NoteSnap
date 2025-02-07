@@ -12,14 +12,16 @@ The urlpatterns list contains the following URL patterns:
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include, re_path
 from features.notes.views import NoteListView
 
 urlpatterns = [
     path("", NoteListView.as_view(), name="home_page"),
     path("", include("django.contrib.auth.urls")),
-    path("ckeditor5/", include("django_ckeditor_5.urls")),
     path("admin/", admin.site.urls),
     path("note/", include("features.notes.urls", namespace="note")),
     path("u/", include("features.members.urls", namespace="member")),
-]
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

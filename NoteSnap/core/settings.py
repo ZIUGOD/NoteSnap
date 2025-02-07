@@ -30,6 +30,14 @@ if DEBUG:  # Development environment
     SSL_CERTIFICATE = env.str("SSL_CERTIFICATE", default=None)
     SSL_KEY = env.str("SSL_KEY", default=None)
 
+    # Use SQLite for local development
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+
 else:  # Production environment
     SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = True
@@ -38,6 +46,14 @@ else:  # Production environment
     SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    
+    # Use database from environment variable in production (e.g., PostgreSQL or other)
+    DATABASE_URL = env("DATABASE_URL")  # Example: postgresql://USER:PASSWORD@HOST:PORT/DBNAME
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASE_URL, conn_max_age=500, conn_health_checks=True
+        )
+    }
 
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
@@ -90,17 +106,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-
-# Database configuration
-DATABASE_URL = env("DATABASE_URL")
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": path.join(BASE_DIR, "db.sqlite3"),
-    }
-}
-db_from_env = dj_database_url.config(conn_max_age=500, conn_health_checks=True)
-DATABASES["default"] = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 
 LOGOUT_REDIRECT_URL = "member:login_user"
 LOGIN_REDIRECT_URL = "home_page"
@@ -158,68 +163,125 @@ customColorPalette = [
         'label': 'Blue'
     },
 ]
-
-# CKEDITOR_5_CUSTOM_CSS = 'path_to.css'  # optional
-# CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage"  # optional
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Possible values: "staff", "authenticated", "any"
 CKEDITOR_5_CONFIGS = {
-    'default': {
-        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
-                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-        'language': 'en',
-    },
-    'extends': {
-        'blockToolbar': [
-            'paragraph', 'heading1', 'heading2', 'heading3',
-            '|',
-            'bulletedList', 'numberedList',
-            '|',
-            'blockQuote',
+    "default": {
+        "language": "en",
+        "toolbar": [
+            "heading", "|", 
+            "bold", "italic", "underline", "strikethrough", "|", 
+            "link", "blockQuote", "|", 
+            "bulletedList", "numberedList", "|", 
+            "alignment:left", "alignment:center", "alignment:right", "alignment:justify", "|",
+            "insertTable", "mediaEmbed", "|", 
+            "undo", "redo", "|", 
+            "highlight", "fontSize", "fontColor", "fontBackgroundColor", "|",
+            "imageUpload", "horizontalLine", "codeBlock", "|", 
+            "removeFormat"
         ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-                    'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-                    'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
-                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable', ],
-        'image': {
-            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
-                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side', '|'],
-            'styles': [
-                'full',
-                'side',
-                'alignLeft',
-                'alignRight',
-                'alignCenter',
+        "image": {
+            "toolbar": [
+                "imageTextAlternative", 
+                "imageStyle:alignLeft", 
+                "imageStyle:alignCenter", 
+                "imageStyle:alignRight"
+            ],
+            "styles": [
+                "alignLeft", 
+                "alignCenter", 
+                "alignRight", 
+                "alignBlockLeft", 
+                "alignBlockRight"
             ]
         },
-        'table': {
-            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
-                               'tableProperties', 'tableCellProperties'],
-            'tableProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
-            },
-            'tableCellProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
-            }
-        },
-        'heading': {
-            'options': [
-                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
-                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
-                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
-                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
+        "table": {
+            "contentToolbar": [
+                "tableColumn", 
+                "tableRow", 
+                "mergeTableCells", 
+                "tableCellProperties", 
+                "tableProperties"
             ]
-        }
+        },
+        "mediaEmbed": {
+            "previewsInData": True  # preview videos before save
+        },
+        "fontSize": {
+            "options": ["tiny", "small", "default", "big", "huge"]
+        },
+        "alignment": {
+            "options": ["left", "center", "right", "justify"]
+        },
+        "heading": {
+            "options": [
+                {"model": "paragraph", "title": "Paragraph", "class": "ck-heading_paragraph"},
+                {"model": "heading1", "view": "h1", "title": "Heading 1", "class": "ck-heading_heading1"},
+                {"model": "heading2", "view": "h2", "title": "Heading 2", "class": "ck-heading_heading2"},
+                {"model": "heading3", "view": "h3", "title": "Heading 3", "class": "ck-heading_heading3"}
+            ]
+        },
+        "upload": {
+            "types": ["image/jpeg", "image/png", "image/gif", "image/webp", "video/mp4"]
+        },
     },
-    'list': {
-        'properties': {
-            'styles': 'true',
-            'startIndex': 'true',
-            'reversed': 'true',
-        }
+    "minimal": {
+        "language": "en",
+        "toolbar": [
+            "bold", "italic", "|", 
+            "link", "|", 
+            "undo", "redo"
+        ]
+    },
+    "full": {
+        "language": "en",
+        "toolbar": [
+            "heading", "|", 
+            "bold", "italic", "underline", "strikethrough", "|", 
+            "link", "blockQuote", "|", 
+            "bulletedList", "numberedList", "todoList", "|", 
+            "alignment:left", "alignment:center", "alignment:right", "alignment:justify", "|",
+            "insertTable", "mediaEmbed", "|", 
+            "undo", "redo", "|", 
+            "highlight", "fontSize", "fontColor", "fontBackgroundColor", "|",
+            "imageUpload", "horizontalLine", "codeBlock", "|", 
+            "removeFormat", "sourceEditing"
+        ],
+        "image": {
+            "toolbar": [
+                "imageTextAlternative", 
+                "imageStyle:alignLeft", 
+                "imageStyle:alignCenter", 
+                "imageStyle:alignRight"
+            ]
+        },
+        "table": {
+            "contentToolbar": [
+                "tableColumn", 
+                "tableRow", 
+                "mergeTableCells", 
+                "tableCellProperties", 
+                "tableProperties"
+            ]
+        },
+        "mediaEmbed": {
+            "previewsInData": True
+        },
+        "fontSize": {
+            "options": ["tiny", "small", "default", "big", "huge"]
+        },
+        "alignment": {
+            "options": ["left", "center", "right", "justify"]
+        },
+        "heading": {
+            "options": [
+                {"model": "paragraph", "title": "Paragraph", "class": "ck-heading_paragraph"},
+                {"model": "heading1", "view": "h1", "title": "Heading 1", "class": "ck-heading_heading1"},
+                {"model": "heading2", "view": "h2", "title": "Heading 2", "class": "ck-heading_heading2"},
+                {"model": "heading3", "view": "h3", "title": "Heading 3", "class": "ck-heading_heading3"}
+            ]
+        },
+        "upload": {
+            "types": ["image/jpeg", "image/png", "image/gif", "image/webp", "video/mp4"]
+        },
     }
 }
-
-# Define a constant in settings.py to specify file upload permissions
-CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Possible values: "staff", "authenticated", "any"

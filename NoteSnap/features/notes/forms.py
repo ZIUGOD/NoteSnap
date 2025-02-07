@@ -43,10 +43,9 @@ class NoteForm(forms.ModelForm):
         widgets = {
             "text": CKEditor5Widget(
                 attrs={
-                    "placeholder": "Write something here...",
+                    "placeholder": "What's up?",
                     "class": "form-control-lg text-break",
                     "rows": 10,
-                    "cols": 10,
                     "minlength": 1024,
                     "oninput": "countCharactersAndWords(this)",
                     "config_name": "comment",

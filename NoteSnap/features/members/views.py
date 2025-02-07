@@ -109,6 +109,7 @@ class UserProfileView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         notesnap_user = User.objects.filter(username=self.kwargs["username"]).first()
         context["notesnap_user"] = notesnap_user
+        
 
         if notesnap_user:
             if self.request.user == notesnap_user:

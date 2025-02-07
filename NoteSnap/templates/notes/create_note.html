@@ -14,31 +14,49 @@
               class="d-flex flex-column align-items-center justify-content-center text-center">
             {% csrf_token %}
             <div class="m-2 w-75">
-            {{ form|crispy }}
-            <div class="my-3">
-                <input id="create-note-button-1"
-                       type="submit"
-                       value="Create note"
-                       class="btn m-2 py-2 px-4">
-                <button id="back-button-1"
-                        type="button"
-                        onclick="window.history.back()"
-                        class="btn m-2 py-2 px-4">Back</button>
+                {{ form|crispy }}
+                <div class="my-3">
+                    <input id="create-note-button-1"
+                           type="submit"
+                           value="Create note"
+                           class="btn m-2 py-2 px-4">
+                    <button id="back-button-1"
+                            type="button"
+                            onclick="window.history.back()"
+                            class="btn m-2 py-2 px-4">Back</button>
+                </div>
+                <!-- Character and word count display -->
+                <div class="my-2">
+                    <p id="charCount"></p>
+                    <p id="wordCount"></p>
+                </div>
             </div>
         </form>
     </div>
     <script>
-        function countCharactersAndWords(textarea) {
+        document.addEventListener('DOMContentLoaded', function() {
             const maxLength = 1024;
-            const text = textarea.value;
-            const charCount = text.length;
-            const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+            const textarea = document.querySelector('textarea');
+            const charCountElement = document.getElementById('charCount');
+            const wordCountElement = document.getElementById('wordCount');
 
-            document.getElementById('charCount').innerText = `${charCount}/${maxLength} characters`;
-            document.getElementById('wordCount').innerText = `${wordCount} words`;
+            function updateCounts() {
+                const text = textarea.value;
+                const charCount = text.length;
+                const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
 
-            if (charCount >= maxLength) {
-                textarea.value = text.substring(0, maxLength);
+                charCountElement.innerText = charCount ? `${charCount}/${maxLength} characters` : '';
+                wordCountElement.innerText = wordCount ? `${wordCount} word${wordCount > 1 ? 's' : ''}` : '';
+
+                if (charCount >= maxLength) {
+                    textarea.value = text.substring(0, maxLength);
+                }
             }
-        }
+
+            if (textarea) {
+                textarea.addEventListener('input', updateCounts);
+                updateCounts();
+            }
+        });
+    </script>
 {% endblock content %}
