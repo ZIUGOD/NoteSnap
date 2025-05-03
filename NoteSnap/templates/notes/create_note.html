@@ -4,59 +4,51 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/notes/create_note.css' %}">
 {% endblock head %}
-{% block title %}
-    - Create new note
-{% endblock title %}
+{% block title %}Create New Note{% endblock title %}
+
 {% block content %}
-    <div class="container mt-5">
-        <form method="post"
-              action="{% url 'note:create_note' %}"
-              class="d-flex flex-column align-items-center justify-content-center text-center">
-            {% csrf_token %}
-            <div class="m-2 w-75">
-                {{ form|crispy }}
-                <div class="my-3">
-                    <input id="create-note-button-1"
-                           type="submit"
-                           value="Create note"
-                           class="btn m-2 py-2 px-4">
-                    <button id="back-button-1"
-                            type="button"
-                            onclick="window.history.back()"
-                            class="btn m-2 py-2 px-4">Back</button>
-                </div>
-                <!-- Character and word count display -->
-                <div class="my-2">
-                    <p id="charCount"></p>
-                    <p id="wordCount"></p>
-                </div>
-            </div>
-        </form>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const maxLength = 1024;
-            const textarea = document.querySelector('textarea');
-            const charCountElement = document.getElementById('charCount');
-            const wordCountElement = document.getElementById('wordCount');
+<div id="create-note-container">
+    <h2 class="neon-title" data-text="CREATE NEW NOTE">CREATE NEW NOTE</h2>
+    <form id="create-note-form" method="POST" action="{% url 'note:create_note' %}" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form|crispy }}
+        </div>
+        <div class="counter-container">
+            <p id="charCount"></p>
+            <p id="wordCount"></p>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn" data-text="SUBMIT NOTE">SUBMIT NOTE</button>
+            <button type="button" class="btn" data-text="BACK" onclick="window.history.back()">BACK</button>
+        </div>
+    </form>
+</div>
+{% include "components/footer.html" %}
 
-            function updateCounts() {
-                const text = textarea.value;
-                const charCount = text.length;
-                const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const maxLength = 1024;
+    const textarea = document.querySelector('textarea');
+    const charCountElement = document.getElementById('charCount');
+    const wordCountElement = document.getElementById('wordCount');
 
-                charCountElement.innerText = charCount ? `${charCount}/${maxLength} characters` : '';
-                wordCountElement.innerText = wordCount ? `${wordCount} word${wordCount > 1 ? 's' : ''}` : '';
+    if (!textarea) return;
 
-                if (charCount >= maxLength) {
-                    textarea.value = text.substring(0, maxLength);
-                }
-            }
+    const updateCounts = () => {
+        const text = textarea.value;
+        const charCount = text.length;
+        const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
 
-            if (textarea) {
-                textarea.addEventListener('input', updateCounts);
-                updateCounts();
-            }
-        });
-    </script>
+        charCountElement.textContent = `${charCount}/${maxLength} characters`;
+        wordCountElement.textContent = `${wordCount} word${wordCount !== 1 ? 's' : ''}`;
+
+        if (charCount > maxLength) {
+            textarea.value = text.substring(0, maxLength);
+        }
+    };
+    textarea.addEventListener('input', updateCounts);
+    updateCounts();
+});
+</script>
 {% endblock content %}

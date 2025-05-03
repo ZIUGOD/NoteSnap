@@ -10,25 +10,32 @@
 {% block content %}
     <form method="post"
           action="{% url 'note:read_note' note.id %}"
-          class="d-flex flex-column p-1"
+          class="note-form"
           id="note-form-{{ note.id }}">
         {% csrf_token %}
-        <h2 class="text-break h2 m-2 font-weight-normal text-center"
-            id="note-title-{{ note.id }}">{{ note.title }}</h2>
-        {% if note.is_private %}<span class="text-danger text-center">PRIVATE</span>{% endif %}
+        <h2 class="note-title" id="note-title-{{ note.id }}">{{ note.title }}</h2>
+        {% if note.is_private %}
+            <span class="note-private">PRIVATE</span>
+        {% endif %}
         <hr />
-        <div class="p-1 text-wrap" id="note-text-{{ note.id }}">{{ note.text|linebreaks }}</div>
-        <div class="text-center m-3" id="note-metadata-{{ note.id }}">
-            <span>{{ note.created_at }} by <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
+        <div class="note-body" id="note-text-{{ note.id }}">
+            {{ note.text|linebreaks }}
+        </div>
+        <div class="note-meta" id="note-metadata-{{ note.id }}">
+            <span>{{ note.created_at }} by 
+                <a href="{% url 'member:user_profile' note.author.username %}" class="note-author-link">
+                    {{ note.author.username }}
+                </a>
+            </span>
         </div>
         {% if note.updated_at and note.updated_at > note.created_at %}
-            <div class="text-center" id="note-edited-{{ note.id }}">
+            <div class="note-edited" id="note-edited-{{ note.id }}">
                 <span>Edited</span>
             </div>
         {% endif %}
     </form>
-    <div class="text-center my-3 mb-5 d-flex justify-content-center align-items-center"
-         id="note-actions-{{ note.id }}">
+
+    <div class="note-actions" id="note-actions-{{ note.id }}">
         {% if user == note.author %}
             <form method="post"
                   action="{% url 'note:delete_note' note.id %}"
@@ -37,16 +44,18 @@
                 <input type="submit"
                        value="DELETE"
                        onclick="return confirm('Confirm deletion?');"
-                       class="m-2 py-2 px-3 btn"
+                       class="btn danger-btn"
                        id="delete-note-button-{{ note.id }}">
             </form>
             <a href="{% url 'note:update_note' note.id %}"
-               class="m-2 py-2 px-3 btn"
+               class="btn edit-btn"
                id="edit-note-button-{{ note.id }}">EDIT</a>
         {% endif %}
         <button type="button"
                 onclick="window.history.back()"
-                class="m-2 py-2 px-3 btn"
+                class="btn back-btn"
                 id="back-button-{{ note.id }}">BACK</button>
     </div>
+
+    {% block textarea_counter %}{% endblock textarea_counter %}
 {% endblock content %}

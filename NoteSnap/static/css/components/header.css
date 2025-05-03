@@ -1,46 +1,309 @@
-#navbar-toggler {
-    color: lime;
-    border: 0.2em solid lime;
-    border-radius: 1em;
-    box-shadow: 0 0 1em lime;
+/* 🌌 Ultimate Navbar CSS - A Hacker's Neon Terminal 🌌 */
+
+/* === Shared Variables (Aligned with notes_index.css and user_profile.css) === */
+:root {
+    --primary-color: #00ff00; /* Lime green */
+    --secondary-color: #000000; /* Black (always enforced) */
+    --accent-color: #ffffff; /* White */
+    --glow-color: rgba(0, 255, 0, 0.5); /* Neon green glow (consistent with notes_index.css) */
+    --gradient-bg: linear-gradient(90deg, #00ff00, #00cc00); /* Gradient for hover effects */
+    --shadow-glow: 0 0 0.5em var(--glow-color); /* Glow shadow effect */
+    --transition-speed: 0.2s; /* Transition speed (consistent with notes_index.css) */
+    --border-width: 0.2em; /* Border width */
+    --border-radius: 0.5em; /* Border radius for buttons */
+    --font-family: 'Roboto Mono', monospace; /* Font stack (aligned with project) */
+    --font-size-base: 1rem; /* Base font size */
+    --danger-color: #ff4444; /* Red for private/admin status */
+    --warning-color: #ffbb33; /* Yellow for warnings */
+    --highlight-color: #ff69b4; /* Pink for accents */
 }
 
-#home-link,
+/* === Reset Styles === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Scanline Effect (consistent with notes_index.css) */
+.navbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 0, 0.05) 50%,
+        rgba(0, 255, 0, 0.05) 51%,
+        transparent 51%
+    );
+    background-size: 100% 0.25rem;
+    animation: scanline 10s linear infinite;
+    z-index: -1;
+}
+
+/* Background Animation */
+.navbar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(0, 255, 0, 0.03), rgba(0, 0, 0, 0.9));
+    background-size: 200% 200%;
+    animation: backgroundFlow 20s ease infinite;
+    z-index: -2;
+}
+
+/* === Navbar Icon === */
 #navbar-icon {
-    border-radius: 50%;
+    border-radius: 50%; /* Maintain Bootstrap's rounded-circle */
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    animation: pulsate 2s infinite ease-in-out; /* Pulsating effect */
 }
 
+#navbar-icon:hover {
+    animation-play-state: paused; /* Pause pulse on hover */
+    transform: scale(1.1); /* Slight zoom */
+    box-shadow: 0 0 1.5rem var(--glow-color); /* Brighter glow */
+}
+
+/* === Home Link === */
+#home-link {
+    border-radius: 50%;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#home-link:hover {
+    transform: scale(1.1); /* Slight zoom */
+    box-shadow: 0 0 1.5rem var(--glow-color); /* Glow effect */
+}
+
+/* === Navbar Toggler Button === */
+#navbar-toggler {
+    color: var(--primary-color);
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: transparent;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-speed) ease;
+}
+
+#navbar-toggler:hover {
+    background: var(--gradient-bg);
+    color: var(--secondary-color);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
+#navbar-toggler::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+#navbar-toggler:hover::before {
+    width: 200%;
+    height: 200%;
+}
+
+/* === Buttons and Links === */
 #logout-button,
 #create-note-button,
 #profile-link,
 #signin-link {
-    color: lime;
-    background-color: black;
-    border: 0.2em solid lime;
-    transition: 0.3s;
+    color: var(--primary-color);
+    background: var(--secondary-color);
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 0.5em 1em;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 #logout-button:hover,
 #create-note-button:hover,
 #profile-link:hover,
 #signin-link:hover {
-    font-size: auto;
-    color: black;
-    background-color: lime;
-    border: 0.2em solid lime;
-    transition: 0.3s;
-    box-shadow: 0 0 1em lime;
+    color: var(--secondary-color);
+    background: var(--gradient-bg);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+}
+
+/* === Signup Link (Opposite of Signin Link) === */
+#signup-link {
+    color: var(--secondary-color); /* Black text */
+    background: var(--gradient-bg); /* Neon green gradient */
+    border: var(--border-width) solid var(--primary-color); /* 0.2em black border */
+    border-radius: var(--border-radius); /* Matches signin-link, assumed 0.75em or 100em */
+    padding: 0.5em 1em; /* Matches signin-link */
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--transition-speed) ease; /* 0.2s */
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: var(--font-family); /* Roboto Mono for terminal vibe */
+}
+
+#signup-link:hover {
+    color: var(--primary-color); /* Neon green text */
+    background: var(--secondary-color); /* Black background */
+    border-color: var(--primary-color); /* Neon green border */
+    box-shadow: var(--shadow-glow); /* Neon glow */
+    transform: translateY(-2px); /* Matches signin-link hover */
 }
 
 #logout-button {
-    color: black;
-    background-color: lime;
-    border: 0.2em solid lime;
+    color: var(--secondary-color);
+    background: var(--gradient-bg);
+    border: var(--border-width) solid var(--primary-color);
 }
 
 #logout-button:hover {
-    color: lime;
-    background-color: black;
-    border: 0.2em solid lime;
-    box-shadow: 0 0 1em lime;
+    color: var(--primary-color);
+    background: var(--secondary-color);
+    box-shadow: var(--shadow-glow);
+}
+
+#logout-button::before,
+#create-note-button::before,
+#profile-link::before,
+#signin-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+#logout-button:active::before,
+#create-note-button:active::before,
+#profile-link:active::before,
+#signin-link:active::before {
+    width: 300%;
+    height: 300%;
+}
+
+/* === Theme Toggle Button === */
+.theme-toggle {
+    display: none;
+}
+
+/* === Focus States for Accessibility === */
+#navbar-toggler:focus,
+#logout-button:focus,
+#create-note-button:focus,
+#profile-link:focus,
+#signin-link:focus {
+    outline: none;
+    box-shadow: 0 0 0.5em var(--primary-color), var(--shadow-glow);
+}
+
+/* === Animations === */
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes backgroundFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0.5rem var(--glow-color);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 1.2rem var(--glow-color);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0.5rem var(--glow-color);
+    }
+}
+
+/* === Responsive Design === */
+@media (max-width: 48em) {
+    #navbar-toggler,
+    #logout-button,
+    #create-note-button,
+    #profile-link,
+    #signin-link {
+        padding: 0.4em 0.8em;
+        font-size: 0.9rem;
+    }
+
+    #navbar-icon {
+        height: 80px;
+        width: 80px;
+    }
+}
+
+@media (max-width: 30em) {
+    #navbar-toggler,
+    #logout-button,
+    #create-note-button,
+    #profile-link,
+    #signin-link {
+        padding: 0.3em 0.7em;
+        font-size: 0.8rem;
+    }
+
+    #navbar-icon {
+        height: 60px;
+        width: 60px;
+    }
+}
+
+/* === Print Styles === */
+@media print {
+    .navbar,
+    #navbar-toggler,
+    #logout-button,
+    #create-note-button,
+    #profile-link,
+    #signin-link {
+        display: none;
+    }
 }

@@ -44,9 +44,9 @@ class NoteForm(forms.ModelForm):
             "text": CKEditor5Widget(
                 attrs={
                     "placeholder": "What's up?",
-                    "class": "form-control-lg text-break",
+                    "class": "form-control-lg text-break m-0 p-1",
                     "rows": 10,
-                    "minlength": 1024,
+                    "maxlength": 1024,
                     "oninput": "countCharactersAndWords(this)",
                     "config_name": "comment",
                 }
@@ -59,9 +59,10 @@ class NoteForm(forms.ModelForm):
             ),
         }
 
-    def __init__(self, *args, **kwargs):
-        super(NoteForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-
-        self.helper.form_tag = False
-        self.helper.label_class = ""
+        def __init__(self, *args, **kwargs):
+            super(NoteForm, self).__init__(*args, **kwargs)
+            self.helper = FormHelper(self)
+            self.helper.form_tag = False
+            self.helper.form_class = "w-100"
+            self.helper.field_class = "w-100"
+            self.helper.label_class = "w-100"

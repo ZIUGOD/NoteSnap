@@ -1,50 +1,155 @@
-#note-form {
-    border: 0.2em solid lime;
-    box-shadow: 0 0 1em lime;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #000000;
+    --highlight-color: #ff69b4;
+    --danger-color: #ff4444;
+    --accent-color: #ffffff;
+    --glow-color: rgba(0, 255, 0, 0.3);
+    --font-family: 'Roboto Mono', monospace;
+    --transition: 0.3s ease;
 }
 
-[id^="note-title-"] {
-    color: lime;
-    font-weight: bold;
-    font-size: 1.5em;
+.note-form {
+    background: var(--secondary-color);
+    padding: 2rem;
+    max-width: 62.5rem; /* 1000px */
+    margin: 2rem auto;
+    border-radius: 1em;
+    box-shadow: 0 0 1em var(--glow-color);
+    position: relative;
+    overflow-x: auto;
 }
 
-span {
-    color: lime;
-}
-
-#span:hover {
-    color: gold;
-    text-shadow: 0 0 1em gold;
-}
-
-span a {
-    color: cyan;
-}
-
-span a:hover {
-    color: gold;
-    text-shadow: 0 0 1em gold;
-}
-
-[id^="delete-note-button-"],
-[id^="edit-note-button-"],
-[id^="back-button-"] {
-    color: lime;
-    border: 0.2em solid lime;
-    border-radius: 99em;
-}
-
-[id^="delete-note-button-"]:hover,
-[id^="edit-note-button-"]:hover,
-[id^="back-button-"]:hover {
-    color: black;
-    background-color: lime;
-    box-shadow: 0 0 1em lime;
-}
-
-.text-wrap {
-    word-wrap: break-word;
+.note-title {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    word-break: break-word;
     overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+.note-private {
+    display: block;
+    color: var(--danger-color);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.note-body {
+    color: var(--accent-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    line-height: 1.6;
     white-space: pre-wrap;
+    margin: 1.5rem 0;
+    text-align: justify;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.note-meta {
+    text-align: center;
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+.note-author-link {
+    color: var(--highlight-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.note-author-link:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 0.2em var(--glow-color);
+}
+
+.note-edited {
+    text-align: center;
+    color: var(--highlight-color);
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* === Buttons === */
+.note-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-family: var(--font-family);
+    font-weight: 700;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    background: transparent;
+    color: var(--primary-color);
+    border: 0.125rem solid var(--primary-color); /* 2px */
+    transition: var(--transition);
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 0.3em var(--glow-color);
+}
+
+.btn:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    box-shadow: 0 0 0.6em var(--glow-color);
+    transform: scale(1.05);
+}
+
+.danger-btn {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.danger-btn:hover {
+    background: var(--danger-color);
+    color: var(--secondary-color);
+    box-shadow: 0 0 0.6em rgba(255, 68, 68, 0.7);
+}
+
+.back-btn {
+    border-color: var(--highlight-color);
+    color: var(--highlight-color);
+}
+
+.back-btn:hover {
+    background: var(--highlight-color);
+    color: var(--secondary-color);
+}
+
+/* Responsivo */
+@media (max-width: 48rem) {
+    .note-form {
+        padding: 1rem;
+    }
+
+    .note-title {
+        font-size: 1.2rem;
+    }
+
+    .note-body {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
 }

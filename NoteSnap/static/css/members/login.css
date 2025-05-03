@@ -1,34 +1,367 @@
+/* 🌌 Ultimate Login CSS - The Most Sensational Hacker Terminal Ever 🌌 */
+
+/* === Shared Variables (Aligned with base.css, footer.css, index.css, create_note.css) === */
+:root {
+    --primary-color: #00ff00; /* Lime green */
+    --secondary-color: #000000; /* Black */
+    --highlight-color: #ff69b4; /* Pink */
+    --danger-color: #ff4444; /* Red for errors */
+    --accent-color: #ffffff; /* White */
+    --transition-speed: 0.3s; /* Smooth transitions */
+    --border-width: 0.2em; /* Neon borders */
+    --font-family: 'Roboto Mono', monospace; /* Hacker font */
+    --font-size-base: 1rem; /* Base font size */
+    --glow-color: rgba(0, 255, 0, 0.4); /* Neon glow */
+}
+
+/* Dark theme (default) */
+:root.dark-theme {
+    --primary-color: #00cc00;
+    --highlight-color: #ff1493;
+    --accent-color: #cccccc;
+    --glow-color: rgba(0, 204, 0, 0.4);
+}
+
+/* Light theme */
+:root.light-theme {
+    --primary-color: #00cc00;
+    --highlight-color: #ff1493;
+    --accent-color: #000000;
+    --danger-color: #cc0000;
+}
+
+/* === Login Container === */
+#login-container {
+    background: var(--secondary-color); /* Black */
+    margin: 2em auto;
+    max-width: 1000px; /* Wide on PC */
+    padding: 2em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 1em var(--glow-color); /* Neon glow */
+    border-radius: 0.75em;
+}
+
+/* Scanline effect */
+#login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 0, 0.05) 50%,
+        rgba(0, 255, 0, 0.05) 51%,
+        transparent 51%
+    );
+    background-size: 100% 4px;
+    animation: scanline 12s linear infinite;
+    z-index: -1;
+}
+
+/* Digital noise background */
+#login-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(0, 255, 0, 0.02), rgba(0, 0, 0, 0.95));
+    opacity: 0.5;
+    z-index: -2;
+}
+
+/* === Form Header === */
+#login-container h2.neon-header {
+    color: var(--primary-color); /* Lime green */
+    font-family: var(--font-family);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+/* === Form Styles === */
 #login-form {
-    padding: 1em;
+    background: transparent;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    max-width: 900px; /* Wide form on PC */
+    margin: 0 auto;
 }
 
-#form-content {
-    padding: 1em;
+/* Form content wrapper */
+.form-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
 }
 
-#submit-button {
-    color: lime;
-    background-color: black;
-    border: 0.2em solid lime;
-    border-radius: 10em;
-    padding: 1em;
+/* Crispy Forms compatibility */
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 }
 
-#submit-button:hover {
-    color: black;
-    background-color: lime;
-    box-shadow: 0 0 1em lime;
+.form-group .control-label {
+    color: var(--primary-color); /* Lime green */
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3em;
+    text-transform: uppercase;
 }
 
-#signup-link {
-    color: lime;
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    background: var(--secondary-color); /* Black */
+    border: none;
+    color: var(--primary-color); /* Lime green */
+    font-family: var(--font-family);
+    font-size: 1.3rem; /* Larger for impact */
+    font-weight: 500;
+    padding: 0.8em;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 0 0.3em var(--glow-color);
 }
 
-#create-account-link {
-    color: cyan;
+.form-group input[type="text"]::placeholder,
+.form-group input[type="password"]::placeholder {
+    color: rgba(0, 255, 0, 0.7); /* Brighter green */
+    font-family: var(--font-family);
+    opacity: 1;
 }
 
-#create-account-link:hover {
-    color: gold;
-    text-shadow: 0 0 1em gold;
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+    outline: none;
+    background: rgba(0, 255, 0, 0.1); /* Brighter green glow */
+    box-shadow: 0 0 0.5em var(--highlight-color);
+}
+
+/* Error messages (Crispy Forms) */
+.form-group .errorlist {
+    color: var(--danger-color); /* Red */
+    font-size: 0.9rem;
+    margin-top: 0.3em;
+    font-weight: 600;
+}
+
+/* === Submit Button === */
+#login-form .btn.login-btn {
+    background: transparent;
+    color: var(--primary-color); /* Lime green */
+    border-radius: 100em; /* Pill-shaped */
+    padding: 0.3em 1.5em; /* Larger for impact */
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 0.5em var(--glow-color);
+    animation: neonPulse 2s ease-in-out infinite;
+}
+
+#login-form .btn.login-btn:hover {
+    background: var(--primary-color); /* Lime green */
+    color: var(--secondary-color); /* Black */
+    transform: scale(1.05); /* Slight zoom */
+    box-shadow: 0 0 1em var(--glow-color);
+}
+
+#login-form .btn.login-btn:focus {
+    outline: none;
+    border-color: var(--highlight-color); /* Pink */
+    background: rgba(0, 255, 0, 0.1); /* Brighter green */
+    box-shadow: 0 0 0.7em var(--highlight-color);
+}
+
+#login-form .btn.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+#login-form .btn.login-btn:active::before {
+    width: 300%;
+    height: 300%;
+}
+
+/* === Signup Link === */
+.signup-link {
+    color: var(--primary-color); /* Lime green */
+    font-family: var(--font-family);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2.5em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.signup-link .create-account-link {
+    color: var(--highlight-color); /* Pink */
+    text-decoration: none;
+    position: relative;
+    transition: all var(--transition-speed) ease;
+}
+
+.signup-link .create-account-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--highlight-color); /* Pink */
+    transition: width var(--transition-speed) ease;
+}
+
+.signup-link .create-account-link:hover::after {
+    width: 100%;
+}
+
+.signup-link .create-account-link:hover {
+    color: var(--accent-color); /* White/gray */
+    text-shadow: 0 0 0.3em var(--glow-color);
+}
+
+/* === Animations === */
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes neonPulse {
+    0% {
+        text-shadow: 0 0 0.3em var(--glow-color), 0 0 0.5em var(--glow-color);
+        box-shadow: 0 0 0.3em var(--glow-color), 0 0 0.5em var(--glow-color);
+    }
+    50% {
+        text-shadow: 0 0 0.5em var(--glow-color), 0 0 0.7em var(--glow-color);
+        box-shadow: 0 0 0.5em var(--glow-color), 0 0 0.7em var(--glow-color);
+    }
+    100% {
+        text-shadow: 0 0 0.3em var(--glow-color), 0 0 0.5em var(--glow-color);
+        box-shadow: 0 0 0.3em var(--glow-color), 0 0 0.5em var(--glow-color);
+    }
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+    #login-container {
+        max-width: 95%; /* Wide on tablets */
+        padding: 1.5em;
+        margin: 1em auto;
+    }
+
+    #login-form {
+        max-width: 90%; /* Wide form */
+        padding: 1em;
+    }
+
+    #login-container h2.neon-header {
+        font-size: 2rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+        font-size: 1.1rem;
+        padding: 0.7em;
+    }
+
+    .form-group .control-label {
+        font-size: 1rem;
+    }
+
+    #login-form .btn.login-btn {
+        padding: 0.7em 2em;
+        font-size: 1rem;
+    }
+
+    .signup-link {
+        font-size: 0.9rem;
+        margin-top: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    #login-container {
+        max-width: 95%; /* Wide on phones */
+        padding: 1em;
+        margin: 0.5em auto;
+    }
+
+    #login-form {
+        max-width: 90%; /* Wide form */
+        padding: 0.8em;
+    }
+
+    #login-container h2.neon-header {
+        font-size: 1.6rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+        font-size: 1rem;
+        padding: 0.6em;
+    }
+
+    .form-group .control-label {
+        font-size: 0.9rem;
+    }
+
+    #login-form .btn.login-btn {
+        padding: 0.6em 1.8em;
+        font-size: 0.9rem;
+    }
+
+    .signup-link {
+        font-size: 0.8rem;
+        margin-top: 1.5em;
+    }
+}
+
+/* === Print Styles === */
+@media print {
+    #login-container {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    #login-container h2,
+    .form-group .control-label,
+    .form-group input,
+    .signup-link,
+    .signup-link .create-account-link {
+        color: #000; /* Black for printing */
+        border: none;
+        font-size: 12pt;
+        text-shadow: none;
+    }
+
+    #login-form .btn {
+        display: none;
+    }
 }

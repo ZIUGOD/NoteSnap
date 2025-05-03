@@ -11,6 +11,5 @@ class UserProfile(models.Model):
     biography = models.TextField(
         blank=True,
         null=True,
-        default="Hello there. I am using Nyra!",
         max_length=256,
     )

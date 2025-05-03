@@ -1,16 +1,251 @@
-/* 
-#footer {}
+/* 🌌 Ultimate Footer CSS - A Hacker's Neon Abyss 🌌 */
 
-#notesnap-github:hover,
-#ziugod-github:hover,
-#ziugod-twitter:hover,
-#ziugod-instagram:hover {}
+/* === Shared Variables (Aligned with base.css) === */
+:root {
+    --primary-color: #00ff00; /* Lime */
+    --secondary-color: #000000; /* Black (always enforced) */
+    --accent-color: #ffffff; /* White */
+    --glow-color: rgba(0, 255, 0, 0.5); /* Subtle lime glow */
+    --gradient-bg: linear-gradient(90deg, #00ff00, #00cc00);
+    --shadow-glow: 0 0 0.5em var(--glow-color);
+    --transition-speed: 0.2s;
+    --font-family: 'Roboto Mono', monospace;
+    --font-size-base: 1rem;
+}
 
-#notesnap-github:hover {}
+/* Dark theme (default) */
+:root.dark-theme {
+    --primary-color: #00cc00;
+    --secondary-color: #000000; /* Always black */
+    --accent-color: #cccccc;
+    --glow-color: rgba(0, 204, 0, 0.4);
+}
 
-#ziugod-github:hover {}
+/* Light theme */
+:root.light-theme {
+    --primary-color: #00cc00;
+    --secondary-color: #000000; /* Always black */
+    --accent-color: #000000;
+    --glow-color: rgba(0, 204, 0, 0.3);
+}
 
-#ziugod-twitter:hover {}
+/* === Footer Base Styles === */
+.footer {
+    background: var(--secondary-color); /* Always black */
+    padding: 1.5em 1em;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    transition: color var(--transition-speed);
+}
 
-#ziugod-instagram:hover {} 
-*/
+/* Scanline effect */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 0, 0.05) 50%,
+        rgba(0, 255, 0, 0.05) 51%,
+        transparent 51%
+    );
+    background-size: 100% 4px;
+    animation: scanline 10s linear infinite;
+    z-index: -1;
+}
+
+/* === Footer Layout === */
+.footer .container-fluid {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer .col-md-6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+}
+
+/* === Navigation Items === */
+.footer .nav-item {
+    text-align: center;
+    transition: all var(--transition-speed) ease;
+}
+
+.footer .nav-item h4 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 0.3em var(--glow-color);
+    margin-bottom: 0.3em;
+    position: relative;
+    animation: flicker 2s infinite;
+}
+
+.footer .nav-item:hover h4 {
+    transform: translateX(3px);
+    text-shadow: 0 0 0.5em var(--glow-color);
+}
+
+/* === Social Links === */
+.footer .nav-item a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em;
+    margin: 0 0.2em;
+    background: transparent;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+}
+
+.footer .nav-item a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 0.5em var(--glow-color);
+    animation: glitch 0.3s infinite;
+}
+
+.footer .nav-item a svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--primary-color);
+    transition: all var(--transition-speed) ease;
+}
+
+.footer .nav-item a:hover svg {
+    fill: var(--primary-color);
+    filter: drop-shadow(0 0 0.3em var(--glow-color));
+}
+
+/* Glitch effect on hover */
+.footer .nav-item a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.footer .nav-item a:hover::after {
+    opacity: 1;
+}
+
+/* === Animations === */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(2px, -2px);
+    }
+    60% {
+        transform: translate(-2px, 0);
+    }
+    80% {
+        transform: translate(2px, 2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* === Accessibility === */
+.footer .nav-item a:focus {
+    outline: none;
+    text-shadow: 0 0 0.5em var(--glow-color);
+    background: rgba(0, 255, 0, 0.1);
+    transform: scale(1.05);
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+    .footer {
+        padding: 1em 0.5em;
+    }
+
+    .footer .nav-item h4 {
+        font-size: 1.1rem;
+    }
+
+    .footer .nav-item a {
+        padding: 0.3em;
+        margin: 0 0.1em;
+    }
+
+    .footer .nav-item a svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .footer .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 0.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 0.5em;
+    }
+
+    .footer .nav-item h4 {
+        font-size: 0.9rem;
+    }
+
+    .footer .nav-item a {
+        padding: 0.2em;
+    }
+
+    .footer .nav-item a svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* === Print Styles === */
+@media print {
+    .footer {
+        display: none;
+    }
+}

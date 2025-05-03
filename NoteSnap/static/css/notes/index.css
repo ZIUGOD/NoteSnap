@@ -1,40 +1,242 @@
-h3,
-#no-notes-message,
-#page-info {
-    color: lime;
-    font-size: 1em;
+/* 🌌 Ultimate Notes Index CSS - A Hacker's Neon Terminal 🌌 */
+
+/* === Shared Variables === */
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #000000;
+    --accent-color: #ffffff;
+    --glow-color: rgba(0, 255, 0, 0.5);
+    --gradient-bg: linear-gradient(90deg, #00ff00, #00cc00);
+    --shadow-glow: 0 0 1em var(--glow-color);
+    --transition-speed: 0.2s;
+    --border-width: 0.2em;
+    --font-family: 'Roboto Mono', monospace;
+    --font-size-base: 1rem;
+    --danger-color: #ff4444;
+    --warning-color: #ffbb33;
+    --highlight-color: #ff69b4;
 }
 
+/* === Themes === */
+:root.dark-theme {
+    --primary-color: #00cc00;
+    --accent-color: #cccccc;
+    --glow-color: rgba(0, 204, 0, 0.4);
+    --highlight-color: #ff1493;
+}
+
+:root.light-theme {
+    --accent-color: #000000;
+    --glow-color: rgba(0, 204, 0, 0.3);
+    --danger-color: #cc0000;
+    --warning-color: #cc8800;
+}
+
+/* === General Styles === */
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    background: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+/* === Notes Container === */
+#notes-container {
+    background: var(--secondary-color);
+    margin: 1em auto;
+    max-width: 62.5rem;
+    padding: 0.5em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 1em #00ff00;
+    border-radius: 1em;
+    border: 0.1em solid #00aa00;
+}
+
+/* Scanline Effect */
+#notes-container::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            transparent 50%,
+            rgba(0, 255, 0, 0.05) 50%,
+            rgba(0, 255, 0, 0.05) 51%,
+            transparent 51%);
+    background-size: 100% 0.25rem;
+    animation: scanline 10s linear infinite;
+    z-index: -1;
+}
+
+/* Background Animation */
+#notes-container::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(0, 255, 0, 0.03), rgba(0, 0, 0, 0.9));
+    background-size: 200% 200%;
+    animation: backgroundFlow 20s ease infinite;
+    z-index: -2;
+    
+}
+
+/* === Notes List === */
 #notes-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    list-style: none;
+    padding: 0;
+    animation: glitchFlicker 5s infinite steps(1);
 }
 
-.list-group-item {
-    border-color: lime;
+#notes-list .list-group-item {
+    background: var(--secondary-color);
+    border-bottom: var(--border-width) solid var(--primary-color);
+    padding: 1em;
+    margin-bottom: 0.125em;
+    /* 0.2em */
+    transition: transform var(--transition-speed), text-shadow var(--transition-speed);
+    position: relative;
+    overflow: hidden;
 }
 
-[id^="note-"] {
-    display: inline-block;
-    color: pink;
+#notes-list .list-group-item:hover {
+    transform: translateX(0.2em);
+    text-shadow: var(--shadow-glow);
+    background: rgba(0, 255, 0, 0.1);
+    transition: all var(--transition-speed);
 }
 
-#notes-list .list-group-item a {
+#notes-list .list-group-item::before {
+    content: '> ';
+    position: absolute;
+    left: 0.2em;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+
+/* === Note Links === */
+#notes-list a {
     text-decoration: none;
-    color: lime;
+    color: var(--primary-color);
+    transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
-.btn {
-    color: lime;
-    border: 0.2em solid lime;
+#notes-list a .note-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    text-align: left;
+    margin: 0 0 0.5em 0;
+    padding: 0.2em 0 0 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.3;
+}
+
+#notes-list a:hover .note-title {
+    color: var(--highlight-color);
+    transform: translateX(0.3em);
+    text-shadow: 0 0 0.5em var(--glow-color);
+    transition: all var(--transition-speed);
+}
+
+/* === Pagination === */
+#pagination-container .btn {
+    background: transparent;
+    color: var(--primary-color);
+    border: var(--border-width) solid var(--primary-color);
     border-radius: 100em;
     padding: 0.5em;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-shadow: var(--shadow-glow);
+    transition: all var(--transition-speed);
+    position: relative;
+    overflow: hidden;
 }
 
-.btn:hover {
-    color: black;
-    background-color: lime;
-    box-shadow: 0 0 1em lime;
+#pagination-container .btn:hover {
+    color: var(--secondary-color);
+    background: var(--primary-color);
+    box-shadow: 0 0 1em var(--glow-color);
+    transition: all var(--transition-speed);
+}
+
+/* === Animations === */
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes backgroundFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes glitchFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.95;
+    }
+}
+
+/* === Responsive Design === */
+@media (max-width: 48em) {
+    #notes-container {
+        padding: 0.3em;
+    }
+
+    #notes-list a h3 {
+        font-size: 0.9rem;
+        transition: var(--transition-speed);
+    }
+
+    #pagination-container .btn {
+        padding: 0.4em;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 30em) {
+   #notes-list a h3 {
+        font-size: 0.8rem;
+        transition: var(--transition-speed);
+    }
+
+    #notes-list .list-group-item div {
+        flex-direction: column;
+        gap: 0.3em;
+    }
+
+    #pagination-container .btn {
+        padding: 0.3em;
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 30em) {
+    .note-title {
+        font-size: 1.1rem;
+    }
 }

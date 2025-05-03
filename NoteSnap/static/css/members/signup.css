@@ -1,32 +1,287 @@
+/* 🌌 Ultimate Signup CSS - Same Hacker Terminal Aesthetic 🌌 */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+/* Shared Variables (mesmo que login.css) */
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #000000;
+    --highlight-color: #ff69b4;
+    --danger-color: #ff4444;
+    --accent-color: #ffffff;
+    --transition-speed: 0.3s;
+    --border-width: 0.2em;
+    --font-family: 'Roboto Mono', monospace;
+    --font-size-base: 1rem;
+    --glow-color: rgba(0, 255, 0, 0.4);
+}
+
+:root.dark-theme {
+    --primary-color: #00cc00;
+    --highlight-color: #ff1493;
+    --accent-color: #cccccc;
+    --glow-color: rgba(0, 204, 0, 0.4);
+}
+
+:root.light-theme {
+    --primary-color: #00cc00;
+    --highlight-color: #ff1493;
+    --accent-color: #000000;
+    --danger-color: #cc0000;
+}
+
+/* === Signup Container === */
+#signup-container {
+    background: var(--secondary-color);
+    margin: 2em auto;
+    max-width: 80%;
+    padding: 2em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 1em var(--glow-color);
+    border-radius: 0.75em;
+}
+
+#signup-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 0, 0.05) 50%,
+        rgba(0, 255, 0, 0.05) 51%,
+        transparent 51%
+    );
+    background-size: 100% 0.25em;
+    animation: scanline 12s linear infinite;
+    z-index: -1;
+}
+
+#signup-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(0, 255, 0, 0.02), rgba(0, 0, 0, 0.95));
+    opacity: 0.5;
+    z-index: -2;
+}
+
+#signup-container h2.neon-header {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+/* === Form === */
 #signup-form {
-    padding: 1em;
-    border: 0.2em solid lime;
-    border-radius: 1em;
+    background: transparent;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    max-width: 90%;
+    margin: 0 auto;
 }
 
-#signup-form:hover {
-    box-shadow: 0 0 1em lime;
+.form-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
 }
 
-#submit-button {
-    color: lime;
-    background-color: black;
-    border: 0.2em solid lime;
-    border-radius: 10em;
-    padding: 1em;
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 }
 
-#submit-button:hover {
-    color: black;
-    background-color: lime;
-    box-shadow: 0 0 1em lime;
+.form-group .control-label {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3em;
+    text-transform: uppercase;
 }
 
-#sign-in-link {
-    color: cyan;
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+    background: var(--secondary-color);
+    border: none;
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 0.8em;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 0 0.3em var(--glow-color);
 }
 
-#sign-in-link:hover {
-    color: gold;
-    text-shadow: 0 0 1em gold;
+.form-group input::placeholder {
+    color: rgba(0, 255, 0, 0.7);
+    font-family: var(--font-family);
+    opacity: 1;
+}
+
+.form-group input:focus {
+    outline: none;
+    background: rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 0.5em var(--highlight-color);
+}
+
+.form-group .errorlist {
+    color: var(--danger-color);
+    font-size: 0.9rem;
+    margin-top: 0.3em;
+    font-weight: 600;
+}
+
+/* === Submit Button === */
+#signup-form .btn.signup-btn {
+    background: transparent;
+    color: var(--primary-color);
+    border-radius: 100em;
+    padding: 0.3em 1.5em;
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 0.5em var(--glow-color);
+    animation: neonPulse 2s ease-in-out infinite;
+}
+
+#signup-form .btn.signup-btn:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 1em var(--glow-color);
+}
+
+#signup-form .btn.signup-btn:focus {
+    outline: none;
+    background: rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 0.7em var(--highlight-color);
+}
+
+#signup-form .btn.signup-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+#signup-form .btn.signup-btn:active::before {
+    width: 300%;
+    height: 300%;
+}
+
+/* === Login Link === */
+.login-link {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2.5em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.login-link .sign-in-link {
+    color: var(--highlight-color);
+    text-decoration: none;
+    position: relative;
+    transition: all var(--transition-speed) ease;
+}
+
+.login-link .sign-in-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.1em;
+    left: 0;
+    width: 0;
+    height: 0.1em;
+    background: var(--highlight-color);
+    transition: width var(--transition-speed) ease;
+}
+
+.login-link .sign-in-link:hover::after {
+    width: 100%;
+}
+
+.login-link .sign-in-link:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 0.3em var(--glow-color);
+}
+
+/* === Animations === */
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes neonPulse {
+    0%, 100% {
+        text-shadow: 0 0 0.3em var(--glow-color), 0 0 0.5em var(--glow-color);
+        box-shadow: 0 0 0.3em var(--glow-color), 0 0 0.5em var(--glow-color);
+    }
+    50% {
+        text-shadow: 0 0 0.5em var(--glow-color), 0 0 0.7em var(--glow-color);
+        box-shadow: 0 0 0.5em var(--glow-color), 0 0 0.7em var(--glow-color);
+    }
+}
+
+/* Responsivo e Print — segue o login.css */
+@media (max-width: 48em) {
+    #signup-container { max-width: 95%; padding: 1.5em; margin: 1em auto; }
+    #signup-form { max-width: 90%; padding: 1em; }
+    #signup-container h2.neon-header { font-size: 2rem; }
+    .form-group input { font-size: 1.1rem; padding: 0.7em; }
+    .form-group .control-label { font-size: 1rem; }
+    #signup-form .btn.signup-btn { padding: 0.7em 2em; font-size: 1rem; }
+    .login-link { font-size: 0.9rem; margin-top: 2em; }
+}
+
+@media (max-width: 30em) {
+    #signup-container { max-width: 95%; padding: 1em; margin: 0.5em auto; }
+    #signup-form { max-width: 90%; padding: 0.8em; }
+    #signup-container h2.neon-header { font-size: 1.6rem; }
+    .form-group input { font-size: 1rem; padding: 0.6em; }
+    .form-group .control-label { font-size: 0.9rem; }
+    #signup-form .btn.signup-btn { padding: 0.6em 1.8em; font-size: 0.9rem; }
+    .login-link { font-size: 0.8rem; margin-top: 1.5em; }
+}
+
+@media print {
+    #signup-container { background: #fff; margin: 0; padding: 0; border: none; }
+    #signup-container h2,
+    .form-group .control-label,
+    .form-group input,
+    .login-link,
+    .login-link .sign-in-link {
+        color: #000;
+        border: none;
+        font-size: 12pt;
+        text-shadow: none;
+    }
+    #signup-form .btn { display: none; }
 }

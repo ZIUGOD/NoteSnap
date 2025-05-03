@@ -24,11 +24,12 @@
         <div id="note-creation-info" class="text-center m-3">
             <span id="note-created-at">{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
         </div>
-        {% if note.created_at != note.updated_at %}
+        {% if note.updated_at and note.updated_at > note.created_at %}
             <div class="text-center" id="note-edited-{{ note.id }}">
                 <span>Edited</span>
             </div>
         {% endif %}
+
         <div id="note-buttons" class="text-center my-3 mb-5">
             <button id="update-note-button"
                     type="submit"

@@ -7,12 +7,13 @@
             class="navbar navbar-expand-md navbar-light d-flex justify-content-between py-3 mb-4">
         <a id="home-link"
            href="{% url 'home_page' %}"
-           class="navbar-brand d-flex align-items-center mb-1 mb-md-0 me-md-auto">
+           class="navbar-brand d-flex align-items-center mb-1 mb-md-0 me-md-auto rounded-circle">
             <img id="navbar-icon"
+                 class="rounded-circle"
                  src="{% static 'img/icon.png' %}"
-                 alt="Nyra Icon"
-                 height="80"
-                 width="80">
+                 alt="NoteSnap Icon"
+                 height="100"
+                 width="100">
         </a>
         <div class="order-md-last">
             <button id="navbar-toggler"
@@ -34,19 +35,32 @@
                           action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button id="logout-button"
-                                class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5"
-                                type="submit">LOGOUT</button>
+                                class="nav-link px-3 py-2 m-1 rounded-5"
+                                type="submit">
+                            LOGOUT
+                        </button>
                     </form>
                     <a id="create-note-button"
                        href="{% url 'note:create_note' %}"
-                       class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5">CREATE NOTE</a>
+                       class="nav-link px-3 py-2 m-1 rounded-5">
+                        CREATE A NEW NOTE
+                    </a>
                     <a id="profile-link"
                        href="{% url 'member:user_profile' user.username %}"
-                       class="nav-link px-3 py-2 min-vw-50 m-1 rounded-5 text-center">{{ user.username }}</a>
+                       class="nav-link px-3 py-2 m-1 rounded-5 text-center">
+                        {{ user.username }}
+                    </a>
                 {% else %}
+                    <a id="signup-link"
+                       href="{% url 'member:signup_user' %}"
+                       class="nav-link rounded-5 px-3 py-2 mx-1">
+                        SIGN UP
+                    </a>
                     <a id="signin-link"
                        href="{% url 'member:login_user' %}"
-                       class="nav-link rounded-5 px-3 py-2">SIGN IN</a>
+                       class="nav-link rounded-5 px-3 py-2 mx-1">
+                        SIGN IN
+                    </a>
                 {% endif %}
             </div>
         </div>

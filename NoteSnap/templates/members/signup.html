@@ -6,20 +6,22 @@
 {% block title %}
     - Sign Up
 {% endblock title %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <form method="post"
-          id="signup-form"
-          class="d-flex flex-column align-items-center justify-content-center p-3 m-2 text-center">
-        <div class="text-center" id="form-content">
-            {% load crispy_forms_tags %}
-            {% crispy form %}
-            <input type="submit"
-                   id="submit-button"
-                   class="m-2 py-2 px-3 btn btn-secondary"
-                   value="Submit">
-            <p class="text-center mt-5" id="login-link">
-                Already have an account? <a id="sign-in-link" href="{% url 'member:login_user' %}">Sign in</a>
-            </p>
-        </div>
-    </form>
+    <div id="signup-container">
+        <h2 class="neon-header">CREATE YOUR NOTESNAP ACCOUNT</h2>
+        <form method="post" id="signup-form" role="form" aria-label="Sign up to NoteSnap">
+            {% csrf_token %}
+            <div class="form-content">
+                {% crispy form %}
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn signup-btn">Sign Up</button>
+                </div>
+                <p class="login-link">
+                    Already have an account? <a href="{% url 'member:login_user' %}" class="sign-in-link">SIGN IN</a>
+                </p>
+            </div>
+        </form>
+    </div>
+    {% include "components/footer.html" %}
 {% endblock content %}

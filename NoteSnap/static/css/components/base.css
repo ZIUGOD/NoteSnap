@@ -1,50 +1,319 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-
+/* Selection and global font styles */
 ::selection {
-    background-color: #00ff00;
-    color: #000000;
+    color: black;
+    background-color: lime;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    color: lime;
-    background-color: black;
-    font-family: "Roboto Mono", monospace;
-    font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
-    transition: 0.3s;
+    font-family: 'Roboto Mono', monospace;
 }
 
+/* === Body Styles === */
 body {
-    background: black;
+    background: var(--secondary-color);
+    color: var(--accent-color);
+    transition: background var(--transition-speed);
 }
 
-.alert {
-    background-color: black;
-    border: 0.2em solid lime;
-    border-radius: 1em;
+/* Shared variables for themes and styles */
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #000000;
+    --highlight-color: #ff69b4;
+    --danger-color: #ff4444;
+    --transition-speed: 0.3s;
+    --border-width: 0.2em;
+    --font-family: 'Roboto Mono', monospace;
+    --font-size-base: 1rem;
 }
 
-::-webkit-scrollbar {
-    width: 1.2em;
+:root.dark-theme {
+    --primary-color: #00cc00;
+    --secondary-color: #000000;
+    --highlight-color: #ff1493;
+    --danger-color: #ff4444;
 }
 
-::-webkit-scrollbar-track {
-    border-radius: 1em;
-    background-color: #222222;
+:root.light-theme {
+    --primary-color: #00cc00;
+    --secondary-color: #000000;
+    --highlight-color: #ff1493;
+    --danger-color: #cc0000;
 }
 
-::-webkit-scrollbar-thumb {
-    background: black;
-    border-radius: 1em;
-    border: 0.2em solid lime;
-    box-shadow: 0 0 1em lime;
+/* Create note container styles */
+#create-note-container {
+    background: var(--secondary-color);
+    margin: 2em auto;
+    max-width: 50rem;
+    padding: 1.5em;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
+/* Form header styles */
+#create-note-container h2 {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+/* Form container styles */
+#create-note-form {
+    background: transparent;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    max-width: 37.5rem;
+    margin: 0 auto;
+}
+
+/* Form group styles */
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.form-group .control-label {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3em;
+}
+
+/* Input and textarea styles */
+.form-group input[type="text"],
+.form-group textarea {
+    background: var(--secondary-color);
+    border: none;
+    border-bottom: var(--border-width) solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.6em;
+    transition: border-bottom-color var(--transition-speed) ease, background var(--transition-speed) ease;
+    resize: vertical;
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(0, 255, 0, 0.7);
+    font-family: var(--font-family);
+    opacity: 1;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-bottom-color: var(--highlight-color);
+    background: rgba(0, 255, 0, 0.05);
+    color: var(--primary-color);
+}
+
+/* Checkbox styles */
+.form-group input[type="checkbox"] {
+    appearance: none;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--secondary-color);
+    border: var(--border-width) solid var(--primary-color);
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 0.5em;
+    box-sizing: border-box;
+}
+
+.form-group input[type="checkbox"]:checked {
+    background: rgba(0, 255, 0, 0.3);
+}
+
+.form-group input[type="checkbox"]:checked::before {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.form-group input[type="checkbox"]:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+}
+
+.form-group .checkbox label {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5em;
+}
+
+/* Button styles */
+#create-note-form .btn {
+    background: transparent;
+    color: var(--primary-color);
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: 100em;
+    padding: 0.6em 1.6em;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+}
+
+#create-note-form .btn:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    transform: translateY(-0.125em);
+}
+
+#create-note-form .btn:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+    background: rgba(0, 255, 0, 0.05);
+}
+
+#create-note-form .btn-back {
+    color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+#create-note-form .btn-back:hover {
+    background: var(--highlight-color);
+    color: var(--secondary-color);
+}
+
+/* Counter container styles */
+.counter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    text-align: center;
+}
+
+#charCount,
+#wordCount {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#charCount.max-length {
+    color: var(--danger-color);
+}
+
+/* Responsive design for medium screens */
+@media (max-width: 48em) {
+    #create-note-container {
+        padding: 1em;
+        margin: 1em;
+    }
+
+    #create-note-container h2 {
+        font-size: 1.7rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+        font-size: 1rem;
+        padding: 0.5em;
+    }
+
+    .form-group .control-label,
+    .form-group .checkbox label {
+        font-size: 0.9rem;
+    }
+
+    .form-group input[type="checkbox"] {
+        width: 1.4em;
+        height: 1.4em;
+    }
+
+    #create-note-form .btn {
+        padding: 0.5em 1.4em;
+        font-size: 0.9rem;
+    }
+
+    .counter-container {
+        font-size: 0.8rem;
+    }
+}
+
+/* Responsive design for small screens */
+@media (max-width: 30em) {
+    #create-note-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+        font-size: 0.9rem;
+        padding: 0.4em;
+    }
+
+    .form-group .control-label,
+    .form-group .checkbox label {
+        font-size: 0.8rem;
+    }
+
+    .form-group input[type="checkbox"] {
+        width: 1.3em;
+        height: 1.3em;
+    }
+
+    #create-note-form .btn {
+        padding: 0.4em 1.2em;
+        font-size: 0.8rem;
+    }
+
+    .counter-container {
+        font-size: 0.7rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    #create-note-container {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    #create-note-container h2,
+    .form-group .control-label,
+    .form-group input,
+    .form-group textarea,
+    #charCount,
+    #wordCount {
+        color: #000;
+        background: #fff;
+        border: none;
+        font-size: 12pt;
+    }
+
+    .form-group textarea {
+        height: auto;
+        overflow: visible;
+    }
+
+    #create-note-form .btn {
+        display: none;
+    }
 }
