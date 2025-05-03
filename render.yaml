@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: notesnap
+    env: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn core.wsgi
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: notesnap.onrender.com
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://notesnap.onrender.com
+      - key: SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: DEFAULT_FROM_EMAIL
+        sync: false
