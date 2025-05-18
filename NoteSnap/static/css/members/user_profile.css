@@ -180,8 +180,6 @@ body {
 }
 
 #user-notes .list-group-item::before {
-    content: '> ';
-    padding-right: 0.5em;
     position: absolute;
     left: 0.1em;
     color: var(--primary-color);

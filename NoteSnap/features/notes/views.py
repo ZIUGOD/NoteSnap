@@ -6,11 +6,12 @@ The views in this module are responsible for creating, updating, deleting, and d
 
 from django.contrib.auth.mixins import LoginRequiredMixin  # , UserPassesTestMixin
 from django.db.models import Q
+from django.core.exceptions import PermissionDenied
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
+import requests
 from .forms import NoteForm
 from .models import Note
 
@@ -43,7 +44,6 @@ class NoteDetailView(DetailView):
     Inherits from DetailView and LoginRequiredMixin.
     """
 
-    permission_denied_message = "You must be logged in to view a note."
     login_url = reverse_lazy("login_user")
     model = Note
     template_name = "notes/detail_note.html"
@@ -53,7 +53,7 @@ class NoteDetailView(DetailView):
         # print("REQUEST:", dir(self.request.__dict__))
         note = super().get_object(queryset)
         if note.is_private and note.author != self.request.user:
-            return redirect("note_list")
+            raise PermissionDenied("You do not have permission to view this note. Please contact the author.")
         return note
 
 

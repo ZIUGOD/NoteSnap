@@ -25,21 +25,21 @@
     box-sizing: border-box;
 }
 
-/* Scanline Effect (consistent with notes_index.css) */
+.navbar {
+    position: relative; /* Mantém para compatibilidade com outros elementos */
+    background: transparent; /* Garante fundo transparente */
+    border: none; /* Remove qualquer borda indesejada */
+}
+
+.navbar::before,
+.navbar::after {
+    display: none; /* Desativa completamente os efeitos */
+}
+
 .navbar::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        to bottom,
-        transparent 50%,
-        rgba(0, 255, 0, 0.05) 50%,
-        rgba(0, 255, 0, 0.05) 51%,
-        transparent 51%
-    );
-    background-size: 100% 0.25rem;
-    animation: scanline 10s linear infinite;
-    z-index: -1;
 }
 
 /* Background Animation */

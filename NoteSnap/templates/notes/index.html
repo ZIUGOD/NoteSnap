@@ -6,8 +6,8 @@
 {% endblock head %}
 
 {% block content %}
-    <div id="notes-container">
-        {% if notes %}
+    {% if notes %}
+        <div id="notes-container">
             <ul id="notes-list">
                 {% for note in notes %}
                     <li class="list-group-item" data-title="{{ note.title }}">
@@ -23,10 +23,11 @@
                     </li>
                 {% endfor %}
             </ul>
-        {% else %}
-            <p id="no-notes-message">Nenhuma nota disponível.</p>
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <p id="no-notes-message" class="text-center m-2 p-1">Nenhuma nota disponível.</p>
+    {% endif %}
+
     <div id="pagination-container">
         <nav aria-label="pagination">
             <div class="pagination">

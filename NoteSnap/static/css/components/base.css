@@ -1,4 +1,4 @@
-/* Selection and global font styles */
+Selection and global font styles
 ::selection {
     color: black;
     background-color: lime;
@@ -6,6 +6,7 @@
 
 * {
     font-family: 'Roboto Mono', monospace;
+    transition: 0.2s;
 }
 
 /* === Body Styles === */

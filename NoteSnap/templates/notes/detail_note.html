@@ -3,37 +3,36 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/notes/detail_note.css' %}">
 {% endblock head %}
-{% load crispy_forms_tags %}
 {% block title %}
     - Note by {{ note.author.username }}
 {% endblock title %}
 {% block content %}
-    <form method="post"
-          action="{% url 'note:read_note' note.id %}"
-          class="note-form"
-          id="note-form-{{ note.id }}">
-        {% csrf_token %}
-        <h2 class="note-title" id="note-title-{{ note.id }}">{{ note.title }}</h2>
-        {% if note.is_private %}
-            <span class="note-private">PRIVATE</span>
-        {% endif %}
-        <hr />
-        <div class="note-body" id="note-text-{{ note.id }}">
-            {{ note.text|linebreaks }}
+    {% csrf_token %}
+    <h2 class="note-title" id="note-title-{{ note.id }}">{{ note.title }}</h2>
+    {% if note.is_private %}
+        <span class="note-private">PRIVATE</span>
+    {% endif %}
+    <hr />
+    <div class="note-body" id="note-text-{{ note.id }}">
+    {% if note.text %}
+        {{ note.text|linebreaks }}
+    {% else %}
+        <p class="empty-note">No content available.</p>
+    {% endif %}
+
+    </div>
+    <div class="note-meta" id="note-metadata-{{ note.id }}">
+        <span>{{ note.created_at }} by 
+            <a href="{% url 'member:user_profile' note.author.username %}" class="note-author-link">
+                {{ note.author.username }}
+            </a>
+        </span>
+    </div>
+    {% if note.updated_at > note.created_at %}
+        <div class="note-edited" id="note-edited-{{ note.id }}">
+            <span>Edited</span>
         </div>
-        <div class="note-meta" id="note-metadata-{{ note.id }}">
-            <span>{{ note.created_at }} by 
-                <a href="{% url 'member:user_profile' note.author.username %}" class="note-author-link">
-                    {{ note.author.username }}
-                </a>
-            </span>
-        </div>
-        {% if note.updated_at and note.updated_at > note.created_at %}
-            <div class="note-edited" id="note-edited-{{ note.id }}">
-                <span>Edited</span>
-            </div>
-        {% endif %}
-    </form>
+    {% endif %}
 
     <div class="note-actions" id="note-actions-{{ note.id }}">
         {% if user == note.author %}

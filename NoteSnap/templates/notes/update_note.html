@@ -1,44 +1,54 @@
 {% extends "components/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/notes/update_note.css' %}">
 {% endblock head %}
-{% load crispy_forms_tags %}
-{% block title %}
-    - Update note
-{% endblock title %}
-{% block content %}
-    <form id="update-note-form"
-          method="post"
-          action="{% url 'note:update_note' note.id %}"
-          class="d-flex flex-column align-items-center justify-content-center p-3 text-center">
-        {% csrf_token %}
-        <h2 id="update-note-heading" class="text-center m-3">Update note</h2>
-        <div class="m-2 w-75">
-            {% crispy form %}
-            <div class="d-flex justify-content-between align-items-center">
-                <small id="charCount">0/1024 characters</small>
-                <small id="wordCount">0 words</small>
-            </div>
-        </div>
-        <div id="note-creation-info" class="text-center m-3">
-            <span id="note-created-at">{{ note.created_at }}, <a href="{% url 'member:user_profile' note.author.username %}">{{ note.author.username }}</a></span>
-        </div>
-        {% if note.updated_at and note.updated_at > note.created_at %}
-            <div class="text-center" id="note-edited-{{ note.id }}">
-                <span>Edited</span>
-            </div>
-        {% endif %}
+{% block title %}Update New Note{% endblock title %}
 
-        <div id="note-buttons" class="text-center my-3 mb-5">
-            <button id="update-note-button"
-                    type="submit"
-                    onclick="return confirm('Confirm action to update note?');"
-                    class="m-2 py-2 px-3 btn">Update note</button>
-            <button id="cancel-update-button"
-                    type="button"
-                    class="m-2 py-2 px-3 btn"
-                    onclick="window.history.back()">Cancel</button>
+{% block content %}
+<div id="update-note-container">
+    <h2 class="neon-title" data-text="UPDATE NOTE">UPDATE NOTE</h2>
+    <form id="update-note-form" method="POST" action="{% url 'note:update_note' note.id %}" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form|crispy }}
+        </div>
+        <div class="counter-container">
+            <p id="charCount"></p>
+            <p id="wordCount"></p>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn" data-text="SUBMIT NOTE">SUBMIT NOTE</button>
+            <button type="button" class="btn" data-text="BACK" onclick="window.history.back()">BACK</button>
         </div>
     </form>
+</div>
+{% include "components/footer.html" %}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const maxLength = 1024;
+    const textarea = document.querySelector('textarea');
+    const charCountElement = document.getElementById('charCount');
+    const wordCountElement = document.getElementById('wordCount');
+
+    if (!textarea) return;
+
+    const updateCounts = () => {
+        const text = textarea.value;
+        const charCount = text.length;
+        const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+
+        charCountElement.textContent = `${charCount}/${maxLength} characters`;
+        wordCountElement.textContent = `${wordCount} word${wordCount !== 1 ? 's' : ''}`;
+
+        if (charCount > maxLength) {
+            textarea.value = text.substring(0, maxLength);
+        }
+    };
+    textarea.addEventListener('input', updateCounts);
+    updateCounts();
+});
+</script>
 {% endblock content %}

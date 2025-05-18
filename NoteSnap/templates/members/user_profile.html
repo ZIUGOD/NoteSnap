@@ -43,16 +43,16 @@
     {% if user_notes %}
     <h3 id="notes-heading" class="text-center neon-text my-4">Notes from {{ notesnap_user.username }}</h3>
     <ul id="user-notes" class="list-group d-flex flex-column justify-content-center">
-        {% for note in user_notes %}
-        <li class="list-group-item m-1 note-list-item">
-            <a href="{% url 'note:read_note' note.id %}" class="note-link text-decoration-none d-block w-100 neon-text">
-                <h3 class="h3 text-break">{{ note.title }}</h3>
-                {% if note.is_private %}
-                    <span class="text-danger">PRIVATE</span>
-                {% endif %}
-            </a>
-        </li>
-        {% endfor %}
+    {% for note in user_notes %}
+    <li class="list-group-item m-1 note-list-item">
+        <a href="{% url 'note:read_note' note.id %}" class="note-link text-decoration-none d-block w-100 neon-text">
+            <h3 class="h3 text-break">{{ note.title }}</h3>
+            {% if note.is_private %}
+                <span class="text-danger">PRIVATE</span>
+            {% endif %}
+        </a>
+    </li>
+    {% endfor %}
     </ul>
     {% else %}
     <h3 id="no-notes" class="text-center neon-text my-4">No notes from {{ notesnap_user.username }}</h3>

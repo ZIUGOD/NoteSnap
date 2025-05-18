@@ -1,20 +1,19 @@
 /* 🌌 Ultimate Update Note CSS - The Clearest Hacker Console on Earth 🌌 */
 
-/* === Shared Variables (Aligned with create_note.css) === */
+/* === Shared Variables (Aligned with base.css, footer.css, index.css) === */
 :root {
-    --primary-color: #00ff00; /* Lime */
-    --secondary-color: #000000; /* Black (always enforced) */
-    --accent-color: #ffffff; /* White */
+    --primary-color: #00ff00;
+    --secondary-color: #000000;
+    --accent-color: #ffffff;
     --gradient-bg: linear-gradient(90deg, #00ff00, #00cc00);
     --transition-speed: 0.2s;
     --border-width: 0.2rem;
     --font-family: 'Roboto Mono', monospace;
     --font-size-base: 1rem;
-    --danger-color: #ff4444; /* Red for private notes */
-    --highlight-color: #ff69b4; /* Pink for accents */
+    --danger-color: #ff4444;
+    --highlight-color: #ff69b4;
 }
 
-/* Dark theme (default) */
 :root.dark-theme {
     --primary-color: #00cc00;
     --secondary-color: #000000;
@@ -22,7 +21,6 @@
     --highlight-color: #ff1493;
 }
 
-/* Light theme */
 :root.light-theme {
     --primary-color: #00cc00;
     --secondary-color: #000000;
@@ -32,17 +30,16 @@
 }
 
 /* === Update Note Container === */
-#update-note-form {
-    background: var(--secondary-color); /* Always black */
-    margin: 0 auto;
+#update-note-container {
+    background: var(--secondary-color);
+    margin: 0;
     padding: 2rem;
     max-width: 100%;
     position: relative;
     overflow: hidden;
 }
 
-/* Subtle scanline effect (consistent with create_note.css) */
-#update-note-form::before {
+#update-note-container::before {
     content: '';
     position: absolute;
     top: 0;
@@ -62,7 +59,7 @@
 }
 
 /* === Form Header === */
-#update-note-heading {
+#update-note-container h2 {
     color: var(--primary-color);
     font-size: 2.2rem;
     font-weight: 600;
@@ -72,16 +69,22 @@
 }
 
 /* === Form Styles === */
-#update-note-form .form-group {
-    width: 100%;
+#update-note-form {
+    background: transparent;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 1.5rem;
     max-width: 90%;
     margin: 0 auto;
 }
 
-/* Crispy Forms compatibility */
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
 .form-group .control-label {
     color: var(--primary-color);
     font-size: 1.1rem;
@@ -103,7 +106,6 @@
     resize: vertical;
 }
 
-/* Placeholder styles */
 .form-group input[type="text"]::placeholder,
 .form-group textarea::placeholder {
     color: rgba(0, 255, 0, 0.7);
@@ -119,7 +121,6 @@
     color: var(--primary-color);
 }
 
-/* Checkbox styling */
 .form-group input[type="checkbox"] {
     appearance: none;
     width: 1.5rem;
@@ -145,7 +146,6 @@
     transform: translate(-50%, -50%);
     color: var(--primary-color);
     font-size: 1.1rem;
-    line-height: 1;
     font-weight: 700;
 }
 
@@ -163,51 +163,8 @@
     line-height: 1.5rem;
 }
 
-/* === Counter Container === */
-#update-note-form .d-flex.justify-content-between {
-    margin-top: -0.5rem;
-    margin-bottom: 1rem;
-}
-
-#charCount,
-#wordCount {
-    color: var(--primary-color);
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-#charCount.max-length {
-    color: var(--danger-color);
-}
-
-/* === Note Creation Info === */
-#note-creation-info {
-    color: var(--accent-color);
-    font-size: 1rem;
-    font-weight: 500;
-    margin: 1rem 0;
-}
-
-#note-creation-info a {
-    color: var(--highlight-color);
-    text-decoration: none;
-    transition: color var(--transition-speed) ease;
-}
-
-#note-creation-info a:hover {
-    color: var(--primary-color);
-}
-
-/* === Edited Note Indicator === */
-#note-edited- {
-    color: var(--accent-color);
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
 /* === Buttons === */
-#note-buttons .btn {
+#update-note-form .btn {
     background: transparent;
     color: var(--primary-color);
     border: var(--border-width) solid var(--primary-color);
@@ -219,16 +176,15 @@
     transition: all var(--transition-speed) ease;
     position: relative;
     overflow: hidden;
-    margin: 0.5rem;
 }
 
-#note-buttons .btn:hover {
+#update-note-form .btn:hover {
     color: var(--secondary-color);
     background: var(--primary-color);
     transform: translateY(-0.125rem);
 }
 
-#note-buttons .btn::before {
+#update-note-form .btn::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -241,20 +197,41 @@
     transition: width 0.4s ease, height 0.4s ease;
 }
 
-#note-buttons .btn:active::before {
+#update-note-form .btn:active::before {
     width: 200%;
     height: 200%;
 }
 
-/* Cancel button */
-#cancel-update-button {
+#update-note-form .btn-back {
     color: var(--highlight-color);
     border-color: var(--highlight-color);
 }
 
-#cancel-update-button:hover {
+#update-note-form .btn-back:hover {
     background: var(--highlight-color);
     color: var(--secondary-color);
+}
+
+/* === Counter === */
+.counter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: right;
+}
+
+#charCount,
+#wordCount {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+#charCount.max-length {
+    color: var(--danger-color);
 }
 
 /* === Animations === */
@@ -267,23 +244,28 @@
     }
 }
 
-/* === Focus States for Accessibility === */
+/* === Focus States === */
 .form-group input:focus,
 .form-group textarea:focus,
-#note-buttons .btn:focus {
+#update-note-form .btn:focus {
     outline: none;
     background: rgba(0, 255, 0, 0.05);
     border-color: var(--highlight-color);
 }
 
-/* === Responsive Design === */
+/* === Responsive === */
 @media (max-width: 768px) {
-    #update-note-form {
+    #update-note-container {
         max-width: 95%;
         padding: 1.5rem;
+        margin: 1rem auto;
     }
 
-    #update-note-heading {
+    #update-note-form {
+        max-width: 100%;
+    }
+
+    #update-note-container h2 {
         font-size: 1.8rem;
     }
 
@@ -298,28 +280,28 @@
         font-size: 1rem;
     }
 
-    #note-buttons .btn {
+    #update-note-form .btn {
         padding: 0.6rem 1.8rem;
         font-size: 1rem;
     }
 
-    #charCount,
-    #wordCount {
+    .counter-container {
         font-size: 0.8rem;
-    }
-
-    #note-creation-info {
-        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 480px) {
-    #update-note-form {
+    #update-note-container {
         max-width: 95%;
         padding: 1rem;
+        margin: 0.5rem auto;
     }
 
-    #update-note-heading {
+    #update-note-form {
+        max-width: 90%;
+    }
+
+    #update-note-container h2 {
         font-size: 1.5rem;
     }
 
@@ -339,37 +321,30 @@
         height: 1.4rem;
     }
 
-    #note-buttons .btn {
+    #update-note-form .btn {
         padding: 0.5rem 1.6rem;
         font-size: 0.9rem;
     }
 
-    #charCount,
-    #wordCount {
+    .counter-container {
         font-size: 0.7rem;
-    }
-
-    #note-creation-info {
-        font-size: 0.8rem;
     }
 }
 
-/* === Print Styles === */
+/* === Print === */
 @media print {
-    #update-note-form {
+    #update-note-container {
         background: #fff;
         margin: 0;
         padding: 0;
     }
 
-    #update-note-heading,
+    #update-note-container h2,
     .form-group .control-label,
     .form-group input,
     .form-group textarea,
     #charCount,
-    #wordCount,
-    #note-creation-info,
-    #note-edited- {
+    #wordCount {
         color: #000;
         border: none;
         font-size: 12pt;
@@ -380,7 +355,7 @@
         overflow: visible;
     }
 
-    #note-buttons .btn {
+    #update-note-form .btn {
         display: none;
     }
 }
